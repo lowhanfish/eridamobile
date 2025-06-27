@@ -1,13 +1,33 @@
-import { StyleSheet } from "react-native";
+import React from 'react';
+import {StyleSheet, Dimensions } from 'react-native';
 
-
+const { width } = Dimensions.get('window');
 export const stylex = StyleSheet.create({
+    margintop10 : {
+        marginTop : 10,
+    },
+    margintop18 : {
+        marginTop : 18,
+    },
+    margintop22 : {
+        marginTop : 22,
+    },
+    margintop30 : {
+        marginTop : 30,
+    },
+    
+    imageLogo : {
+        width: 100, // sedikit lebih kecil dari lebar layar
+        height: (width - 20) * 0.6, // proporsi tinggi (60% dari lebar)
+        resizeMode: 'contain',
+
+    },
     container: {
         display: "flex",
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: 'pink',
+        // backgroundColor: 'pink',
     },
     mainPage : {
         display : 'flex',
@@ -19,6 +39,8 @@ export const stylex = StyleSheet.create({
         width: "100%",
         display: 'flex',
         flex: 1,
+        paddingLeft : 38,
+        paddingRight : 38,
 
         // justifyContent: 'center',
         // alignItems: 'center',
@@ -34,5 +56,57 @@ export const stylex = StyleSheet.create({
         flex : 1,
         justifyContent : "center",
         alignItems : 'center'
-    }
+    },
+
+    InputContainer : {
+        paddingTop : 8,
+    },
+
+    inputx : {
+        height : 40,
+        borderRadius : 6,
+        borderStyle : 'solid',
+        borderWidth : 1,
+        borderColor : '#DEDCDC',
+        paddingLeft : 10,
+    },
+    inputText : {
+        color : '#9D9D9D',
+        fontSize : 16,
+    },
+
+    btnLogin :{
+        height : 61,
+        backgroundColor : "#EFD06D",
+        borderRadius : 6,
+        justifyContent : 'center',
+        alignItems : 'center',
+        marginTop : 30,
+    },
+    btnRegis : {
+        height : 33,
+        backgroundColor : "#FF9191",
+        borderRadius : 6,
+        justifyContent : 'center',
+        alignItems : 'center'
+    },
+
+    
+
+    btnText : {
+        color : 'white'
+    },
+
+    btnTextAccount : {
+        fontSize : 10,
+        color : '#9D9D9D'
+    },
+    shaddowText : {
+        textShadowColor : 'gray',
+        textShadowOffset : {width : 1, height:1},
+        textShadowRadius : 1
+    },
+
+
+
 });
