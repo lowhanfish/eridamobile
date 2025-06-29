@@ -1,19 +1,35 @@
+// pages/Profile/Profile.jsx
 //import liraries
-import React, { Component } from 'react';
+import React, { useCallback } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 
-import { useNavigation } from "@react-navigation/native";
+import useGlobalStore from "../../stores/useGlobalStore"; // Pastikan path ini benar
 
-// create a component
+
 const Profile = () => {
-    const navigation = useNavigation()
+    const navigation = useNavigation();
+    const visibleBar = useGlobalStore(state => state.visibleBar);
+
+
+    useFocusEffect(
+
+        useCallback(() => {
+            visibleBar(false, false); // Sembunyikan Top Bar & Bottom Bar
+
+            return () => {
+                visibleBar(true, true);
+            };
+        }, [visibleBar])
+    );
+
     return (
         <View style={styles.container}>
             <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-                <Text>Ke Halaman Home</Text>
+                <Text style={{ color: 'white' }}>Ke Halaman Home</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-                <Text>Ke Halaman Login</Text>
+                <Text style={{ color: 'white', marginTop: 20 }}>Ke Halaman Login</Text>
             </TouchableOpacity>
         </View>
     );

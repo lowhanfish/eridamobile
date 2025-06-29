@@ -3,19 +3,23 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView, TextInput } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
 
+import useGlobalStore from "../../stores/useGlobalStore.js";
 
 import { stylex } from "../../pages/assets/css/index.js";
 
+
 // create a component
 const Login = () => {
+    const navigation = useNavigation()
+
+    // const name = useGlobalStore((state) => state.name)
 
     const LoginAccount = () => {
-        console.log("Hy saya login")
+        console.log("Hy saya login");
+        navigation.navigate("MainPage")
     }
 
 
-
-    const navigation = useNavigation();
     return (
         <View style={stylex.container}>
             <ScrollView style={stylex.scrollPage}>
