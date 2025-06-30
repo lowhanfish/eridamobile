@@ -1,10 +1,40 @@
-import React, { useCallback } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import React, { useCallback, useState, useEffect } from 'react';
+import { Dimensions, View, Text, ScrollView, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 
 import useGlobalStore from "../../stores/useGlobalStore.js";
 
 import { stylex } from "../../pages/assets/css/index.js";
+
+const { width } = Dimensions.get('window');
+
+
+const AutoHeightImage = ({ uri, width }) => {
+    const [imageHeight, setImageHeight] = useState(0);
+
+    useEffect(() => {
+        if (uri) {
+            Image.getSize(uri, (originalWidth, originalHeight) => {
+                const aspectRatio = originalWidth / originalHeight;
+                setImageHeight(width / aspectRatio);
+            });
+        }
+    }, [uri, width]);
+
+    return (
+        <View style={{ width, height: imageHeight }}>
+            <Image
+                source={{ uri }}
+                style={{ width: '100%', height: '100%' }}
+            />
+        </View>
+    );
+}
+
+
+import Imagex from "../../components/Imagex.jsx";
+
+
 
 const Home = () => {
     const navigation = useNavigation();
@@ -13,35 +43,40 @@ const Home = () => {
 
     useFocusEffect(
         useCallback(() => {
-            visibleBar(true, true);
+            visibleBar(false, true);
             return () => {
                 visibleBar(true, true);
             }
         }, [visibleBar])
     )
 
-
-
     return (
         <View style={stylex.container}>
+            <Image
+                source={require('../../pages/assets/images/homebanner.png')}
+                style={[stylex.imageLogo, styles.imagebanner, { width: '100%' }]}
+            />
+            {/* <AutoHeightImage uri={imageUri} width={displayWidth} /> */}
+
+
+
+
             <ScrollView style={stylex.scrollPage}>
-                <View style={styles}>
-                    <Image
-                        source={require('../../pages/assets/images/logo1.png')}
-                        style={[stylex.imageLogo, { width: 121, marginTop: 16 }]}
-                    />
+                <View style={styles.homeLogo}>
+                    <Imagex width={121} urix={require('../../pages/assets/images/logo2.png')} />
                 </View>
+
                 <View>
                     <View>
-                        <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
-                            <Text>Route Profile</Text>
-                        </TouchableOpacity>
-
-
+                        <Text>HOME</Text>
+                    </View>
+                    <View>
 
                     </View>
-                    <View></View>
                 </View>
+                <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
+                    <Text>Route Profile</Text>
+                </TouchableOpacity>
                 <View>
 
                 </View>
@@ -52,6 +87,16 @@ const Home = () => {
 
 const styles = StyleSheet.create({
     homeLogo: {
+        // backgroundColor: 'yellow',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 24
+    },
+    imagebanner: {
+        position: 'absolute',
+        right: 0,
+        top: -25,
+        // backgroundColor: 'pink'
 
     },
 });

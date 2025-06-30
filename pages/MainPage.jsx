@@ -36,12 +36,8 @@ const MainPage = () => {
                 <View>
                     <Text>Top Bar {topBar}</Text>
                 </View>
-
             ) : (
-                <View>
-                    <Text></Text>
-                </View>
-
+                <></>
             )}
             <View style={stylex.mainPage}>
                 <ContentAll />
@@ -54,5 +50,7 @@ const MainPage = () => {
         </View>
     );
 };
+
+
 
 export default MainPage;
