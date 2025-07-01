@@ -32,6 +32,10 @@ const Home = () => {
         }, [visibleBar])
     )
 
+    useEffect(() => {
+
+    }, [])
+
     return (
         <View style={stylex.container}>
             <Image
@@ -98,6 +102,16 @@ const Home = () => {
                     <Text>Route Profile</Text>
                 </TouchableOpacity> */}
                 <View>
+                    <View>
+
+                    </View>
+                    <View>
+                        <Text>LIST USULAN PENELITIAN</Text>
+                        <Text>
+                            Tap gambar untuk melihat alur usulan penelitian pada Badan Riset dan Inovasi Daerah (BRIDA)
+                            Kabupaten Konawe Selatan
+                        </Text>
+                    </View>
 
                 </View>
             </ScrollView>

@@ -1,12 +1,18 @@
 import React, { useEffect } from 'react';
 import { View, Text } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { useNavigation } from "@react-navigation/native";
 
 import { stylex } from "../pages/assets/css/index.js";
 import Home from "../pages/Home/Home.jsx";
 import Profile from "../pages/Profile/Profile.jsx";
 
 import useGlobalStore from "../stores/useGlobalStore.js";
+
+import BottomBar from "../components/BottomBar.jsx";
+
+
+
 
 const ContentStack = createNativeStackNavigator();
 
@@ -21,7 +27,10 @@ const ContentAll = () => {
 
 const MainPage = () => {
 
+    const navigation = useNavigation()
+
     const topBar = useGlobalStore(state => state.topBar)
+    const bottomBar = useGlobalStore(state => state.bottomBar)
 
 
     useEffect(() => {
@@ -42,11 +51,15 @@ const MainPage = () => {
             <View style={stylex.mainPage}>
                 <ContentAll />
             </View>
-            <View style={stylex.bottomBar}>
-                <View style={stylex.bottomBarContainer}>
-                    <Text>KKKXZZ</Text>
-                </View>
-            </View>
+
+            {bottomBar ? (
+                <BottomBar navigation={navigation} />
+
+            ) : (
+                <></>
+            )}
+
+
         </View>
     );
 };

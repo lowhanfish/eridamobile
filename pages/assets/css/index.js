@@ -45,18 +45,7 @@ export const stylex = StyleSheet.create({
         // justifyContent: 'center',
         // alignItems: 'center',
     },
-    bottomBar : {
-        backgroundColor : 'purple',
-        width : '100%',
-        height : 86,
-    },
 
-    bottomBarContainer : {
-        backgroundColor : 'red',
-        flex : 1,
-        justifyContent : "center",
-        alignItems : 'center'
-    },
 
     InputContainer : {
         paddingTop : 8,
