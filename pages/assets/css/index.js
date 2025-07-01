@@ -39,8 +39,8 @@ export const stylex = StyleSheet.create({
         width: "100%",
         display: 'flex',
         flex: 1,
-        paddingLeft : 38,
-        paddingRight : 38,
+        paddingLeft : 20,
+        paddingRight : 20,
 
         // justifyContent: 'center',
         // alignItems: 'center',
@@ -106,6 +106,22 @@ export const stylex = StyleSheet.create({
         textShadowOffset : {width : 1, height:1},
         textShadowRadius : 1
     },
+    shaddow : {
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.2,
+        shadowRadius: 1,
+    },
+    textTitleList : {
+        fontSize : 13,
+        fontWeight : 800,
+        color : '#717171'
+    },
+    textSubTitleList : {
+        fontSize : 10,
+        fontWeight : 'bold',
+        color : '#717171'
+    }
 
 
 

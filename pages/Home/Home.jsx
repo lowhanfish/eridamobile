@@ -6,32 +6,6 @@ import useGlobalStore from "../../stores/useGlobalStore.js";
 
 import { stylex } from "../../pages/assets/css/index.js";
 
-const { width } = Dimensions.get('window');
-
-
-const AutoHeightImage = ({ uri, width }) => {
-    const [imageHeight, setImageHeight] = useState(0);
-
-    useEffect(() => {
-        if (uri) {
-            Image.getSize(uri, (originalWidth, originalHeight) => {
-                const aspectRatio = originalWidth / originalHeight;
-                setImageHeight(width / aspectRatio);
-            });
-        }
-    }, [uri, width]);
-
-    return (
-        <View style={{ width, height: imageHeight }}>
-            <Image
-                source={{ uri }}
-                style={{ width: '100%', height: '100%' }}
-            />
-        </View>
-    );
-}
-
-
 import Imagex from "../../components/Imagex.jsx";
 
 
@@ -39,6 +13,14 @@ import Imagex from "../../components/Imagex.jsx";
 const Home = () => {
     const navigation = useNavigation();
     const visibleBar = useGlobalStore((state) => state.visibleBar);
+
+
+    const fontFamilies = [
+        'Arial', 'Avenir', 'Courier', 'Courier New', 'Futura',
+        'Georgia', 'Gill Sans', 'Helvetica', 'Helvetica Neue',
+        'Marker Felt', 'Palatino', 'Times New Roman', 'Trebuchet MS',
+        'Verdana', 'Zapfino'
+    ];
 
 
     useFocusEffect(
@@ -66,17 +48,55 @@ const Home = () => {
                     <Imagex width={121} urix={require('../../pages/assets/images/logo2.png')} />
                 </View>
 
-                <View>
-                    <View>
-                        <Text>HOME</Text>
-                    </View>
-                    <View>
+                <View style={{ flexDirection: 'row', flex: 1 }}>
+                    <View style={{ flex: 1, justifyContent: 'center' }}>
+                        <Text style={styles.homeText}>HOME</Text>
 
+                        {/* {fontFamilies.map(f => (
+                            <Text key={f} style={{ fontFamily: f, fontSize: 20 }}>{f}</Text>
+                        ))} */}
+                    </View>
+                    <View style={{ flex: 1, alignItems: 'flex-end' }}>
+                        <Image style={{ width: 48, height: 48, borderRadius: 50, opacity: 0.8 }} source={{ uri: "https://smkn1tanjungpinang.sch.id/storage/guru/PRPaFyfrjnsDD919xxuyBXJISTXZFnTsl5Dwg69s.jpeg" }} />
+                        <Text style={{ fontSize: 10, fontWeight: 200 }}>Dr. Djarot Melin</Text>
                     </View>
                 </View>
-                <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
+
+                <View>
+                    <Text style={[stylex.textTitleList, { marginTop: 15, marginBottom: 12 }]}>LIST LAYANAN</Text>
+                </View>
+
+
+                <View style={styles.menuImage}>
+                    <View style={styles.menuImageContainer}>
+                        <TouchableOpacity style={[styles.menuImageContainerItem, stylex.shaddow]}>
+                            <Image style={styles.imageMenuItemList} source={require('../../pages/assets/images/izin_penelitian.png')} />
+                            {/* <Imagex width={65} urix={require('../../pages/assets/images/izin_penelitian.png')} /> */}
+                        </TouchableOpacity>
+                        <Text style={styles.imageMenuItemListText}>IzinPenelitian</Text>
+                    </View>
+                    <View style={styles.menuImageContainer}>
+                        <TouchableOpacity style={[styles.menuImageContainerItem, stylex.shaddow]}>
+                            <Image style={styles.imageMenuItemList} source={require('../../pages/assets/images/inovasi.png')} />
+                        </TouchableOpacity>
+                        <Text style={styles.imageMenuItemListText}>Kreatifitas/inovasi</Text>
+                    </View>
+                    <View style={styles.menuImageContainer}>
+                        <TouchableOpacity style={[styles.menuImageContainerItem, stylex.shaddow]}>
+                            <Image style={styles.imageMenuItemList} source={require('../../pages/assets/images/lomba.png')} />
+                        </TouchableOpacity>
+                        <Text style={styles.imageMenuItemListText}>Lomba Inovasi Daerah</Text>
+                    </View>
+                    <View style={styles.menuImageContainer}>
+                        <TouchableOpacity style={[styles.menuImageContainerItem, stylex.shaddow]}>
+                            <Image style={styles.imageMenuItemList} source={require('../../pages/assets/images/usulan_tema.png')} />
+                        </TouchableOpacity>
+                        <Text style={styles.imageMenuItemListText}>Usulan tema penelitian</Text>
+                    </View>
+                </View>
+                {/* <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
                     <Text>Route Profile</Text>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
                 <View>
 
                 </View>
@@ -99,6 +119,48 @@ const styles = StyleSheet.create({
         // backgroundColor: 'pink'
 
     },
+    homeText: {
+        fontFamily: 'Marker Felt',
+        fontSize: 29,
+        color: 'rgba(219, 99, 88, 0.5)',
+        fontWeight: 100,
+    },
+    menuImage: {
+        flexDirection: 'row',
+        flex: 1
+    },
+    menuImageContainer: {
+        flex: 1,
+        width: '100%',
+        // justifyContent: 'center',
+        alignItems: 'center',
+        paddingRight: 5,
+    },
+    menuImageContainerItem: {
+
+        width: "100%",
+        height: 86,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#E8E8E8',
+        borderRadius: 15,
+
+
+    },
+    imageMenuItemList: {
+        width: 61,
+        height: 61,
+    },
+    imageMenuItemListText: {
+        fontSize: 8,
+        color: '#8E8E8E',
+        marginTop: 4,
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        textAlign: 'center'
+    },
+
 });
 
 
