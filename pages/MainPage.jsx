@@ -2,14 +2,17 @@ import React, { useEffect } from 'react';
 import { View, Text } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useNavigation } from "@react-navigation/native";
-
-import { stylex } from "../pages/assets/css/index.js";
-import Home from "../pages/Home/Home.jsx";
-import Profile from "../pages/Profile/Profile.jsx";
-
 import useGlobalStore from "../stores/useGlobalStore.js";
 
+import { stylex } from "../pages/assets/css/index.js";
 import BottomBar from "../components/BottomBar.jsx";
+
+
+import Home from "../pages/Home/Home.jsx";
+import Profile from "../pages/Profile/Profile.jsx";
+import ListUsulan from "../pages/Usulan/ListUsulan.jsx";
+
+
 
 
 
@@ -21,6 +24,7 @@ const ContentAll = () => {
         <ContentStack.Navigator screenOptions={{ headerShown: false }}>
             <ContentStack.Screen name="Home" component={Home} />
             <ContentStack.Screen name="Profile" component={Profile} />
+            <ContentStack.Screen name="ListUsulan" component={ListUsulan} />
         </ContentStack.Navigator>
     );
 };

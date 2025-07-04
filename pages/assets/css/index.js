@@ -104,13 +104,59 @@ export const stylex = StyleSheet.create({
     textTitleList : {
         fontSize : 13,
         fontWeight : 800,
-        color : '#717171'
+        color : '#717171',
+        fontFamily : 'Helvetica'
     },
     textSubTitleList : {
         fontSize : 10,
         fontWeight : 'bold',
         color : '#717171'
-    }
+    },
+    ImgNews : {
+        width : 136,
+        height : 91,
+         borderRadius : 5,
+    },
+
+    newsListContainer : {
+        flex : 1,
+        flexDirection : 'row',
+        marginBottom : 15,
+        // backgroundColor :'pink'
+    },
+    newsListContainerImg : {
+        flex : 1,
+        justifyContent :'center',
+        alignItems :'center',
+       
+    },
+    newsListContainerText : {
+        flex : 1,
+        paddingLeft : 5,
+        paddingRight : 5
+    },
+    newsListTitle : {
+        flex : 1,
+        flexWrap : 'nowrap',
+        color : '#717171',
+        fontSize : 12,
+        fontWeight : '700',
+        marginBottom : 5
+    },
+    newsListTitleDesc : {
+        flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center'
+    },
+    newsListTitleDescIcon : {
+        width: 13, height: 13
+    },
+    newsListTitleDescText : {
+        flex: 1, 
+        paddingLeft: 5, 
+        fontSize: 10, 
+        color: '#717171',
+        
+    },
+
 
 
 

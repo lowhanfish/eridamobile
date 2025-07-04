@@ -15,11 +15,11 @@ const Profile = () => {
     useFocusEffect(
 
         useCallback(() => {
-            visibleBar(false, false); // Sembunyikan Top Bar & Bottom Bar
+            visibleBar(true, true); // Sembunyikan Top Bar & Bottom Bar
 
-            return () => {
-                visibleBar(true, true);
-            };
+            // return () => {
+            //     visibleBar(true, true);
+            // };
         }, [visibleBar])
     );
 

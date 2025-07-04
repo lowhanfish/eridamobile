@@ -8,6 +8,8 @@ import { stylex } from "../../pages/assets/css/index.js";
 
 import Imagex from "../../components/Imagex.jsx";
 
+import RecentNews from "../../components/RecentNews.jsx";
+
 
 
 const Home = () => {
@@ -26,9 +28,9 @@ const Home = () => {
     useFocusEffect(
         useCallback(() => {
             visibleBar(false, true);
-            return () => {
-                visibleBar(true, true);
-            }
+            // return () => {
+            //     visibleBar(true, true);
+            // }
         }, [visibleBar])
     )
 
@@ -102,18 +104,46 @@ const Home = () => {
                     <Text>Route Profile</Text>
                 </TouchableOpacity> */}
                 <View>
-                    <View>
+
+                    <View style={[styles.containerContent, { marginTop: 23 }]}>
+                        <View style={[styles.containerContentDiv, { justifyContent: 'center', alignItems: 'center', marginTop: -20 }]}>
+                            <TouchableOpacity onPress={() => navigation.navigate("ListUsulan")}>
+                                <Imagex width={150} urix={require('../../pages/assets/images/list_usulan.png')} />
+                            </TouchableOpacity>
+                        </View>
+                        <View style={[styles.containerContentDiv]}>
+                            <Text style={stylex.textTitleList}>LIST USULAN PENELITIAN</Text>
+                            <Text style={styles.textTitleListItem}>
+                                Tap gambar untuk melihat alur usulan penelitian pada Badan Riset dan Inovasi Daerah (BRIDA) Kabupaten Konawe Selatan
+                            </Text>
+                        </View>
 
                     </View>
-                    <View>
-                        <Text>LIST USULAN PENELITIAN</Text>
-                        <Text>
-                            Tap gambar untuk melihat alur usulan penelitian pada Badan Riset dan Inovasi Daerah (BRIDA)
-                            Kabupaten Konawe Selatan
-                        </Text>
-                    </View>
-
                 </View>
+                <View>
+
+                    <View style={[styles.containerContent, { marginTop: 23 }]}>
+                        <View style={[styles.containerContentDiv]}>
+                            <Text style={stylex.textTitleList}>DATA DAN INFORMASI</Text>
+                            <Text style={styles.textTitleListItem}>
+                                Tap gambar untuk melihat data dan informasi pada Badan Riset dan Inovasi Daerah (BRIDA) Kabupaten Konawe Selatan
+                            </Text>
+                        </View>
+                        <View style={[styles.containerContentDiv, { justifyContent: 'center', alignItems: 'center', marginTop: -20 }]}>
+                            <TouchableOpacity onPress={() => navigation.navigate("ListUsulan")}>
+                                <Imagex width={150} urix={require('../../pages/assets/images/data_informasi.png')} />
+                            </TouchableOpacity>
+                        </View>
+
+                    </View>
+                </View>
+
+
+                <RecentNews />
+
+
+
+
             </ScrollView>
         </View>
     );
@@ -151,15 +181,12 @@ const styles = StyleSheet.create({
         paddingRight: 5,
     },
     menuImageContainerItem: {
-
         width: "100%",
         height: 86,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#E8E8E8',
         borderRadius: 15,
-
-
     },
     imageMenuItemList: {
         width: 61,
@@ -174,6 +201,23 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         textAlign: 'center'
     },
+    containerContent: {
+        flex: 1,
+        borderStyle: 'solid',
+        borderTopWidth: 14,
+        borderTopColor: '#D9D9D9',
+        flexDirection: 'row',
+        paddingTop: 24,
+    },
+
+    containerContentDiv: {
+        flex: 1,
+    },
+    textTitleListItem: {
+        fontSize: 12,
+        fontFamily: 'Courier New',
+        marginTop: 5
+    }
 
 });
 

@@ -25,7 +25,7 @@ const BottomBar = ({ navigation }) => {
                     </TouchableOpacity>
                 </View>
                 <View style={[styles.containerIconBottomBar]}>
-                    <TouchableOpacity onPress={() => navigation.navigate("MainPage", { screen: "Profile" })} style={styles.btnMenu}>
+                    <TouchableOpacity onPress={() => navigation.navigate("MainPage", { screen: "ListUsulan" })} style={styles.btnMenu}>
                         <Image style={styles.iconBottomBar} source={require('../pages/assets/images/icon/news.png')} />
                         <Text style={styles.iconBottomBarText}>DATA</Text>
                     </TouchableOpacity>
