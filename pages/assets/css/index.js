@@ -4,6 +4,14 @@ import {StyleSheet, Dimensions } from 'react-native';
 const topBarHeight = 90;
 
 const { width } = Dimensions.get('window');
+
+const centerAll = {
+                justifyContent : 'center',
+                alignItems : 'center'
+    }
+
+
+
 export const stylex = StyleSheet.create({
     margintop10 : {
         marginTop : 10,
@@ -27,8 +35,7 @@ export const stylex = StyleSheet.create({
     container: {
         display: "flex",
         flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
+        ...centerAll,
         // backgroundColor: 'pink',
     },
 
@@ -41,16 +48,14 @@ export const stylex = StyleSheet.create({
     },
     topBarLeft :{
         flex : 1,
-        justifyContent : 'center',
-        alignItems : 'center',
+        ...centerAll,
         // backgroundColor : 'red',
         height : topBarHeight,
 
     },
     topBarMid :{
         flex : 1,
-        justifyContent : 'center',
-        alignItems : 'center',
+        ...centerAll,
         // backgroundColor : 'yellow',
         height : topBarHeight,
         
@@ -67,7 +72,7 @@ export const stylex = StyleSheet.create({
         display : 'flex',
         width : '100%',
         flex : 1,
-        backgroundColor :'blue'
+        // backgroundColor :'blue'
     },
     scrollPage: {
         width: "100%",
@@ -102,16 +107,14 @@ export const stylex = StyleSheet.create({
         height : 61,
         backgroundColor : "#EFD06D",
         borderRadius : 6,
-        justifyContent : 'center',
-        alignItems : 'center',
+        ...centerAll,
         marginTop : 30,
     },
     btnRegis : {
         height : 33,
         backgroundColor : "#FF9191",
         borderRadius : 6,
-        justifyContent : 'center',
-        alignItems : 'center'
+        ...centerAll,
     },
 
     
@@ -146,6 +149,11 @@ export const stylex = StyleSheet.create({
         fontWeight : 'bold',
         color : '#717171'
     },
+    textSubTitleList2 : {
+        fontSize : 10,
+        // fontWeight : 'bold',
+        color : '#717171'
+    },
     ImgNews : {
         width : 136,
         height : 91,
@@ -160,8 +168,7 @@ export const stylex = StyleSheet.create({
     },
     newsListContainerImg : {
         flex : 1,
-        justifyContent :'center',
-        alignItems :'center',
+        ...centerAll,
        
     },
     newsListContainerText : {
@@ -178,10 +185,12 @@ export const stylex = StyleSheet.create({
         marginBottom : 5
     },
     newsListTitleDesc : {
-        flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center'
+        flex: 1, flexDirection: 'row', 
+        ...centerAll,
     },
     newsListTitleDescIcon : {
-        width: 13, height: 13
+        width: 13, 
+        height: 13
     },
     newsListTitleDescText : {
         flex: 1, 
@@ -190,6 +199,134 @@ export const stylex = StyleSheet.create({
         color: '#717171',
         
     },
+
+    pageTitleContainer : {
+        flex :1,
+        flexDirection : 'row'
+    },
+    pageTitleItemContainer : {
+        flex : 1,
+        // backgroundColor : 'pink',
+        margin : 1,
+    },
+    btnCornerFlat : {
+        flexDirection : 'row',
+        backgroundColor : '#F1D372',
+        borderRadius : 7,
+        height : 32,
+        width : 117,
+        ...centerAll,
+    },
+
+    btnCornerFlatIcon : {
+        width : 24,
+        height : 24
+    },
+    btnCornerFlatText : {
+        fontSize : 10,
+        fontWeight : 'bold',
+        color : 'white',
+        marginLeft : 6,
+    },
+    borderContent : {
+        flex : 1,
+        borderStyle : 'dashed',
+        borderWidth : 6,
+        borderColor : '#DFDDDD',
+        borderRadius : 5,
+        paddingLeft : 16,
+        paddingRight : 16,
+        paddingBottom : 16,
+        marginTop : 24,
+        
+        // backgroundColor : 'red',
+
+    },
+
+    DataListCont :{
+        flex : 1,
+        flexDirection : 'row',
+        backgroundColor : '#FFF3F3',
+        paddingTop : 5,
+        paddingBottom : 5,
+        paddingLeft : 5,
+        paddingRight : 2,
+        borderRadius : 11
+
+    },
+    DataListImgCont :{
+        width : 60,
+        justifyContent : 'center'
+    },
+    DataListTextCont : {
+        flex : 1,
+        // backgroundColor : 'purple',
+        flexDirection : 'column'
+    },
+
+    DataListImg : {
+        width : 52,
+        height : 52
+    },
+    DataListText1 : {
+        fontSize : 10,
+        fontWeight : 800
+    },
+    DataListText2 : {
+        fontSize : 8,
+        color : '#5F5F5F',
+        marginTop : 3,
+    },
+    DataListText3 : {
+        fontSize : 8,
+        fontWeight : 900,
+        color : '#8A8A8A',
+        marginTop : 4,
+    },
+
+
+
+
+    modalOverlay: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0,0,0,0.5)', // Latar belakang semi-transparan
+    },
+    modalContent: {
+        backgroundColor: 'white',
+        padding: 20,
+        borderRadius: 10,
+        minWidth: '70%',
+        alignItems: 'center',
+        flexDirection : 'column'
+    },
+    modalText: {
+        // marginBottom: 10,
+        fontSize: 12,
+        fontWeight : 'bold',
+        color : 'white'
+    },
+
+    modalButton : {
+        width : '150',
+        height : 35,
+        marginTop : 10,
+        justifyContent : 'center',
+        alignItems : 'center',
+        borderRadius : 5
+    },
+  
+
+
+
+
+
+    centerAll : {
+        ...centerAll,
+    },
+    
+
 
 
 

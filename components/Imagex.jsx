@@ -3,41 +3,46 @@ import { View, Image, StyleSheet, ActivityIndicator } from "react-native";
 
 const Imagex = ({ urix, width }) => {
     const [height, setHeight] = useState(null);
-    const [loading, setLoading] = useState(true);
+    const [imageLoading, setImageLoading] = useState(true); // true = gambar belum selesai dimuat
+    const [sizeLoading, setSizeLoading] = useState(true);   // true = ukuran gambar belum diketahui
 
     useEffect(() => {
         if (typeof urix === 'number') {
-            // Untuk gambar lokal (require)
             const img = Image.resolveAssetSource(urix);
             const ratio = img.height / img.width;
             setHeight(width * ratio);
-            setLoading(false);
+            setSizeLoading(false);
         } else {
-            // Untuk gambar dari URL
             Image.getSize(
                 urix,
                 (originalWidth, originalHeight) => {
                     const ratio = originalHeight / originalWidth;
                     setHeight(width * ratio);
-                    setLoading(false);
+                    setSizeLoading(false);
                 },
                 (error) => {
                     console.error("Failed to get image size", error);
-                    setLoading(false);
+                    setSizeLoading(false);
                 }
             );
         }
     }, [urix, width]);
 
-    if (loading || !height) {
-        return <ActivityIndicator />;
-    }
-
     return (
-        <Image
-            source={typeof urix === 'string' ? { uri: urix } : urix}
-            style={{ width, height, resizeMode: 'contain' }}
-        />
+        <View style={{ width, height: height || 100, justifyContent: 'center', alignItems: 'center' }}>
+            {(sizeLoading || imageLoading) && (
+                <ActivityIndicator style={StyleSheet.absoluteFill} size="large" color="#947306" />
+            )}
+            {height && (
+                <Image
+                    source={typeof urix === 'string' ? { uri: urix } : urix}
+                    style={{ width, height, resizeMode: 'contain' }}
+                    onLoadStart={() => setImageLoading(true)}
+                    onLoadEnd={() => setImageLoading(false)}
+                    onError={() => setImageLoading(false)}
+                />
+            )}
+        </View>
     );
 };
 

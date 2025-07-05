@@ -15,7 +15,6 @@ const TopBar = ({ navigation }) => {
 
         <View style={stylex.topBarContainer}>
             <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-
                 <View style={stylex.topBarLeft}>
                     <TouchableOpacity onPress={() => navigation.navigate("MainPage", { screen: 'Home' })}>
                         <Image style={styles.topBarLeftImage} source={require("../pages/assets/images/icon/back.png")} />
