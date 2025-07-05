@@ -1,6 +1,8 @@
 import React from 'react';
 import {StyleSheet, Dimensions } from 'react-native';
 
+const topBarHeight = 90;
+
 const { width } = Dimensions.get('window');
 export const stylex = StyleSheet.create({
     margintop10 : {
@@ -29,6 +31,38 @@ export const stylex = StyleSheet.create({
         alignItems: "center",
         // backgroundColor: 'pink',
     },
+
+    topBarContainer :{
+        // flex :1,
+        flexDirection : 'row',
+        // backgroundColor : 'black',
+        height : topBarHeight,
+        marginTop : 20
+    },
+    topBarLeft :{
+        flex : 1,
+        justifyContent : 'center',
+        alignItems : 'center',
+        // backgroundColor : 'red',
+        height : topBarHeight,
+
+    },
+    topBarMid :{
+        flex : 1,
+        justifyContent : 'center',
+        alignItems : 'center',
+        // backgroundColor : 'yellow',
+        height : topBarHeight,
+        
+
+    },
+    topBarRight :{
+        flex : 1,
+        // backgroundColor : 'purple',
+        height : topBarHeight,
+    },
+
+
     mainPage : {
         display : 'flex',
         width : '100%',

@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Image } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useNavigation } from "@react-navigation/native";
 import useGlobalStore from "../stores/useGlobalStore.js";
 
 import { stylex } from "../pages/assets/css/index.js";
+
+import TopBar from "../components/TopBar.jsx";
 import BottomBar from "../components/BottomBar.jsx";
 
 
@@ -46,25 +48,26 @@ const MainPage = () => {
     return (
         <View style={stylex.container}>
             {topBar ? (
-                <View>
-                    <Text>Top Bar {topBar}</Text>
-                </View>
+                <TopBar navigation={navigation} />
             ) : (
                 <></>
-            )}
+            )
+            }
             <View style={stylex.mainPage}>
                 <ContentAll />
             </View>
 
-            {bottomBar ? (
-                <BottomBar navigation={navigation} />
+            {
+                bottomBar ? (
+                    <BottomBar navigation={navigation} />
 
-            ) : (
-                <></>
-            )}
+                ) : (
+                    <></>
+                )
+            }
 
 
-        </View>
+        </View >
     );
 };
 
