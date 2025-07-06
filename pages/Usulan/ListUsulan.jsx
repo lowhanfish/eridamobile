@@ -1,21 +1,33 @@
 import { useState, useEffect, useCallback } from "react";
 import { Modal, Button, View, Text, Image, TouchableOpacity, StyleSheet, ScrollView, } from "react-native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import useGlobalStore from "../../stores/useGlobalStore";
+
 import { stylex } from "../assets/css";
 
-
-import { useFocusEffect } from "@react-navigation/native";
-import useGlobalStore from "../../stores/useGlobalStore";
+import ModalSetting from "./ModalSetting.jsx";
 
 
 
 const ListUsulan = () => {
+    const navigation = useNavigation();
+
+
+
 
     const visibleBar = useGlobalStore((state) => state.visibleBar);
-    const [modalVisible, setModalVisible] = useState(false);
+    const setRouteBack = useGlobalStore((state) => state.setRouteBack);
+
+    const [isModalVisibleSetting, setisModalVisibleSetting] = useState(false);
+
+
+
+
 
 
     useFocusEffect(
         useCallback(() => {
+            setRouteBack("Home");
             visibleBar(true, true)
         }, [visibleBar])
 
@@ -35,7 +47,7 @@ const ListUsulan = () => {
                             </View>
                         </View>
                         <View style={[{ alignItems: 'flex-end' }]}>
-                            <TouchableOpacity style={[stylex.btnCornerFlat, stylex.shaddow]}>
+                            <TouchableOpacity onPress={() => navigation.navigate("AddUsulanPenelitian1")} style={[stylex.btnCornerFlat, stylex.shaddow]}>
                                 <View>
                                     <Image style={stylex.btnCornerFlatIcon} source={require('../assets/images/icon/plus.png')} />
                                 </View>
@@ -46,34 +58,22 @@ const ListUsulan = () => {
                         </View>
                     </View>
 
-                    <Modal
-                        animationType="fade" // 'none', 'slide', atau 'fade'
-                        transparent={true}
-                        visible={modalVisible}
-                        onRequestClose={() => setModalVisible(false)} // Android back button
-                    >
-                        <View style={stylex.modalOverlay}>
-                            <View style={stylex.modalContent}>
-                                <TouchableOpacity style={[stylex.modalButton, stylex.shaddow, { backgroundColor: '#6DA3EF' }]}>
-                                    <Text style={stylex.modalText}>Detail Data</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={[stylex.modalButton, stylex.shaddow, { backgroundColor: '#EFD06D' }]}>
-                                    <Text style={stylex.modalText}>Edit Data</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={[stylex.modalButton, stylex.shaddow, { backgroundColor: '#FF9191' }]}>
-                                    <Text style={stylex.modalText}>Hapus Data</Text>
-                                </TouchableOpacity>
-                                <Button title="Tutup" onPress={() => setModalVisible(false)} />
-                            </View>
-                        </View>
-                    </Modal>
+                    <ModalSetting
+                        visible={isModalVisibleSetting} // Teruskan state visibilitas
+                        onClose={() => setisModalVisibleSetting(!isModalVisibleSetting)} // Teruskan fungsi untuk menutup modal
+                    />
+
+
+
+
+
 
                     <View style={stylex.borderContent}>
 
                         {[...Array(10)].map((_, i) => (
                             <View key={i} style={{ flex: 1, marginTop: 9 }}>
 
-                                <TouchableOpacity onLongPress={() => setModalVisible(true)}>
+                                <TouchableOpacity onLongPress={() => setisModalVisibleSetting(true)}>
                                     <View style={[stylex.DataListCont, stylex.shaddow]}>
                                         <View style={stylex.DataListImgCont}>
                                             <Image style={stylex.DataListImg} source={require('../assets/images/izin_penelitian.png')} />

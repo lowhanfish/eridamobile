@@ -5,9 +5,10 @@ const useGlobalStore = create((state)=>({
     name : "Ini dari store",
     topBar : true,
     bottomBar : true,
+    visibleBar : (topVisible, bottomVisible, back) => state ({topBar:topVisible, bottomBar:bottomVisible}),
+    routeBack : "Home",
+    setRouteBack : (route) => state ({routeBack: route}),
 
-    // Actions
-    visibleBar : (topVisible, bottomVisible) => state ({topBar:topVisible, bottomBar:bottomVisible})
 }))
 
 

@@ -36,6 +36,7 @@ export const stylex = StyleSheet.create({
         display: "flex",
         flex: 1,
         ...centerAll,
+        
         // backgroundColor: 'pink',
     },
 
@@ -202,7 +203,8 @@ export const stylex = StyleSheet.create({
 
     pageTitleContainer : {
         flex :1,
-        flexDirection : 'row'
+        flexDirection : 'row',
+        marginTop : 10
     },
     pageTitleItemContainer : {
         flex : 1,
@@ -312,12 +314,94 @@ export const stylex = StyleSheet.create({
         width : '150',
         height : 35,
         marginTop : 10,
-        justifyContent : 'center',
-        alignItems : 'center',
+         ...centerAll,
         borderRadius : 5
     },
   
+    paginContainer : {
+        flex : 1,
+        width : '100%',
+        flexDirection : 'row',
+        height : 39,
+        // backgroundColor : 'pink',
+        position : 'absolute',
+        bottom : 10,
+         ...centerAll,
+    },
+    paginContainerBtn : {
+        flex :1,
+        flexDirection : 'row',
+        
+        // backgroundColor :'red',
+        margin : 3
+    },
 
+    paginTouchBtn : {
+        // flex : 1,
+        ...centerAll,
+        flexDirection : 'row',
+        backgroundColor : '#EFEFEF',
+        width : 117,
+        height : 38,
+        borderRadius :15,
+    },
+    paginTouchBtnImg : {
+        width : 26,
+        height : 26
+    },
+    paginTouchBtnText : {
+        color :'#777777',
+        fontSize : 10,
+        fontWeight :'bold'
+    },
+
+    IndicatorContainer : {
+        flex : 1,
+        // flexDirection : 'row',
+        marginTop : 19,
+        marginBottom : 32,
+    },
+    IndicatorContainer1 : {
+        flex : 1,
+        flexDirection : 'row',
+        
+    },
+    IndicatorContainer2 : {
+        flex : 1,
+        backgroundColor : 'red',
+        height : 5,
+        marginTop : -30,
+        zIndex : -1,
+        marginLeft : 30,
+        marginRight : 30,
+        backgroundColor : '#D9D9D9'
+    },
+    IndicatorListContainer : {
+        flex : 1,
+        ...centerAll,
+    },
+    IndicatorListContainer : {
+        flex : 1,
+        // backgroundColor : 'red',
+        margin :1,
+        flexDirection : 'column',
+        ...centerAll,
+    },
+    IndicatorLamp : {
+        width : 29,
+        height : 29,
+        // backgroundColor : '#D9D9D9',
+        borderRadius : 50,
+         ...centerAll,
+    },
+    IndicatorText : {
+        color : '#8E8E8E',
+        fontSize : 10,
+    },
+    IndicatorImg : {
+        width : 20,
+        height : 13,
+    },
 
 
 
