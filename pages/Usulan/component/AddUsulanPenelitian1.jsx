@@ -10,6 +10,8 @@ import { stylex } from "../../assets/css";
 
 const AddUsulanPenelitian1 = () => {
 
+    const navigation = useNavigation();
+
     const visibleBar = useGlobalStore((state) => state.visibleBar)
     const setRouteBack = useGlobalStore((state) => state.setRouteBack);
 
@@ -99,7 +101,7 @@ const AddUsulanPenelitian1 = () => {
                         </TouchableOpacity>
                     </View>
                     <View style={[stylex.paginContainerBtn, { justifyContent: 'flex-start' }]}>
-                        <TouchableOpacity style={[stylex.paginTouchBtn, stylex.shaddow, { justifyContent: 'center' }]}>
+                        <TouchableOpacity onPress={() => navigation.navigate("AddUsulanPenelitian2")} style={[stylex.paginTouchBtn, stylex.shaddow, { justifyContent: 'center' }]}>
                             <Text style={stylex.paginTouchBtnText}>NEXT</Text>
                             <Image style={stylex.paginTouchBtnImg} source={require("../../assets/images/icon/next.png")} />
                         </TouchableOpacity>

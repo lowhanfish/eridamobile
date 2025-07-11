@@ -15,6 +15,7 @@ import Profile from "../pages/Profile/Profile.jsx";
 
 import ListUsulan from "../pages/Usulan/ListUsulan.jsx";
 import AddUsulanPenelitian1 from "./Usulan/component/AddUsulanPenelitian1.jsx";
+import AddUsulanPenelitian2 from "./Usulan/component/AddUsulanPenelitian2.jsx";
 
 
 
@@ -31,6 +32,7 @@ const ContentAll = () => {
 
             <ContentStack.Screen name="ListUsulan" component={ListUsulan} />
             <ContentStack.Screen name="AddUsulanPenelitian1" component={AddUsulanPenelitian1} />
+            <ContentStack.Screen name="AddUsulanPenelitian2" component={AddUsulanPenelitian2} />
         </ContentStack.Navigator>
     );
 };
