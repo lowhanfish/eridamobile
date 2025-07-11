@@ -1,0 +1,4 @@
+/Users/dinaskominfo/kiken/Project/ReactNative/erida/android/app/.cxx/Debug/5f2bj1j1/x86/CMakeFiles/_CMakeLTOTest-CXX/bin/CMakeFiles/foo.dir
+/Users/dinaskominfo/kiken/Project/ReactNative/erida/android/app/.cxx/Debug/5f2bj1j1/x86/CMakeFiles/_CMakeLTOTest-CXX/bin/CMakeFiles/boo.dir
+/Users/dinaskominfo/kiken/Project/ReactNative/erida/android/app/.cxx/Debug/5f2bj1j1/x86/CMakeFiles/_CMakeLTOTest-CXX/bin/CMakeFiles/edit_cache.dir
+/Users/dinaskominfo/kiken/Project/ReactNative/erida/android/app/.cxx/Debug/5f2bj1j1/x86/CMakeFiles/_CMakeLTOTest-CXX/bin/CMakeFiles/rebuild_cache.dir

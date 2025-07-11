@@ -1,0 +1,1 @@
+/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/android/app/build/intermediates/cxx/Debug/156q223a/obj/armeabi-v7a

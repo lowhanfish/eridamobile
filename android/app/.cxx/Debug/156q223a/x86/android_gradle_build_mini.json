@@ -1,0 +1,55 @@
+{
+  "buildFiles": [
+    "/Users/dinaskominfo/kiken/Project/ReactNative/erida/node_modules/react-native-safe-area-context/android/src/main/jni/CMakeLists.txt",
+    "/Users/dinaskominfo/kiken/Project/ReactNative/erida/node_modules/react-native-screens/android/src/main/jni/CMakeLists.txt",
+    "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/react-native/ReactAndroid/cmake-utils/default-app-setup/CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/Users/dinaskominfo/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+      "-C",
+      "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/android/app/.cxx/Debug/156q223a/x86",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/Users/dinaskominfo/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+    "-C",
+    "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/android/app/.cxx/Debug/156q223a/x86",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {
+    "react_codegen_safeareacontext::@7984cd80db47aa7b952a": {
+      "artifactName": "react_codegen_safeareacontext",
+      "abi": "x86",
+      "output": "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/android/app/build/intermediates/cxx/Debug/156q223a/obj/x86/libreact_codegen_safeareacontext.so",
+      "runtimeFiles": [
+        "/Users/dinaskominfo/.gradle/caches/8.14.1/transforms/b6a6ccfe82730aba80016e7d9940f54a/transformed/fbjni-0.7.0/prefab/modules/fbjni/libs/android.x86/libfbjni.so",
+        "/Users/dinaskominfo/.gradle/caches/8.14.1/transforms/1d221509c521a46e74f6572064742339/transformed/react-android-0.80.1-debug/prefab/modules/jsi/libs/android.x86/libjsi.so",
+        "/Users/dinaskominfo/.gradle/caches/8.14.1/transforms/1d221509c521a46e74f6572064742339/transformed/react-android-0.80.1-debug/prefab/modules/reactnative/libs/android.x86/libreactnative.so"
+      ]
+    },
+    "react_codegen_rnscreens::@25bcbd507e98d3a854ad": {
+      "artifactName": "react_codegen_rnscreens",
+      "abi": "x86",
+      "output": "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/android/app/build/intermediates/cxx/Debug/156q223a/obj/x86/libreact_codegen_rnscreens.so",
+      "runtimeFiles": [
+        "/Users/dinaskominfo/.gradle/caches/8.14.1/transforms/1d221509c521a46e74f6572064742339/transformed/react-android-0.80.1-debug/prefab/modules/reactnative/libs/android.x86/libreactnative.so",
+        "/Users/dinaskominfo/.gradle/caches/8.14.1/transforms/1d221509c521a46e74f6572064742339/transformed/react-android-0.80.1-debug/prefab/modules/jsi/libs/android.x86/libjsi.so",
+        "/Users/dinaskominfo/.gradle/caches/8.14.1/transforms/b6a6ccfe82730aba80016e7d9940f54a/transformed/fbjni-0.7.0/prefab/modules/fbjni/libs/android.x86/libfbjni.so"
+      ]
+    },
+    "appmodules::@6890427a1f51a3e7e1df": {
+      "artifactName": "appmodules",
+      "abi": "x86",
+      "output": "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/android/app/build/intermediates/cxx/Debug/156q223a/obj/x86/libappmodules.so",
+      "runtimeFiles": [
+        "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/android/app/build/intermediates/cxx/Debug/156q223a/obj/x86/libreact_codegen_safeareacontext.so",
+        "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/android/app/build/intermediates/cxx/Debug/156q223a/obj/x86/libreact_codegen_rnscreens.so",
+        "/Users/dinaskominfo/.gradle/caches/8.14.1/transforms/b6a6ccfe82730aba80016e7d9940f54a/transformed/fbjni-0.7.0/prefab/modules/fbjni/libs/android.x86/libfbjni.so",
+        "/Users/dinaskominfo/.gradle/caches/8.14.1/transforms/1d221509c521a46e74f6572064742339/transformed/react-android-0.80.1-debug/prefab/modules/jsi/libs/android.x86/libjsi.so",
+        "/Users/dinaskominfo/.gradle/caches/8.14.1/transforms/1d221509c521a46e74f6572064742339/transformed/react-android-0.80.1-debug/prefab/modules/reactnative/libs/android.x86/libreactnative.so"
+      ]
+    }
+  }
+}
