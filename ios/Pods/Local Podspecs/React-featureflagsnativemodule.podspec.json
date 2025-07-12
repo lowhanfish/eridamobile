@@ -31,8 +31,7 @@
   "dependencies": {
     "React-jsi": [],
     "React-jsiexecutor": [],
-    "hermes-engine": [],
-    "React-hermes": [],
+    "React-jsc": [],
     "glog": [],
     "boost": [],
     "DoubleConversion": [],

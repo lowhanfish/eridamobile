@@ -27,8 +27,12 @@
     ]
   },
   "source_files": "**/*.{cpp,h}",
+  "exclude_files": [
+    "jsi/jsilib-posix.cpp",
+    "jsi/jsilib-windows.cpp",
+    "**/test/*"
+  ],
   "dependencies": {
-    "hermes-engine": [],
     "glog": [],
     "boost": [],
     "DoubleConversion": [],
@@ -37,11 +41,5 @@
     "RCT-Folly": [],
     "SocketRocket": [],
     "RCT-Folly/Fabric": []
-  },
-  "exclude_files": [
-    "jsi/jsilib-posix.cpp",
-    "jsi/jsilib-windows.cpp",
-    "**/test/*",
-    "jsi/jsi.cpp"
-  ]
+  }
 }

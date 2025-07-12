@@ -42,7 +42,6 @@
     "React-jsinspector": [],
     "React-jsinspectorcdp": [],
     "React-jsinspectortracing": [],
-    "hermes-engine": [],
     "glog": [],
     "boost": [],
     "DoubleConversion": [],

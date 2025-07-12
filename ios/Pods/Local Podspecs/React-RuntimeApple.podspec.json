@@ -21,7 +21,6 @@
       "$(PODS_TARGET_SRCROOT)/../../../../..",
       "\"${PODS_CONFIGURATION_BUILD_DIR}/React-jsitooling/JSITooling.framework/Headers\"",
       "\"${PODS_CONFIGURATION_BUILD_DIR}/React-RCTFBReactNativeSpec/React_RCTFBReactNativeSpec.framework/Headers\"",
-      "\"${PODS_CONFIGURATION_BUILD_DIR}/React-RuntimeHermes/React_RuntimeHermes.framework/Headers\"",
       "$(PODS_ROOT)/glog",
       "$(PODS_ROOT)/boost",
       "$(PODS_ROOT)/DoubleConversion",
@@ -53,8 +52,7 @@
     "React-featureflags": [],
     "React-jsitooling": [],
     "React-RCTFBReactNativeSpec": [],
-    "hermes-engine": [],
-    "React-RuntimeHermes": [],
+    "React-jsc": [],
     "glog": [],
     "boost": [],
     "DoubleConversion": [],
@@ -64,5 +62,5 @@
     "SocketRocket": [],
     "RCT-Folly/Fabric": []
   },
-  "exclude_files": "ReactCommon/RCTJscInstance.{mm,h}"
+  "exclude_files": "ReactCommon/RCTHermesInstance.{mm,h}"
 }

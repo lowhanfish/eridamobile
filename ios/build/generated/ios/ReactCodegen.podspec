@@ -92,8 +92,8 @@ pushd "$PODS_ROOT/../" > /dev/null
 RCT_SCRIPT_POD_INSTALLATION_ROOT=$(pwd)
 popd >/dev/null
 
-export RCT_SCRIPT_RN_DIR="$RCT_SCRIPT_POD_INSTALLATION_ROOT/../../../../../../../../../../../../../../../kiken/Project/ReactNative/erida/node_modules/react-native"
-export RCT_SCRIPT_APP_PATH="$RCT_SCRIPT_POD_INSTALLATION_ROOT/../../../../../../../../../../../../../../../kiken/Project/ReactNative/erida"
+export RCT_SCRIPT_RN_DIR="$RCT_SCRIPT_POD_INSTALLATION_ROOT/../../../../../../../../../../../../../../../kiken/Project/ReactNative/eridamobile/node_modules/react-native"
+export RCT_SCRIPT_APP_PATH="$RCT_SCRIPT_POD_INSTALLATION_ROOT/../../../../../../../../../../../../../../../kiken/Project/ReactNative/eridamobile"
 export RCT_SCRIPT_OUTPUT_DIR="$RCT_SCRIPT_POD_INSTALLATION_ROOT"
 export RCT_SCRIPT_TYPE="withCodegenDiscovery"
 

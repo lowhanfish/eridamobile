@@ -44,6 +44,10 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
+  include("/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/android/app/.cxx/Debug/156q223a/x86/rndocumentpickerCGen_autolinked_build/cmake_install.cmake")
+  include("/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/android/app/.cxx/Debug/156q223a/x86/rndocumentviewerCGen_autolinked_build/cmake_install.cmake")
+  include("/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/android/app/.cxx/Debug/156q223a/x86/ReactNativeBlobUtilSpec_autolinked_build/cmake_install.cmake")
+  include("/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/android/app/.cxx/Debug/156q223a/x86/rnpdf_autolinked_build/cmake_install.cmake")
   include("/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/android/app/.cxx/Debug/156q223a/x86/safeareacontext_autolinked_build/cmake_install.cmake")
   include("/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/android/app/.cxx/Debug/156q223a/x86/rnscreens_autolinked_build/cmake_install.cmake")
 

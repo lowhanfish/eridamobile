@@ -28,8 +28,7 @@
     "React-jsi": [
       "0.80.1"
     ],
-    "hermes-engine": [],
-    "React-hermes": [],
+    "React-jsc": [],
     "glog": [],
     "boost": [],
     "DoubleConversion": [],

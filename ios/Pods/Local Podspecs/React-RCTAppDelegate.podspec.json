@@ -14,7 +14,7 @@
     "tag": "v0.80.1"
   },
   "source_files": "**/*.{c,h,m,mm,S,cpp}",
-  "compiler_flags": "$(inherited)  -DRCT_NEW_ARCH_ENABLED=1 -DUSE_HERMES=1",
+  "compiler_flags": "$(inherited)  -DRCT_NEW_ARCH_ENABLED=1",
   "pod_target_xcconfig": {
     "HEADER_SEARCH_PATHS": [
       "$(PODS_TARGET_SRCROOT)/../../ReactCommon",
@@ -23,8 +23,6 @@
       "$(PODS_ROOT)/Headers/Public/ReactCommon",
       "$(PODS_ROOT)/Headers/Public/React-RCTFabric",
       "$(PODS_ROOT)/Headers/Private/Yoga",
-      "$(PODS_ROOT)/Headers/Public/React-hermes",
-      "$(PODS_ROOT)/Headers/Public/hermes-engine",
       "\"${PODS_CONFIGURATION_BUILD_DIR}/ReactCommon/ReactCommon.framework/Headers\"",
       "\"${PODS_CONFIGURATION_BUILD_DIR}/ReactCommon/ReactCommon.framework/Headers/react/nativemodule/core\"",
       "\"${PODS_CONFIGURATION_BUILD_DIR}/React-NativeModulesApple/React_NativeModulesApple.framework/Headers\"",
@@ -50,7 +48,7 @@
       "$(PODS_ROOT)/SocketRocket",
       "$(PODS_ROOT)/RCT-Folly"
     ],
-    "OTHER_CPLUSPLUSFLAGS": "$(inherited)  -DRCT_NEW_ARCH_ENABLED=1 -DUSE_HERMES=1",
+    "OTHER_CPLUSPLUSFLAGS": "$(inherited)  -DRCT_NEW_ARCH_ENABLED=1",
     "CLANG_CXX_LANGUAGE_STANDARD": "c++20",
     "DEFINES_MODULE": "YES"
   },
@@ -80,8 +78,7 @@
     "React-featureflags": [],
     "React-jsitooling": [],
     "React-RCTRuntime": [],
-    "hermes-engine": [],
-    "React-hermes": [],
+    "React-jsc": [],
     "glog": [],
     "boost": [],
     "DoubleConversion": [],

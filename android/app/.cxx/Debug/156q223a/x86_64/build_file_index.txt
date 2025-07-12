@@ -1,3 +1,5 @@
-/Users/dinaskominfo/kiken/Project/ReactNative/erida/node_modules/react-native-safe-area-context/android/src/main/jni/CMakeLists.txt
-/Users/dinaskominfo/kiken/Project/ReactNative/erida/node_modules/react-native-screens/android/src/main/jni/CMakeLists.txt
+/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/@react-native-documents/picker/android/build/generated/source/codegen/jni/CMakeLists.txt
+/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/@react-native-documents/viewer/android/build/generated/source/codegen/jni/CMakeLists.txt
+/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/react-native-safe-area-context/android/src/main/jni/CMakeLists.txt
+/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/react-native-screens/android/src/main/jni/CMakeLists.txt
 /Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/react-native/ReactAndroid/cmake-utils/default-app-setup/CMakeLists.txt

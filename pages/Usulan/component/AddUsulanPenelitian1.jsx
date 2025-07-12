@@ -1,6 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
-import { View, TouchableOpacity, Text, Image, ScrollView, StyleSheet } from "react-native";
+import { View, TouchableOpacity, Text, Image, ScrollView, StyleSheet, Button } from "react-native";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
+
+
+
+import { pick } from '@react-native-documents/picker'
 
 
 
@@ -14,6 +18,21 @@ const AddUsulanPenelitian1 = () => {
 
     const visibleBar = useGlobalStore((state) => state.visibleBar)
     const setRouteBack = useGlobalStore((state) => state.setRouteBack);
+
+
+    const [file, setFile] = useState(null);
+
+    const pickDocument = async () => {
+        try {
+            const result = await pick();
+            if (result) {
+                setFile(result);
+                console.log('File pickedx :', result);
+            }
+        } catch (err) {
+            console.error('Error picking document:', err);
+        }
+    };
 
 
 
@@ -82,6 +101,20 @@ const AddUsulanPenelitian1 = () => {
                                 <Text style={styles.UploadText1}>PILIH FILE KTP (PDF)</Text>
                                 <Text style={styles.UploadText2}>di sini</Text>
                             </View>
+                        </View>
+
+
+                        <View style={{ padding: 20 }}>
+                            <Button title="Pick Document" onPress={pickDocument} />
+                            {file && (
+                                <View style={{ marginTop: 20, alignItems: 'center' }}>
+                                    {/* <Text>{file[0].name}</Text> */}
+                                    <Image
+                                        source={{ uri: file[0].uri }}
+                                        style={{ width: 200, height: 200, resizeMode: 'contain' }}
+                                    />
+                                </View>
+                            )}
                         </View>
 
 

@@ -50,7 +50,6 @@
     "React-jsinspector": [],
     "React-jsinspectorcdp": [],
     "ReactCommon": [],
-    "hermes-engine": [],
     "glog": [],
     "boost": [],
     "DoubleConversion": [],

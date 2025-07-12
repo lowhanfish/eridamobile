@@ -27,7 +27,6 @@
       "\"${PODS_CONFIGURATION_BUILD_DIR}/React-jsinspectortracing/jsinspector_moderntracing.framework/Headers\"",
       "\"${PODS_CONFIGURATION_BUILD_DIR}/React-RuntimeCore/React_RuntimeCore.framework/Headers\"",
       "\"${PODS_CONFIGURATION_BUILD_DIR}/React-RuntimeApple/React_RuntimeApple.framework/Headers\"",
-      "\"${PODS_CONFIGURATION_BUILD_DIR}/React-RuntimeHermes/React_RuntimeHermes.framework/Headers\"",
       "$(PODS_ROOT)/glog",
       "$(PODS_ROOT)/boost",
       "$(PODS_ROOT)/DoubleConversion",
@@ -46,9 +45,7 @@
     "React-jsinspectortracing": [],
     "React-RuntimeCore": [],
     "React-RuntimeApple": [],
-    "hermes-engine": [],
-    "React-RuntimeHermes": [],
-    "React-hermes": [],
+    "React-jsc": [],
     "glog": [],
     "boost": [],
     "DoubleConversion": [],
@@ -58,5 +55,7 @@
     "SocketRocket": [],
     "RCT-Folly/Fabric": []
   },
-  "exclude_files": "RCTJscInstanceFactory.{h,mm}"
+  "exclude_files": [
+    "RCTHermesInstanceFactory.{mm,h}"
+  ]
 }
