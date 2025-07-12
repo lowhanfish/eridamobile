@@ -121,4 +121,8 @@ Make sure your screen component is properly exported and wrapped with necessary 
 - Ensure that your development environment is configured properly with Android Studio and/or Xcode.
 - You may need to configure environment variables like `JAVA_HOME`, `ANDROID_HOME`, and set up an emulator or connect a physical device.
 
+### If you use zulu
+
+```sh
 jenv local zulu64-17.0.10
+```
