@@ -1,4 +1,4 @@
-# Install script for directory: /Users/dinaskominfo/kiken/Project/ReactNative/erida/node_modules/react-native-safe-area-context/android/src/main/jni
+# Install script for directory: /Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/react-native-safe-area-context/android/src/main/jni
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

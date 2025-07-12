@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { View, TouchableOpacity, Text, Image, ScrollView } from "react-native";
+import { View, TouchableOpacity, Text, Image, ScrollView, TextInput } from "react-native";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 
 
@@ -8,10 +8,15 @@ import useGlobalStore from "../../../stores/useGlobalStore";
 import { stylex } from "../../assets/css";
 
 
-const AddUsulanPenelitian1 = () => {
+const AddUsulanPenelitian2 = () => {
+    const navigation = useNavigation();
 
     const visibleBar = useGlobalStore((state) => state.visibleBar)
     const setRouteBack = useGlobalStore((state) => state.setRouteBack);
+
+
+    const [text, onChangeText] = useState('Useless Text');
+    const [number, onChangeNumber] = useState('');
 
 
 
@@ -49,7 +54,7 @@ const AddUsulanPenelitian1 = () => {
                                 <Text style={stylex.IndicatorText}>KTP</Text>
                             </View>
                             <View style={stylex.IndicatorListContainer}>
-                                <View style={[stylex.IndicatorLamp, { backgroundColor: '#D9D9D9' }]}>
+                                <View style={[stylex.IndicatorLamp, { backgroundColor: '#E9BC41' }]}>
                                     <Image style={stylex.IndicatorImg} source={require("../../assets/images/icon/check.png")} />
                                 </View>
                                 <Text style={stylex.IndicatorText}>Pengantar</Text>
@@ -74,7 +79,15 @@ const AddUsulanPenelitian1 = () => {
 
 
                     <View style={stylex.borderContent}>
-
+                        <View>
+                            <View>
+                                <Text>Nomor Surat Pengantarx</Text>
+                                <TextInput
+                                    onChangeText={onChangeText}
+                                    value={text}
+                                />
+                            </View>
+                        </View>
 
 
 
@@ -88,13 +101,13 @@ const AddUsulanPenelitian1 = () => {
                 <View style={{ flex: 1, flexDirection: 'row' }}>
 
                     <View style={[stylex.paginContainerBtn, { justifyContent: 'flex-end' }]}>
-                        <TouchableOpacity style={[stylex.paginTouchBtn, stylex.shaddow]}>
+                        <TouchableOpacity onPress={() => navigation.navigate("AddUsulanPenelitian1")} style={[stylex.paginTouchBtn, stylex.shaddow]}>
                             <Image style={stylex.paginTouchBtnImg} source={require("../../assets/images/icon/prev.png")} />
                             <Text style={stylex.paginTouchBtnText}>PREF</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={[stylex.paginContainerBtn, { justifyContent: 'flex-start' }]}>
-                        <TouchableOpacity style={[stylex.paginTouchBtn, stylex.shaddow, { justifyContent: 'center' }]}>
+                        <TouchableOpacity onPress={() => navigation.navigate("AddUsulanPenelitian3")} style={[stylex.paginTouchBtn, stylex.shaddow, { justifyContent: 'center' }]}>
                             <Text style={stylex.paginTouchBtnText}>NEXT</Text>
                             <Image style={stylex.paginTouchBtnImg} source={require("../../assets/images/icon/next.png")} />
                         </TouchableOpacity>
@@ -108,4 +121,4 @@ const AddUsulanPenelitian1 = () => {
 }
 
 
-export default AddUsulanPenelitian1
+export default AddUsulanPenelitian2

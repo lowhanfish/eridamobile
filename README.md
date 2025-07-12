@@ -14,6 +14,7 @@ This is the **mobile version**, built with React Native, and may be part of a la
 - **Node.js version**: `20.10.0`
 - **React Native version**: `0.80.1`
 - **React version**: `19.0.0`
+- **Java version**: `17.0.10`
 
 ## Step 1: Start Metro
 
@@ -119,3 +120,5 @@ Make sure your screen component is properly exported and wrapped with necessary 
 
 - Ensure that your development environment is configured properly with Android Studio and/or Xcode.
 - You may need to configure environment variables like `JAVA_HOME`, `ANDROID_HOME`, and set up an emulator or connect a physical device.
+
+jenv local zulu64-17.0.10
