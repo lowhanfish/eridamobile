@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { View, TouchableOpacity, Text, Image, ScrollView, StyleSheet, Button } from "react-native";
+import { View, TouchableOpacity, Text, Image, ScrollView, StyleSheet, Button, Dimensions } from "react-native";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 
 
@@ -9,12 +9,19 @@ import { pick } from '@react-native-documents/picker'
 
 
 import useGlobalStore from "../../../stores/useGlobalStore";
+
+
+
 import { stylex } from "../../assets/css";
+import Imagex from "../../../components/Imagex";
 
 
 const AddUsulanPenelitian1 = () => {
 
     const navigation = useNavigation();
+    const screenWidth = Dimensions.get('window').width;
+    const widthx = screenWidth - (screenWidth * 20 / 100)
+
 
     const visibleBar = useGlobalStore((state) => state.visibleBar)
     const setRouteBack = useGlobalStore((state) => state.setRouteBack);
@@ -56,10 +63,6 @@ const AddUsulanPenelitian1 = () => {
                         </View>
                     </View>
 
-
-
-
-
                     <View style={stylex.IndicatorContainer}>
                         <View style={stylex.IndicatorContainer1}>
 
@@ -93,29 +96,59 @@ const AddUsulanPenelitian1 = () => {
                         </View>
                     </View>
 
-
                     <View style={[stylex.borderContent, { marginBottom: 75 }]}>
-
-                        <View style={styles.containerUpload}>
-                            <View style={styles.containerUploadText}>
-                                <Text style={styles.UploadText1}>PILIH FILE KTP (PDF)</Text>
-                                <Text style={styles.UploadText2}>di sini</Text>
-                            </View>
-                        </View>
+                        {/* source={{ uri: file[0].uri }} */}
 
 
-                        <View style={{ padding: 20 }}>
-                            <Button title="Pick Document" onPress={pickDocument} />
-                            {file && (
-                                <View style={{ marginTop: 20, alignItems: 'center' }}>
-                                    {/* <Text>{file[0].name}</Text> */}
-                                    <Image
-                                        source={{ uri: file[0].uri }}
-                                        style={{ width: 200, height: 200, resizeMode: 'contain' }}
+                        {file && file[0] ? (
+                            <View style={styles.containerUpload}>
+                                <View style={styles.containerUploadText}>
+                                    <Imagex
+                                        width={widthx}
+                                        urix={file[0].uri}
                                     />
                                 </View>
-                            )}
-                        </View>
+                            </View>
+                        ) : (
+
+                            <View style={styles.containerUpload}>
+                                <View style={styles.containerUploadText}>
+                                    <Text style={styles.UploadText1}>FILE KTP MASIH KOSONG</Text>
+                                    <Text style={styles.UploadText2}>(PDF)</Text>
+                                </View>
+                            </View>
+                        )}
+
+
+                        {/* <Button style={styles.btnPickFile} title="Pilih Foto KTP" onPress={pickDocument} /> */}
+
+                        <TouchableOpacity onPress={pickDocument}>
+                            <View style={styles.btnPickFile}>
+
+                                {file && file[0] ? (
+                                    <Text style={styles.btnPickFileText}>Ganti Foto KTP</Text>
+                                ) : (
+                                    <Text style={styles.btnPickFileText}>Cari Foto KTP</Text>
+                                )}
+
+                            </View>
+                        </TouchableOpacity>
+
+                        {/* {file && (
+                            <View style={{ alignItems: 'center' }}>
+                                <Image
+                                    source={{ uri: file[0].uri }}
+                                    style={{ width: 200, height: 200, resizeMode: 'contain' }}
+                                />
+                            </View>
+                        )} */}
+
+
+
+
+
+
+
 
 
                     </View>
@@ -177,6 +210,20 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center'
     },
+    btnPickFile: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: 45,
+        borderRadius: 6,
+        backgroundColor: '#DFB11C',
+        marginTop: -25,
+
+    },
+    btnPickFileText: {
+        color: 'white',
+        fontWeight: '700'
+    }
 
 })
 
