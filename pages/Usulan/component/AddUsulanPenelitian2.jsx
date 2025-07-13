@@ -27,7 +27,10 @@ const AddUsulanPenelitian2 = () => {
 
     const pickDocument = async () => {
         try {
-            const result = await pick();
+            const result = await pick({
+                type: ['application/pdf']
+                // type: ['image/*']
+            });
             if (result) {
                 setFile(result);
                 console.log('File pickedx :', result);
