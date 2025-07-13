@@ -121,6 +121,11 @@ Make sure your screen component is properly exported and wrapped with necessary 
 - Ensure that your development environment is configured properly with Android Studio and/or Xcode.
 - You may need to configure environment variables like `JAVA_HOME`, `ANDROID_HOME`, and set up an emulator or connect a physical device.
 
+## UI/UX Design
+
+The UI/UX design for this project is available in Figma.  
+[View UI/UX Design in Figma](https://www.figma.com/design/iUUV9TJsY62VUxx89l0OSk/e-Rida?node-id=0-1&p=f&t=tF85uKzyzlCEzvma-0)
+
 ### If you use zulu
 
 ```sh
