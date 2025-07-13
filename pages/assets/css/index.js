@@ -158,13 +158,15 @@ export const stylex = StyleSheet.create({
     shaddowText : {
         textShadowColor : 'gray',
         textShadowOffset : {width : 1, height:1},
-        textShadowRadius : 1
+        textShadowRadius : 1,
+        elevation: 0.7, // 👈 ini untuk Android
     },
     shaddow : {
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.2,
         shadowRadius: 1,
+        elevation: 0.7, // 👈 ini untuk Android
     },
     textTitleList : {
         fontSize : 13,

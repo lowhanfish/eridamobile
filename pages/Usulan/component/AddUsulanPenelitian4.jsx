@@ -142,10 +142,10 @@ const AddUsulanPenelitian4 = () => {
 
 
 
-                    <View style={stylex.borderContent}>
-                        <View style={{ paddingTop: 26, paddingBottom: 36 }}>
+                    <View style={[stylex.borderContent, { marginBottom: 150 }]}>
+                        <View style={{ paddingTop: 26 }}>
                             <View style={stylex.InputContainer}>
-                                <Text style={stylex.inputText1}>Nomor Surat Rekomendasi</Text>
+                                <Text style={stylex.inputText1}>Kategori</Text>
                                 <TextInput
                                     style={stylex.inputx1}
                                     onChangeText={onChangeText}
@@ -153,7 +153,39 @@ const AddUsulanPenelitian4 = () => {
                                 />
                             </View>
                             <View style={stylex.InputContainer}>
-                                <Text style={stylex.inputText1}>Tanggal Surat Rekomendasi</Text>
+                                <Text style={stylex.inputText1}>Judul Penelitian</Text>
+                                <TextInput
+                                    style={stylex.inputx1}
+                                    onChangeText={onChangeText}
+                                    value={text}
+                                />
+                            </View>
+                            <View style={stylex.InputContainer}>
+                                <Text style={stylex.inputText1}>Lokasi Penelitian</Text>
+                                <TextInput
+                                    style={stylex.inputx1}
+                                    onChangeText={onChangeText}
+                                    value={text}
+                                />
+                            </View>
+                            <View style={stylex.InputContainer}>
+                                <Text style={stylex.inputText1}>Maksud & Tujuan Penelitian</Text>
+                                <TextInput
+                                    style={stylex.inputx1}
+                                    onChangeText={onChangeText}
+                                    value={text}
+                                />
+                            </View>
+                            <View style={stylex.InputContainer}>
+                                <Text style={stylex.inputText1}>Ruang Lingkup Penelitian</Text>
+                                <TextInput
+                                    style={stylex.inputx1}
+                                    onChangeText={onChangeText}
+                                    value={text}
+                                />
+                            </View>
+                            <View style={stylex.InputContainer}>
+                                <Text style={stylex.inputText1}>Tanggal Mulai</Text>
                                 <TouchableOpacity onPress={() => showMode('date')} style={stylex.inputx1}>
                                     <Image style={stylex.iconInput} source={require("../../assets/images/icon/date.png")} />
                                     <Text>Tgl : {date.toLocaleDateString()}</Text>
@@ -169,23 +201,24 @@ const AddUsulanPenelitian4 = () => {
                                 </TouchableOpacity>
                             </View>
                             <View style={stylex.InputContainer}>
-                                <Text style={stylex.inputText1}>Nama Penandatangan Surat Rekomendasi</Text>
-                                <TextInput
-                                    style={stylex.inputx1}
-                                    onChangeText={onChangeText}
-                                    value={text}
-                                />
+                                <Text style={stylex.inputText1}>Tanggal Selesai</Text>
+                                <TouchableOpacity onPress={() => showMode('date')} style={stylex.inputx1}>
+                                    <Image style={stylex.iconInput} source={require("../../assets/images/icon/date.png")} />
+                                    <Text>Tgl : {date.toLocaleDateString()}</Text>
+                                    {show && (
+                                        <DateTimePicker
+                                            value={date}
+                                            mode={mode}
+                                            is24Hour={true}
+                                            display="default"
+                                            onChange={onChange}
+                                        />
+                                    )}
+                                </TouchableOpacity>
                             </View>
+
                             <View style={stylex.InputContainer}>
-                                <Text style={stylex.inputText1}>Jabatan Penandatangan Surat Rekomendasi</Text>
-                                <TextInput
-                                    style={stylex.inputx1}
-                                    onChangeText={onChangeText}
-                                    value={text}
-                                />
-                            </View>
-                            <View style={stylex.InputContainer}>
-                                <Text style={stylex.inputText1}>Surat Rekomendasi (PDF)</Text>
+                                <Text style={stylex.inputText1}>Unggah Proposal Penelitian (PDF)</Text>
                                 <TouchableOpacity onPress={pickDocument} style={stylex.inputx1}>
                                     <Image style={stylex.iconInputFile} source={require("../../assets/images/icon/file.png")} />
                                     {file && file[0] ? (
@@ -216,7 +249,7 @@ const AddUsulanPenelitian4 = () => {
                     </View>
                     <View style={[stylex.paginContainerBtn, { justifyContent: 'flex-start' }]}>
                         <TouchableOpacity onPress={() => navigation.navigate("ListUsulan")} style={[stylex.paginTouchBtn, stylex.shaddow, { justifyContent: 'center' }]}>
-                            <Text style={stylex.paginTouchBtnText}>NEXT</Text>
+                            <Text style={stylex.paginTouchBtnText}>SAVE</Text>
                             <Image style={stylex.paginTouchBtnImg} source={require("../../assets/images/icon/next.png")} />
                         </TouchableOpacity>
                     </View>
