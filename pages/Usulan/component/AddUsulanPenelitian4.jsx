@@ -1,6 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
-import { View, TouchableOpacity, Text, Image, ScrollView, TextInput } from "react-native";
+import { View, TouchableOpacity, Text, Image, ScrollView, TextInput, Button } from "react-native";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
+
+import { pick } from '@react-native-documents/picker'
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 
 
@@ -15,8 +18,50 @@ const AddUsulanPenelitian4 = () => {
     const setRouteBack = useGlobalStore((state) => state.setRouteBack);
 
 
-    const [text, onChangeText] = useState('Useless Text');
-    const [number, onChangeNumber] = useState('');
+    const [text, onChangeText] = useState('');
+
+
+    // ===== PICKFILE =====
+
+    const [file, setFile] = useState(null);
+
+    const pickDocument = async () => {
+        try {
+            const result = await pick({
+                type: ['application/pdf']
+                // type: ['image/*']
+            });
+            if (result) {
+                setFile(result);
+                console.log('File pickedx :', result);
+            }
+        } catch (err) {
+            console.error('Error picking document:', err);
+        }
+    };
+    // ===== PICKFILE =====
+
+
+    // ===== PICKDATE =====
+    const [date, setDate] = useState(new Date());
+    const [show, setShow] = useState(false);
+    const [mode, setMode] = useState('date'); // or 'time'
+
+
+    const onChange = (event, selectedDate) => {
+        console.log(selectedDate)
+        const currentDate = selectedDate || date;
+        // console.log(currentDate)
+        setShow(Platform.OS === 'ios'); // untuk iOS tetap tampil, Android hilang
+        setDate(currentDate);
+    };
+
+    const showMode = (currentMode) => {
+        setShow(true);
+        setMode(currentMode);
+    };
+
+    // ===== PICKDATE =====
 
 
 
@@ -35,7 +80,7 @@ const AddUsulanPenelitian4 = () => {
                         <View style={[stylex.pageTitleItemContainer, { justifyContent: 'center' }]}>
                             <View >
                                 <Text style={stylex.textTitleList}>FORM USULAN PENELITIAN</Text>
-                                <Text style={stylex.textSubTitleList2}>Identitas pengusul </Text>
+                                <Text style={stylex.textSubTitleList2}>Data Usulan Penelitian</Text>
                             </View>
                         </View>
                     </View>
@@ -60,13 +105,13 @@ const AddUsulanPenelitian4 = () => {
                                 <Text style={stylex.IndicatorText}>Pengantar</Text>
                             </View>
                             <View style={stylex.IndicatorListContainer}>
-                                <View style={[stylex.IndicatorLamp, { backgroundColor: '#D9D9D9' }]}>
+                                <View style={[stylex.IndicatorLamp, { backgroundColor: '#E9BC41' }]}>
                                     <Image style={stylex.IndicatorImg} source={require("../../assets/images/icon/check.png")} />
                                 </View>
                                 <Text style={stylex.IndicatorText}>Rekomendasi</Text>
                             </View>
                             <View style={stylex.IndicatorListContainer}>
-                                <View style={[stylex.IndicatorLamp, { backgroundColor: '#D9D9D9' }]}>
+                                <View style={[stylex.IndicatorLamp, { backgroundColor: '#E9BC41' }]}>
                                     <Image style={stylex.IndicatorImg} source={require("../../assets/images/icon/check.png")} />
                                 </View>
                                 <Text style={stylex.IndicatorText}>Penelitian</Text>
@@ -78,14 +123,77 @@ const AddUsulanPenelitian4 = () => {
                     </View>
 
 
+
+
+
+
+                    {/* <View style={{ padding: 16 }}>
+                        <Text>Tanggal: {date.toLocaleString()}</Text>
+                        <Button onPress={() => showMode('date')} title="Pilih Tanggal" />
+                        <Button onPress={() => showMode('time')} title="Pilih Jam" />
+
+                        {show ? (
+                            <Text>Tanggal: {date.toLocaleString()}</Text>
+                        ) : (
+                            <Text>Tanggal: {date.toLocaleString()}</Text>
+                        )}
+                    </View> */}
+
+
+
+
                     <View style={stylex.borderContent}>
-                        <View>
-                            <View>
-                                <Text>Nomor Surat Pengantarx</Text>
+                        <View style={{ paddingTop: 26, paddingBottom: 36 }}>
+                            <View style={stylex.InputContainer}>
+                                <Text style={stylex.inputText1}>Nomor Surat Rekomendasi</Text>
                                 <TextInput
+                                    style={stylex.inputx1}
                                     onChangeText={onChangeText}
                                     value={text}
                                 />
+                            </View>
+                            <View style={stylex.InputContainer}>
+                                <Text style={stylex.inputText1}>Tanggal Surat Rekomendasi</Text>
+                                <TouchableOpacity onPress={() => showMode('date')} style={stylex.inputx1}>
+                                    <Image style={stylex.iconInput} source={require("../../assets/images/icon/date.png")} />
+                                    <Text>Tgl : {date.toLocaleDateString()}</Text>
+                                    {show && (
+                                        <DateTimePicker
+                                            value={date}
+                                            mode={mode}
+                                            is24Hour={true}
+                                            display="default"
+                                            onChange={onChange}
+                                        />
+                                    )}
+                                </TouchableOpacity>
+                            </View>
+                            <View style={stylex.InputContainer}>
+                                <Text style={stylex.inputText1}>Nama Penandatangan Surat Rekomendasi</Text>
+                                <TextInput
+                                    style={stylex.inputx1}
+                                    onChangeText={onChangeText}
+                                    value={text}
+                                />
+                            </View>
+                            <View style={stylex.InputContainer}>
+                                <Text style={stylex.inputText1}>Jabatan Penandatangan Surat Rekomendasi</Text>
+                                <TextInput
+                                    style={stylex.inputx1}
+                                    onChangeText={onChangeText}
+                                    value={text}
+                                />
+                            </View>
+                            <View style={stylex.InputContainer}>
+                                <Text style={stylex.inputText1}>Surat Rekomendasi (PDF)</Text>
+                                <TouchableOpacity onPress={pickDocument} style={stylex.inputx1}>
+                                    <Image style={stylex.iconInputFile} source={require("../../assets/images/icon/file.png")} />
+                                    {file && file[0] ? (
+                                        <Text>{file[0].name}</Text>
+                                    ) : (
+                                        <Text>Cari Surat Rekomendasi (PDF)</Text>
+                                    )}
+                                </TouchableOpacity>
                             </View>
                         </View>
 
