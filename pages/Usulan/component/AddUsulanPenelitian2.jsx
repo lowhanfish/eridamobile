@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { View, TouchableOpacity, Text, Image, ScrollView, TextInput, Button } from "react-native";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 
+import { pick } from '@react-native-documents/picker'
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 
@@ -19,13 +20,35 @@ const AddUsulanPenelitian2 = () => {
 
     const [text, onChangeText] = useState('');
 
+
+    // ===== PICKFILE =====
+
+    const [file, setFile] = useState(null);
+
+    const pickDocument = async () => {
+        try {
+            const result = await pick();
+            if (result) {
+                setFile(result);
+                console.log('File pickedx :', result);
+            }
+        } catch (err) {
+            console.error('Error picking document:', err);
+        }
+    };
+    // ===== PICKFILE =====
+
+
+    // ===== PICKDATE =====
     const [date, setDate] = useState(new Date());
     const [show, setShow] = useState(false);
     const [mode, setMode] = useState('date'); // or 'time'
 
 
     const onChange = (event, selectedDate) => {
+        console.log(selectedDate)
         const currentDate = selectedDate || date;
+        // console.log(currentDate)
         setShow(Platform.OS === 'ios'); // untuk iOS tetap tampil, Android hilang
         setDate(currentDate);
     };
@@ -34,6 +57,8 @@ const AddUsulanPenelitian2 = () => {
         setShow(true);
         setMode(currentMode);
     };
+
+    // ===== PICKDATE =====
 
 
 
@@ -99,21 +124,17 @@ const AddUsulanPenelitian2 = () => {
 
 
 
-                    <View style={{ padding: 16 }}>
+                    {/* <View style={{ padding: 16 }}>
                         <Text>Tanggal: {date.toLocaleString()}</Text>
                         <Button onPress={() => showMode('date')} title="Pilih Tanggal" />
-                        {/* <Button onPress={() => showMode('time')} title="Pilih Jam" /> */}
+                        <Button onPress={() => showMode('time')} title="Pilih Jam" />
 
-                        {show && (
-                            <DateTimePicker
-                                value={date}
-                                mode={mode}
-                                is24Hour={true}
-                                display="default"
-                                onChange={onChange}
-                            />
+                        {show ? (
+                            <Text>Tanggal: {date.toLocaleString()}</Text>
+                        ) : (
+                            <Text>Tanggal: {date.toLocaleString()}</Text>
                         )}
-                    </View>
+                    </View> */}
 
 
 
@@ -130,11 +151,19 @@ const AddUsulanPenelitian2 = () => {
                             </View>
                             <View style={stylex.InputContainer}>
                                 <Text style={stylex.inputText1}>Tanggal Surat Pengantar</Text>
-                                <TextInput
-                                    style={stylex.inputx1}
-                                    onChangeText={onChangeText}
-                                    value={text}
-                                />
+                                <TouchableOpacity onPress={() => showMode('date')} style={stylex.inputx1}>
+                                    <Image style={stylex.iconInput} source={require("../../assets/images/icon/date.png")} />
+                                    <Text>Tgl : {date.toLocaleDateString()}</Text>
+                                    {show && (
+                                        <DateTimePicker
+                                            value={date}
+                                            mode={mode}
+                                            is24Hour={true}
+                                            display="default"
+                                            onChange={onChange}
+                                        />
+                                    )}
+                                </TouchableOpacity>
                             </View>
                             <View style={stylex.InputContainer}>
                                 <Text style={stylex.inputText1}>Nama Penandatangan Surat Pengantar</Text>
@@ -154,11 +183,14 @@ const AddUsulanPenelitian2 = () => {
                             </View>
                             <View style={stylex.InputContainer}>
                                 <Text style={stylex.inputText1}>Surat Pengantar (PDF)</Text>
-                                <TextInput
-                                    style={stylex.inputx1}
-                                    onChangeText={onChangeText}
-                                    value={text}
-                                />
+                                <TouchableOpacity onPress={pickDocument} style={stylex.inputx1}>
+                                    <Image style={stylex.iconInputFile} source={require("../../assets/images/icon/file.png")} />
+                                    {file && file[0] ? (
+                                        <Text>{file[0].name}</Text>
+                                    ) : (
+                                        <Text>Cari Surat Pengantar (PDF)</Text>
+                                    )}
+                                </TouchableOpacity>
                             </View>
                         </View>
 

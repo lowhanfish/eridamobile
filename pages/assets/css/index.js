@@ -106,7 +106,10 @@ export const stylex = StyleSheet.create({
         borderWidth : 1,
         borderColor : '#DEDCDC',
         paddingLeft : 10,
-        color : 'black'
+        color : 'black',
+        // justifyContent : 'center',
+        alignItems : 'center',
+        flexDirection : 'row'
     },
     inputText1 : {
         color : '#9D9D9D',
@@ -116,6 +119,16 @@ export const stylex = StyleSheet.create({
     inputText : {
         color : '#9D9D9D',
         fontSize : 16,
+    },
+    iconInput : {
+        width : 21,
+        height:23,
+        marginRight : 5
+    },
+    iconInputFile : {
+        width : 12,
+        height:23,
+        marginRight : 9
     },
 
     btnLogin :{
