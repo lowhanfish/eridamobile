@@ -44,6 +44,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
+  include("/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/android/app/.cxx/Debug/156q223a/armeabi-v7a/RNDateTimePickerCGen_autolinked_build/cmake_install.cmake")
   include("/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/android/app/.cxx/Debug/156q223a/armeabi-v7a/rndocumentpickerCGen_autolinked_build/cmake_install.cmake")
   include("/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/android/app/.cxx/Debug/156q223a/armeabi-v7a/rndocumentviewerCGen_autolinked_build/cmake_install.cmake")
   include("/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/android/app/.cxx/Debug/156q223a/armeabi-v7a/ReactNativeBlobUtilSpec_autolinked_build/cmake_install.cmake")

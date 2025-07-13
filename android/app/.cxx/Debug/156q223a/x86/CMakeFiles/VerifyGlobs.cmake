@@ -12,6 +12,31 @@ if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   file(TOUCH_NOCREATE "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/android/app/.cxx/Debug/156q223a/x86/CMakeFiles/cmake.verify_globs")
 endif()
 
+# react_codegen_SRCS at /Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/@react-native-community/datetimepicker/android/build/generated/source/codegen/jni/CMakeLists.txt:9 (file)
+file(GLOB NEW_GLOB LIST_DIRECTORIES true "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/@react-native-community/datetimepicker/android/build/generated/source/codegen/jni/*.cpp")
+set(OLD_GLOB
+  "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/@react-native-community/datetimepicker/android/build/generated/source/codegen/jni/RNDateTimePickerCGen-generated.cpp"
+  )
+if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
+  message("-- GLOB mismatch!")
+  file(TOUCH_NOCREATE "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/android/app/.cxx/Debug/156q223a/x86/CMakeFiles/cmake.verify_globs")
+endif()
+
+# react_codegen_SRCS at /Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/@react-native-community/datetimepicker/android/build/generated/source/codegen/jni/CMakeLists.txt:9 (file)
+file(GLOB NEW_GLOB LIST_DIRECTORIES true "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/@react-native-community/datetimepicker/android/build/generated/source/codegen/jni/react/renderer/components/RNDateTimePickerCGen/*.cpp")
+set(OLD_GLOB
+  "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/@react-native-community/datetimepicker/android/build/generated/source/codegen/jni/react/renderer/components/RNDateTimePickerCGen/ComponentDescriptors.cpp"
+  "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/@react-native-community/datetimepicker/android/build/generated/source/codegen/jni/react/renderer/components/RNDateTimePickerCGen/EventEmitters.cpp"
+  "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/@react-native-community/datetimepicker/android/build/generated/source/codegen/jni/react/renderer/components/RNDateTimePickerCGen/Props.cpp"
+  "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/@react-native-community/datetimepicker/android/build/generated/source/codegen/jni/react/renderer/components/RNDateTimePickerCGen/RNDateTimePickerCGenJSI-generated.cpp"
+  "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/@react-native-community/datetimepicker/android/build/generated/source/codegen/jni/react/renderer/components/RNDateTimePickerCGen/ShadowNodes.cpp"
+  "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/@react-native-community/datetimepicker/android/build/generated/source/codegen/jni/react/renderer/components/RNDateTimePickerCGen/States.cpp"
+  )
+if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
+  message("-- GLOB mismatch!")
+  file(TOUCH_NOCREATE "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/android/app/.cxx/Debug/156q223a/x86/CMakeFiles/cmake.verify_globs")
+endif()
+
 # react_codegen_SRCS at /Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/@react-native-documents/picker/android/build/generated/source/codegen/jni/CMakeLists.txt:9 (file)
 file(GLOB NEW_GLOB LIST_DIRECTORIES true "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/@react-native-documents/picker/android/build/generated/source/codegen/jni/*.cpp")
 set(OLD_GLOB

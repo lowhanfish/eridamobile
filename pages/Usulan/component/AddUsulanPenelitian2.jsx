@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
-import { View, TouchableOpacity, Text, Image, ScrollView, TextInput } from "react-native";
+import { View, TouchableOpacity, Text, Image, ScrollView, TextInput, Button } from "react-native";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
+
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 
 
@@ -15,8 +17,23 @@ const AddUsulanPenelitian2 = () => {
     const setRouteBack = useGlobalStore((state) => state.setRouteBack);
 
 
-    const [text, onChangeText] = useState('Useless Text');
-    const [number, onChangeNumber] = useState('');
+    const [text, onChangeText] = useState('');
+
+    const [date, setDate] = useState(new Date());
+    const [show, setShow] = useState(false);
+    const [mode, setMode] = useState('date'); // or 'time'
+
+
+    const onChange = (event, selectedDate) => {
+        const currentDate = selectedDate || date;
+        setShow(Platform.OS === 'ios'); // untuk iOS tetap tampil, Android hilang
+        setDate(currentDate);
+    };
+
+    const showMode = (currentMode) => {
+        setShow(true);
+        setMode(currentMode);
+    };
 
 
 
@@ -78,11 +95,67 @@ const AddUsulanPenelitian2 = () => {
                     </View>
 
 
+
+
+
+
+                    <View style={{ padding: 16 }}>
+                        <Text>Tanggal: {date.toLocaleString()}</Text>
+                        <Button onPress={() => showMode('date')} title="Pilih Tanggal" />
+                        {/* <Button onPress={() => showMode('time')} title="Pilih Jam" /> */}
+
+                        {show && (
+                            <DateTimePicker
+                                value={date}
+                                mode={mode}
+                                is24Hour={true}
+                                display="default"
+                                onChange={onChange}
+                            />
+                        )}
+                    </View>
+
+
+
+
                     <View style={stylex.borderContent}>
-                        <View>
-                            <View>
-                                <Text>Nomor Surat Pengantarx</Text>
+                        <View style={{ paddingTop: 26, paddingBottom: 36 }}>
+                            <View style={stylex.InputContainer}>
+                                <Text style={stylex.inputText1}>Nomor Surat Pengantar</Text>
                                 <TextInput
+                                    style={stylex.inputx1}
+                                    onChangeText={onChangeText}
+                                    value={text}
+                                />
+                            </View>
+                            <View style={stylex.InputContainer}>
+                                <Text style={stylex.inputText1}>Tanggal Surat Pengantar</Text>
+                                <TextInput
+                                    style={stylex.inputx1}
+                                    onChangeText={onChangeText}
+                                    value={text}
+                                />
+                            </View>
+                            <View style={stylex.InputContainer}>
+                                <Text style={stylex.inputText1}>Nama Penandatangan Surat Pengantar</Text>
+                                <TextInput
+                                    style={stylex.inputx1}
+                                    onChangeText={onChangeText}
+                                    value={text}
+                                />
+                            </View>
+                            <View style={stylex.InputContainer}>
+                                <Text style={stylex.inputText1}>Jabatan Penandatangan Surat Pengantar</Text>
+                                <TextInput
+                                    style={stylex.inputx1}
+                                    onChangeText={onChangeText}
+                                    value={text}
+                                />
+                            </View>
+                            <View style={stylex.InputContainer}>
+                                <Text style={stylex.inputText1}>Surat Pengantar (PDF)</Text>
+                                <TextInput
+                                    style={stylex.inputx1}
                                     onChangeText={onChangeText}
                                     value={text}
                                 />

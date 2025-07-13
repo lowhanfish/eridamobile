@@ -1,5 +1,6 @@
 {
   "buildFiles": [
+    "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/@react-native-community/datetimepicker/android/build/generated/source/codegen/jni/CMakeLists.txt",
     "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/@react-native-documents/picker/android/build/generated/source/codegen/jni/CMakeLists.txt",
     "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/@react-native-documents/viewer/android/build/generated/source/codegen/jni/CMakeLists.txt",
     "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/react-native-blob-util/android/build/generated/source/codegen/jni/CMakeLists.txt",
@@ -52,6 +53,11 @@
         "/Users/dinaskominfo/.gradle/caches/8.14.1/transforms/1d221509c521a46e74f6572064742339/transformed/react-android-0.80.1-debug/prefab/modules/jsi/libs/android.arm64-v8a/libjsi.so",
         "/Users/dinaskominfo/.gradle/caches/8.14.1/transforms/b6a6ccfe82730aba80016e7d9940f54a/transformed/fbjni-0.7.0/prefab/modules/fbjni/libs/android.arm64-v8a/libfbjni.so"
       ]
+    },
+    "react_codegen_RNDateTimePickerCGen::@59b70ddc31ba2f8ef1d2": {
+      "artifactName": "react_codegen_RNDateTimePickerCGen",
+      "abi": "arm64-v8a",
+      "runtimeFiles": []
     },
     "react_codegen_rndocumentviewerCGen::@4e3c0810c03d40d64b20": {
       "artifactName": "react_codegen_rndocumentviewerCGen",

@@ -99,6 +99,20 @@ export const stylex = StyleSheet.create({
         borderColor : '#DEDCDC',
         paddingLeft : 10,
     },
+    inputx1 : {
+        height : 45,
+        borderRadius : 6,
+        borderStyle : 'solid',
+        borderWidth : 1,
+        borderColor : '#DEDCDC',
+        paddingLeft : 10,
+        color : 'black'
+    },
+    inputText1 : {
+        color : '#9D9D9D',
+        fontSize : 14,
+        fontWeight : 400,
+    },
     inputText : {
         color : '#9D9D9D',
         fontSize : 16,

@@ -1,3 +1,4 @@
+/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/@react-native-community/datetimepicker/android/build/generated/source/codegen/jni/CMakeLists.txt
 /Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/@react-native-documents/picker/android/build/generated/source/codegen/jni/CMakeLists.txt
 /Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/@react-native-documents/viewer/android/build/generated/source/codegen/jni/CMakeLists.txt
 /Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/react-native-blob-util/android/build/generated/source/codegen/jni/CMakeLists.txt
