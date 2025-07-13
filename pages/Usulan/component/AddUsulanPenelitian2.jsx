@@ -80,7 +80,7 @@ const AddUsulanPenelitian2 = () => {
                         <View style={[stylex.pageTitleItemContainer, { justifyContent: 'center' }]}>
                             <View >
                                 <Text style={stylex.textTitleList}>FORM USULAN PENELITIAN</Text>
-                                <Text style={stylex.textSubTitleList2}>Identitas pengusul </Text>
+                                <Text style={stylex.textSubTitleList2}>Surat Pengantar Dari Lembaga/Universitas</Text>
                             </View>
                         </View>
                     </View>
