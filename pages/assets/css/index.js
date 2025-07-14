@@ -380,7 +380,7 @@ export const stylex = StyleSheet.create({
     },
 
     modalButton : {
-        width : '150',
+        width : '180',
         height : 35,
         marginTop : 10,
          ...centerAll,

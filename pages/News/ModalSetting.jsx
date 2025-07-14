@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
-import { View, Text, Modal, TouchableOpacity, Button, StyleSheet } from "react-native";
+import { View, Text, Modal, TouchableOpacity, TextInput, StyleSheet } from "react-native";
 
 import { stylex } from '../assets/css';
 // import { StyleSheet } from 'react-native/types_generated/index';
 
 const ModalSetting = ({ visible, onClose }) => { // Terima visible dan onClose sebagai props
+
+    const [text, onChangeText] = useState('');
 
     // Hapus state modalVisible internal, karena sekarang dikelola oleh parent
 
@@ -17,22 +19,26 @@ const ModalSetting = ({ visible, onClose }) => { // Terima visible dan onClose s
         >
             <View style={[stylex.modalOverlay, { flex: 1 }]}>
                 <View style={[stylex.modalContent]}>
-                    <TouchableOpacity style={[stylex.modalButton, stylex.shaddow, { backgroundColor: '#6DA3EF' }]}>
-                        <Text style={stylex.modalText}>Detail Data</Text>
-                    </TouchableOpacity>
+                    <View style={stylex.InputContainer}>
+                        <Text style={stylex.inputText1}>Pilih Jumlah Data ditampilkan</Text>
+                        <TextInput
+                            style={stylex.inputx1}
+                            onChangeText={onChangeText}
+                            value={text}
+                        />
+                    </View>
+
+
                     <TouchableOpacity style={[stylex.modalButton, stylex.shaddow, { backgroundColor: '#EFD06D' }]}>
-                        <Text style={stylex.modalText}>Edit Data</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={[stylex.modalButton, stylex.shaddow, { backgroundColor: '#FF9191' }]}>
-                        <Text style={stylex.modalText}>Hapus Data</Text>
+                        <Text style={stylex.modalText}>Filter</Text>
                     </TouchableOpacity>
 
 
 
 
 
-                    <TouchableOpacity onPress={onClose} style={[stylex.modalButton, stylex.shaddow, { backgroundColor: '#AC4345', marginTop: 22 }]}>
-                        <Text style={stylex.modalText}>Tutup</Text>
+                    <TouchableOpacity onPress={onClose} style={[stylex.modalButton, stylex.shaddow, { backgroundColor: '#AC4345', marginTop: 5 }]}>
+                        <Text style={stylex.modalText}>Batal</Text>
                     </TouchableOpacity>
 
 
