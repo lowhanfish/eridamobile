@@ -139,6 +139,11 @@ const Home = () => {
                 </View>
 
 
+                <View style={[styles.containerContentDiv1]}>
+                    <Text style={stylex.textTitleList}>RECENT RIDA NEWS</Text>
+                </View>
+
+
                 <RecentNews />
 
 
@@ -217,7 +222,23 @@ const styles = StyleSheet.create({
         fontSize: 12,
         fontFamily: 'Courier New',
         marginTop: 5
-    }
+    },
+    containerContentDiv: {
+        flex: 1,
+    },
+    containerContentDiv1: {
+        flex: 1,
+        borderBottomWidth: 5,
+        borderTopWidth: 14,
+        borderBottomColor: '#D9D9D9',
+        borderTopColor: '#D9D9D9',
+        paddingBottom: 12,
+        marginBottom: 13,
+        justifyContent: 'center',
+        paddingTop: 5,
+        marginTop: 15,
+    },
+
 
 });
 

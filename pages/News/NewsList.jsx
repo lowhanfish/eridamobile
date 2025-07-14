@@ -5,10 +5,12 @@ import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { pick } from '@react-native-documents/picker'
 import DateTimePicker from '@react-native-community/datetimepicker';
 
+import useGlobalStore from "../../stores/useGlobalStore";
+import { stylex } from "../assets/css";
+
+import RecentNews from "../../components/RecentNews";
 
 
-import useGlobalStore from "../../../stores/useGlobalStore";
-import { stylex } from "../../assets/css";
 
 
 const NewsList = () => {
@@ -95,6 +97,8 @@ const NewsList = () => {
 
                     <View style={[stylex.borderContent, { marginBottom: 150 }]}>
                         <View style={{ paddingTop: 26 }}>
+
+                            <RecentNews />
 
                         </View>
                     </View>
