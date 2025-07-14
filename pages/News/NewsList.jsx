@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { View, TouchableOpacity, Text, Image, ScrollView, TextInput, Button } from "react-native";
+import { View, TouchableOpacity, Text, Image, ScrollView, TextInput, Button, StyleSheet } from "react-native";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 
 import { pick } from '@react-native-documents/picker'
@@ -9,6 +9,8 @@ import useGlobalStore from "../../stores/useGlobalStore";
 import { stylex } from "../assets/css";
 
 import RecentNews from "../../components/RecentNews";
+import ModalSetting from "./ModalSetting";
+
 
 
 
@@ -19,29 +21,12 @@ const NewsList = () => {
     const visibleBar = useGlobalStore((state) => state.visibleBar)
     const setRouteBack = useGlobalStore((state) => state.setRouteBack);
 
+    const [isModalVisibleSetting, setisModalVisibleSetting] = useState(false);
 
     const [text, onChangeText] = useState('');
 
 
-    // ===== PICKFILE =====
 
-    const [file, setFile] = useState(null);
-
-    const pickDocument = async () => {
-        try {
-            const result = await pick({
-                type: ['application/pdf']
-                // type: ['image/*']
-            });
-            if (result) {
-                setFile(result);
-                console.log('File pickedx :', result);
-            }
-        } catch (err) {
-            console.error('Error picking document:', err);
-        }
-    };
-    // ===== PICKFILE =====
 
 
     // ===== PICKDATE =====
@@ -96,9 +81,29 @@ const NewsList = () => {
 
 
                     <View style={[stylex.borderContent, { marginBottom: 150 }]}>
-                        <View style={{ paddingTop: 26 }}>
+                        <View style={{ paddingTop: 5 }}>
+
+                            <View style={[stylex.InputContainer, styles.filterContainer]}>
+                                <Text style={stylex.inputText1}>Cari Berita</Text>
+                                <View style={stylex.inputWithButtonContainer}>
+
+                                    <TextInput
+                                        style={stylex.inputx2}
+                                        onChangeText={onChangeText}
+                                        value={text}
+                                    />
+                                    <TouchableOpacity onPress={() => setisModalVisibleSetting(true)} style={stylex.inputIcon2}>
+                                        <Image style={stylex.inputIconImg} source={require("../assets/images/icon/filter.png")} />
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
 
                             <RecentNews />
+
+                            <ModalSetting
+                                visible={isModalVisibleSetting} // Teruskan state visibilitas
+                                onClose={() => setisModalVisibleSetting(!isModalVisibleSetting)} // Teruskan fungsi untuk menutup modal
+                            />
 
                         </View>
                     </View>
@@ -112,6 +117,16 @@ const NewsList = () => {
     )
 
 }
+
+
+const styles = StyleSheet.create({
+    filterContainer: {
+        borderStyle: 'solid',
+        borderBottomColor: '#DFDDDD',
+        borderBottomWidth: 5,
+        paddingBottom: 10,
+    }
+})
 
 
 export default NewsList

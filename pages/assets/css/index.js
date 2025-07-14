@@ -111,6 +111,7 @@ export const stylex = StyleSheet.create({
         alignItems : 'center',
         flexDirection : 'row'
     },
+    
     inputText1 : {
         color : '#9D9D9D',
         fontSize : 14,
@@ -129,6 +130,45 @@ export const stylex = StyleSheet.create({
         width : 12,
         height:23,
         marginRight : 9
+    },
+
+
+    inputWithButtonContainer : {
+        flex : 1,
+        flexDirection : 'row',
+    },
+    inputx2 : {
+        flex :1,
+        height : 44.3,
+        borderTopLeftRadius : 6,
+        borderBottomLeftRadius : 6,
+        borderStyle : 'solid',
+         borderLeftWidth : 0.5,
+        borderTopWidth : 0.5,
+        borderBottomWidth : 0.5,
+        borderColor : '#9D9D9D',
+        paddingLeft : 10,
+        color : 'black',
+        // justifyContent : 'center',
+        alignItems : 'center',
+        flexDirection : 'row'
+    },
+    inputIcon2 :{
+        height : 45.1,
+        width : 55,
+        
+         borderTopRightRadius : 6,
+        borderBottomRightRadius : 6,
+        backgroundColor : '#9D9D9D',
+        borderRightWidth : 0.5,
+        borderTopWidth : 0.5,
+        borderBottomWidth : 0.5,
+         borderColor : '#9D9D9D',
+        ...centerAll,
+    },
+    inputIconImg : {
+        width : 22,
+        height : 22
     },
 
     btnLogin :{
