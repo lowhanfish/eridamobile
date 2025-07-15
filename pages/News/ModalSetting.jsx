@@ -29,11 +29,11 @@ const ModalSetting = ({ visible, onClose }) => { // Terima visible dan onClose s
 
                                 onValueChange={(value) => console.log(value)}
                                 items={[
-                                    { label: '- 8 Data -', value: '8' },
-                                    { label: '- 25 Data -', value: '25' },
-                                    { label: '- 50 Data -', value: '50' },
-                                    { label: '- 100 Data -', value: '100' },
-                                    { label: '- 250 Data -', value: '250' },
+                                    { label: '- 8 Data', value: '8' },
+                                    { label: '- 25 Data', value: '25' },
+                                    { label: '- 50 Data', value: '50' },
+                                    { label: '- 100 Data', value: '100' },
+                                    { label: '- 250 Data', value: '250' },
 
                                 ]}
                             />

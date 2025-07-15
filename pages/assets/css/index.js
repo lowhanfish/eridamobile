@@ -418,6 +418,12 @@ export const stylex = StyleSheet.create({
         // backgroundColor :'red',
         margin : 3
     },
+    paginContainerText : {
+        flexDirection : 'row',
+        marginLeft : 10,
+        marginRight : 10,
+        ...centerAll,
+    },
 
     paginTouchBtn : {
         // flex : 1,

@@ -81,7 +81,7 @@ const NewsList = () => {
 
 
 
-                    <View style={[stylex.borderContent, { marginBottom: 150 }]}>
+                    <View style={[stylex.borderContent, { marginBottom: 80 }]}>
                         <View style={{ paddingTop: 5 }}>
 
 
@@ -111,7 +111,29 @@ const NewsList = () => {
                     </View>
 
 
+                    <View style={stylex.paginContainer}>
+                        <View style={{ flex: 1, flexDirection: 'row' }}>
+
+                            <View style={[stylex.paginContainerBtn, { justifyContent: 'flex-end' }]}>
+                                <TouchableOpacity style={[stylex.paginTouchBtn, stylex.shaddow]}>
+                                    <Image style={stylex.paginTouchBtnImg} source={require("../assets/images/icon/prev.png")} />
+                                    <Text style={stylex.paginTouchBtnText}>PREF</Text>
+                                </TouchableOpacity>
+                            </View>
+                            <View style={stylex.paginContainerText}>
+                                <Text>1 - 12</Text>
+                            </View>
+                            <View style={[stylex.paginContainerBtn, { justifyContent: 'flex-start' }]}>
+                                <TouchableOpacity style={[stylex.paginTouchBtn, stylex.shaddow, { justifyContent: 'center' }]}>
+                                    <Text style={stylex.paginTouchBtnText}>NEXT</Text>
+                                    <Image style={stylex.paginTouchBtnImg} source={require("../assets/images/icon/next.png")} />
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+
+                    </View>
                 </View>
+
 
             </ScrollView>
 
