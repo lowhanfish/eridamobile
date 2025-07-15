@@ -78,6 +78,34 @@
         }
       }
     },
+    "@react-native-picker/picker": {
+      "root": "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/@react-native-picker/picker",
+      "name": "@react-native-picker/picker",
+      "platforms": {
+        "ios": {
+          "podspecPath": "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/@react-native-picker/picker/RNCPicker.podspec",
+          "version": "2.11.1",
+          "configurations": [],
+          "scriptPhases": []
+        },
+        "android": {
+          "sourceDir": "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/@react-native-picker/picker/android",
+          "packageImportPath": "import com.reactnativecommunity.picker.RNCPickerPackage;",
+          "packageInstance": "new RNCPickerPackage()",
+          "buildTypes": [],
+          "libraryName": "rnpicker",
+          "componentDescriptors": [
+            "RNCAndroidDialogPickerComponentDescriptor",
+            "RNCAndroidDropdownPickerComponentDescriptor"
+          ],
+          "cmakeListsPath": "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/@react-native-picker/picker/android/src/main/jni/CMakeLists.txt",
+          "cxxModuleCMakeListsModuleName": null,
+          "cxxModuleCMakeListsPath": null,
+          "cxxModuleHeaderName": null,
+          "isPureCxxDependency": false
+        }
+      }
+    },
     "react-native-blob-util": {
       "root": "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/react-native-blob-util",
       "name": "react-native-blob-util",

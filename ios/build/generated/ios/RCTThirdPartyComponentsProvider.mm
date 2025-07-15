@@ -21,6 +21,7 @@
   dispatch_once(&nativeComponentsToken, ^{
     thirdPartyComponents = @{
 		@"RNDateTimePicker": NSClassFromString(@"RNDateTimePickerComponentView"), // @react-native-community/datetimepicker
+		@"RNCPicker": NSClassFromString(@"RNCPickerComponentView"), // @react-native-picker/picker
 		@"RNCSafeAreaProvider": NSClassFromString(@"RNCSafeAreaProviderComponentView"), // react-native-safe-area-context
 		@"RNCSafeAreaView": NSClassFromString(@"RNCSafeAreaViewComponentView"), // react-native-safe-area-context
 		@"RNSFullWindowOverlay": NSClassFromString(@"RNSFullWindowOverlay"), // react-native-screens

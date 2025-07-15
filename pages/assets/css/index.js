@@ -89,6 +89,7 @@ export const stylex = StyleSheet.create({
 
     InputContainer : {
         paddingTop : 8,
+        width : '100%'
     },
 
     inputx : {
@@ -110,6 +111,19 @@ export const stylex = StyleSheet.create({
         // justifyContent : 'center',
         alignItems : 'center',
         flexDirection : 'row'
+    },
+    inputxSelect : {
+        height : 45,
+        borderRadius : 6,
+        borderStyle : 'solid',
+        borderWidth : 1,
+        borderColor : '#DEDCDC',
+
+        color : 'black',
+        justifyContent : 'center',
+        alignItems : 'center',
+        // flex : 1,
+        width : '200'
     },
     
     inputText1 : {
@@ -380,7 +394,7 @@ export const stylex = StyleSheet.create({
     },
 
     modalButton : {
-        width : '180',
+        width : '200',
         height : 35,
         marginTop : 10,
          ...centerAll,

@@ -13,6 +13,7 @@
     "@react-native-community/datetimepicker": "^8.4.2",
     "@react-native-documents/picker": "^10.1.5",
     "@react-native-documents/viewer": "^1.0.1",
+    "@react-native-picker/picker": "^2.11.1",
     "@react-native/new-app-screen": "0.80.1",
     "@react-navigation/elements": "^2.5.2",
     "@react-navigation/native": "^7.1.14",
@@ -21,6 +22,7 @@
     "react-native": "0.80.1",
     "react-native-blob-util": "^0.22.2",
     "react-native-pdf": "^6.7.7",
+    "react-native-picker-select": "^9.3.1",
     "react-native-safe-area-context": "^5.5.0",
     "react-native-screens": "^4.11.1",
     "zustand": "^5.0.6"
