@@ -131,3 +131,16 @@ The UI/UX design for this project is available in Figma.
 ```sh
 jenv local zulu64-17.0.10
 ```
+
+### Troubleshooting: Device Connection Error
+
+If you encounter an error message like:
+
+> "the devices must either be USB connected..."
+
+Then, at the root of your project, try running the following commands:
+
+```bash
+adb kill-server
+adb start-server
+```
