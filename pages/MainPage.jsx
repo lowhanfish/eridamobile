@@ -20,6 +20,7 @@ import AddUsulanPenelitian3 from "./Usulan/component/AddUsulanPenelitian3.jsx";
 import AddUsulanPenelitian4 from "./Usulan/component/AddUsulanPenelitian4.jsx";
 
 import NewsList from "./News/NewsList.jsx";
+import NewsDetail from "./News/NewsDetail.jsx";
 
 
 
@@ -40,6 +41,7 @@ const ContentAll = () => {
             <ContentStack.Screen name="AddUsulanPenelitian4" component={AddUsulanPenelitian4} />
 
             <ContentStack.Screen name="NewsList" component={NewsList} />
+            <ContentStack.Screen name="NewsDetail" component={NewsDetail} />
         </ContentStack.Navigator>
     );
 };

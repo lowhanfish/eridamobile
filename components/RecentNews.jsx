@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
 import { View, Image, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 import Imagex from "./Imagex";
 import { stylex } from "../pages/assets/css/index";
 
 
 const RecentNews = () => {
+
+    const navigation = useNavigation()
 
     return (
         <>
@@ -21,7 +24,7 @@ const RecentNews = () => {
                             </View>
                             <View style={stylex.newsListContainerText}>
                                 <View>
-                                    <TouchableOpacity>
+                                    <TouchableOpacity onPress={() => navigation.navigate("NewsDetail")}>
                                         <Text style={stylex.newsListTitle}>
                                             Sekda Konsel Terima 30 Mahasiswa KKN-PPM UGM
                                         </Text>

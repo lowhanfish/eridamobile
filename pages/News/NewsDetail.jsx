@@ -3,6 +3,10 @@ import { View, TouchableOpacity, Text, Image, StyleSheet, ScrollView } from "rea
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 
 import useGlobalStore from "../../stores/useGlobalStore";
+import { stylex } from "../assets/css";
+import ImageLib from "../../components/ImageLib.jsx";
+
+
 
 const NewsDetail = () => {
 
@@ -19,7 +23,13 @@ const NewsDetail = () => {
     return (
         <View style={stylex.container}>
             <ScrollView style={stylex.scrollPage}>
+                <View>
 
+                    <ImageLib
+                        urix={"https://server-erida.konaweselatankab.go.id/uploads/1752836088394.jpg"} customWidth={'100%'}
+                    />
+                    <Text>asdad</Text>
+                </View>
             </ScrollView>
         </View>
     )
