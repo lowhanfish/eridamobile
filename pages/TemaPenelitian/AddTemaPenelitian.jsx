@@ -8,12 +8,17 @@ import { stylex } from "../assets/css";
 const AddTemaPenelitian = () => {
 
     const navigation = useNavigation();
+    const visibleBar = useGlobalStore(() => state.visibleBar);
 
 
 
 
 
-    useFocusEffect()
+    useFocusEffect(
+        useCallback(() => {
+            visibleBar(true, true);
+        }, [visibleBar])
+    )
 
 
     return (
