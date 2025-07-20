@@ -75,7 +75,7 @@ const Home = () => {
 
                 <View style={styles.menuImage}>
                     <View style={styles.menuImageContainer}>
-                        <TouchableOpacity style={[styles.menuImageContainerItem, stylex.shaddow]}>
+                        <TouchableOpacity onPress={() => navigation.navigate("ListUsulan")} style={[styles.menuImageContainerItem, stylex.shaddow]}>
                             <Image style={styles.imageMenuItemList} source={require('../../pages/assets/images/izin_penelitian.png')} />
                             {/* <Imagex width={65} urix={require('../../pages/assets/images/izin_penelitian.png')} /> */}
                         </TouchableOpacity>
@@ -107,7 +107,7 @@ const Home = () => {
 
                     <View style={[styles.containerContent, { marginTop: 23 }]}>
                         <View style={[styles.containerContentDiv, { justifyContent: 'center', alignItems: 'center', marginTop: -20 }]}>
-                            <TouchableOpacity onPress={() => navigation.navigate("ListUsulan")}>
+                            <TouchableOpacity>
                                 <Imagex width={150} urix={require('../../pages/assets/images/list_usulan.png')} />
                             </TouchableOpacity>
                         </View>
