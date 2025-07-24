@@ -492,6 +492,22 @@ export const stylex = StyleSheet.create({
         height : 13,
     },
 
+    btnPickFile: {
+        flexDirection :'row',
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: 45,
+        borderRadius: 6,
+        backgroundColor: '#DFB11C',
+        // marginTop: -25,
+
+    },
+    btnPickFileText: {
+        color: 'white',
+        fontWeight: '700'
+    },
+
 
 
 
