@@ -22,6 +22,8 @@ import AddUsulanPenelitian4 from "./Usulan/component/AddUsulanPenelitian4.jsx";
 import NewsList from "./News/NewsList.jsx";
 import NewsDetail from "./News/NewsDetail.jsx";
 
+import ListTemaPenelitian from "./TemaPenelitian/ListTemaPenelitian.jsx";
+import AddTemaPenelitian from "./TemaPenelitian/AddTemaPenelitian.jsx";
 
 
 
@@ -42,6 +44,9 @@ const ContentAll = () => {
 
             <ContentStack.Screen name="NewsList" component={NewsList} />
             <ContentStack.Screen name="NewsDetail" component={NewsDetail} />
+
+            <ContentStack.Screen name="ListTemaPenelitian" component={ListTemaPenelitian} />
+            <ContentStack.Screen name="AddTemaPenelitian" component={AddTemaPenelitian} />
         </ContentStack.Navigator>
     );
 };

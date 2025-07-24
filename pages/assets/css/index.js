@@ -331,7 +331,7 @@ export const stylex = StyleSheet.create({
     DataListCont :{
         flex : 1,
         flexDirection : 'row',
-        backgroundColor : '#FFF3F3',
+        // backgroundColor : '#FFF3F3',
         paddingTop : 5,
         paddingBottom : 5,
         paddingLeft : 5,

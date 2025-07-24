@@ -8,14 +8,13 @@ import { stylex } from "../assets/css";
 const AddTemaPenelitian = () => {
 
     const navigation = useNavigation();
-    const visibleBar = useGlobalStore(() => state.visibleBar);
-
-
-
+    const visibleBar = useGlobalStore((state) => state.visibleBar);
+    const setRouteBack = useGlobalStore((state) => state.setRouteBack);
 
 
     useFocusEffect(
         useCallback(() => {
+            setRouteBack("ListTemaPenelitian");
             visibleBar(true, true);
         }, [visibleBar])
     )
@@ -29,3 +28,4 @@ const AddTemaPenelitian = () => {
 
 }
 
+export default AddTemaPenelitian

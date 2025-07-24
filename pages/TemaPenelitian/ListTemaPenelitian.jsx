@@ -1,26 +1,20 @@
-import { useState, useEffect, useCallback } from "react";
-import { Modal, Button, View, Text, Image, TouchableOpacity, StyleSheet, ScrollView, } from "react-native";
-import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { useState, useCallback, useEffect } from "react";
+import { View, ScrollView, TouchableOpacity, Text, Image, StyleSheet } from "react-native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
+
 import useGlobalStore from "../../stores/useGlobalStore";
-
 import { stylex } from "../assets/css";
-
-import ModalSetting from "./ModalSetting.jsx";
-
+import ModalSetting from "../Usulan/ModalSetting";
 
 
-const ListUsulan = () => {
+
+
+const ListTemaPenelitian = () => {
+
     const navigation = useNavigation();
-
-
-
-
-    const visibleBar = useGlobalStore((state) => state.visibleBar);
+    const visibleBar = useGlobalStore((state) => state.visibleBar)
     const setRouteBack = useGlobalStore((state) => state.setRouteBack);
-    const [isModalVisibleSetting, setisModalVisibleSetting] = useState(false);
-
-
-
+    const [isModalVisibleSetting, setisModalVisibleSetting] = useState(false)
 
 
 
@@ -29,24 +23,23 @@ const ListUsulan = () => {
             setRouteBack("Home");
             visibleBar(true, true)
         }, [visibleBar])
-
-
     )
 
 
     return (
         <View style={stylex.container}>
             <ScrollView style={stylex.scrollPage}>
+
                 <View style={{ flex: 1 }}>
                     <View style={stylex.pageTitleContainer}>
                         <View style={[stylex.pageTitleItemContainer, { justifyContent: 'center' }]}>
                             <View >
-                                <Text style={stylex.textTitleList}>LIST USULAN PENELITIAN</Text>
+                                <Text style={stylex.textTitleList}>LIST USULAN TEMA PENELITIAN</Text>
                                 <Text style={stylex.textSubTitleList2}>Izin Penelitian</Text>
                             </View>
                         </View>
                         <View style={[{ alignItems: 'flex-end' }]}>
-                            <TouchableOpacity onPress={() => navigation.navigate("AddUsulanPenelitian1")} style={[stylex.btnCornerFlat, stylex.shaddow]}>
+                            <TouchableOpacity onPress={() => navigation.navigate("AddTemaPenelitian")} style={[stylex.btnCornerFlat, stylex.shaddow]}>
                                 <View>
                                     <Image style={stylex.btnCornerFlatIcon} source={require('../assets/images/icon/plus.png')} />
                                 </View>
@@ -61,6 +54,11 @@ const ListUsulan = () => {
                         visible={isModalVisibleSetting} // Teruskan state visibilitas
                         onClose={() => setisModalVisibleSetting(!isModalVisibleSetting)} // Teruskan fungsi untuk menutup modal
                     />
+
+
+
+
+
 
                     <View style={stylex.borderContent}>
 
@@ -93,14 +91,7 @@ const ListUsulan = () => {
     )
 }
 
+export default ListTemaPenelitian
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
 
-});
 
-export default ListUsulan

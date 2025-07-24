@@ -94,7 +94,7 @@ const Home = () => {
                         <Text style={styles.imageMenuItemListText}>Lomba Inovasi Daerah</Text>
                     </View>
                     <View style={styles.menuImageContainer}>
-                        <TouchableOpacity style={[styles.menuImageContainerItem, stylex.shaddow]}>
+                        <TouchableOpacity onPress={() => navigation.navigate("ListTemaPenelitian")} style={[styles.menuImageContainerItem, stylex.shaddow]}>
                             <Image style={styles.imageMenuItemList} source={require('../../pages/assets/images/usulan_tema.png')} />
                         </TouchableOpacity>
                         <Text style={styles.imageMenuItemListText}>Usulan tema penelitian</Text>
