@@ -368,6 +368,24 @@ export const stylex = StyleSheet.create({
         color : '#8A8A8A',
         marginTop : 4,
     },
+    DataListText4 : {
+        fontSize : 10,
+        fontWeight : 900,
+        color : '#7F7F7F',
+    },
+    DataListText5 : {
+        fontSize : 8,
+        fontWeight : 900,
+        color : '#8A8A8A',
+    },
+
+    DataListContainerBottom : {
+        borderStyle : 'solid',
+        borderTopWidth : 1,
+        borderTopColor : '#8A8A8A',
+        marginRight :10,
+        marginTop:2
+    },
 
 
 

@@ -66,14 +66,18 @@ const ListTemaPenelitian = () => {
                             <View key={i} style={{ flex: 1, marginTop: 9 }}>
 
                                 <View >
-                                    <TouchableOpacity style={[stylex.DataListCont, stylex.shaddow, { backgroundColor: '#FFF3F3' }]} onLongPress={() => setisModalVisibleSetting(true)}>
+                                    {/*FFF3F3 F3FFFD FFFFF3*/}
+                                    <TouchableOpacity style={[stylex.DataListCont, stylex.shaddow, { backgroundColor: '#FFFFF3' }]} onLongPress={() => setisModalVisibleSetting(true)}>
                                         <View style={stylex.DataListImgCont}>
                                             <Image style={stylex.DataListImg} source={require('../assets/images/izin_penelitian.png')} />
                                         </View>
                                         <View style={stylex.DataListTextCont}>
-                                            <Text style={stylex.DataListText1}>Dr. Djarot Melin</Text>
+                                            <Text style={stylex.DataListText1}>UNIVERSITAS HALUOLEO</Text>
                                             <Text style={stylex.DataListText2}>IMPLEMENTASI METODE SIMPLE ADDITIVE WEIGHTING BERBASIS WEB UNTUK MENENTUKAN PENERIMA BANTUAN RUMAH LAYAK HUNI PADA KECAMATAN ANGATA</Text>
-                                            <Text style={stylex.DataListText3}>22 Mei 2025</Text>
+                                            <View style={stylex.DataListContainerBottom}>
+                                                <Text style={stylex.DataListText4}>Djarot. ST.,MT (+6285241766456)</Text>
+                                                <Text style={stylex.DataListText5}>22 Mei 2025</Text>
+                                            </View>
                                         </View>
                                     </TouchableOpacity>
                                 </View>
