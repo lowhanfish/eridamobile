@@ -121,7 +121,7 @@ const NewsList = () => {
                                 </TouchableOpacity>
                             </View>
                             <View style={stylex.paginContainerText}>
-                                <Text>1 - 12</Text>
+                                <Text style={stylex.paginText}>1 - 12</Text>
                             </View>
                             <View style={[stylex.paginContainerBtn, { justifyContent: 'flex-start' }]}>
                                 <TouchableOpacity style={[stylex.paginTouchBtn, stylex.shaddow, { justifyContent: 'center' }]}>

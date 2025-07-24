@@ -37,7 +37,7 @@ const ListUsulan = () => {
     return (
         <View style={stylex.container}>
             <ScrollView style={stylex.scrollPage}>
-                <View style={{ flex: 1 }}>
+                <View style={{ flex: 1, paddingBottom: 72 }}>
                     <View style={stylex.pageTitleContainer}>
                         <View style={[stylex.pageTitleItemContainer, { justifyContent: 'center' }]}>
                             <View >
@@ -84,6 +84,28 @@ const ListUsulan = () => {
 
 
 
+                    </View>
+
+                </View>
+
+                <View style={[stylex.paginContainer, { marginBottom: 18 }]}>
+                    <View style={{ flex: 1, flexDirection: 'row' }}>
+
+                        <View style={[stylex.paginContainerBtn, { justifyContent: 'flex-end' }]}>
+                            <TouchableOpacity style={[stylex.paginTouchBtn, stylex.shaddow]}>
+                                <Image style={stylex.paginTouchBtnImg} source={require("../assets/images/icon/prev.png")} />
+                                <Text style={stylex.paginTouchBtnText}>PREF</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={stylex.paginContainerText}>
+                            <Text style={stylex.paginText}>1 - 12</Text>
+                        </View>
+                        <View style={[stylex.paginContainerBtn, { justifyContent: 'flex-start' }]}>
+                            <TouchableOpacity style={[stylex.paginTouchBtn, stylex.shaddow, { justifyContent: 'center' }]}>
+                                <Text style={stylex.paginTouchBtnText}>NEXT</Text>
+                                <Image style={stylex.paginTouchBtnImg} source={require("../assets/images/icon/next.png")} />
+                            </TouchableOpacity>
+                        </View>
                     </View>
 
                 </View>
