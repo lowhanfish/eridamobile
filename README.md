@@ -1,6 +1,5 @@
 # 📱 erida – Mobile App for Research Management
 
-#####(Kiken-Batara)
 
 **Erida** is a mobile application developed with React Native.  
 It is designed for managing data and submitting research proposals at the **Regional Research and Innovation Agency of South Konawe Regency** _(Badan Riset dan Inovasi Daerah Kabupaten Konawe Selatan)_.
