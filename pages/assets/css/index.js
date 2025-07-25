@@ -461,6 +461,11 @@ export const stylex = StyleSheet.create({
         fontSize : 10,
         fontWeight :'bold'
     },
+    paginText : {
+        color : '#969696',
+        fontSize : 10,
+        fontWeight : 'bold',
+    },
 
     IndicatorContainer : {
         flex : 1,
