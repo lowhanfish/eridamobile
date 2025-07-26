@@ -78,7 +78,6 @@ const MainPage = () => {
             {
                 bottomBar ? (
                     <BottomBar navigation={navigation} />
-
                 ) : (
                     <></>
                 )
