@@ -532,6 +532,22 @@ export const stylex = StyleSheet.create({
     },
 
 
+    ErrorAlert : {
+        backgroundColor :'#C96C5B',
+        paddingTop : 10,
+        paddingBottom : 0,
+        borderRadius : 5,
+        flexDirection : 'row',
+        ...centerAll,
+    },
+
+    ErrorAlertText : {
+        fontSize : 11,
+        fontWeight : 'bold',
+        color : 'white',
+    },
+
+
 
 
     centerAll : {
