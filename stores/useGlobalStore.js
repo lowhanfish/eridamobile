@@ -1,7 +1,7 @@
 import { create } from "zustand";
 
 
-var URL = 'http://localhost:5070/';
+var URL = 'http://172.16.129.204:5070/';
 
 const useGlobalStore = create((state)=>({
     name : "Ini dari store",

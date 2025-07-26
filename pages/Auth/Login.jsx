@@ -40,34 +40,35 @@ const loginSchema = Joi.object({
 
 // create a component
 const Login = () => {
-    const navigation = useNavigation()
-    const url = useGlobalStore((state) => state.url)
+    var navigation = useNavigation()
+    var statex = useGlobalStore((state) => state.url)
 
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+    var [username, setUsername] = useState('monkeydluffy');
+    var [password, setPassword] = useState('monkeydluffy');
     var [errors, setErrors] = useState("");
 
-    const RequestLogin = async () => {
+    const RequestLogin = async (data) => {
         console.log("Hy saya login");
         // navigation.navigate("MainPage")
         try {
-            const url = url.URL_APP + "auth/login";
-            const data = null;
-            const authToken = ''
+            const url = statex.URL_APP + "auth/login";
+            // const data = null;
+            // const authToken = ''
             // const response = await axios.post(url, data,{
             //     headers : {'Authorization':authToken, 'Content-Type': 'application/json'}
             // });
             const response = await axios.post(url, data);
-            console.log(error);
             return response.data;
 
         } catch (error) {
-            console.log("error :", error);
+            // console.log("error1 :", error.response.data);
+            // console.log("error2 :", error.response.data.message);
+            setErrors(error.response.data.message);
             throw error
         }
     }
 
-    const LoginAccount = () => {
+    const LoginAccount = async () => {
 
         const { error } = loginSchema.validate({ username, password }, { abortEarly: false });
         if (error) {
@@ -79,14 +80,16 @@ const Login = () => {
                 const fieldName = detail.path[0];
                 newErrors[fieldName] = detail.message;
                 setErrors(
-                    errors += `${detail.message}\n`
+                    errors += `${detail.message}`
                 );
             });
             // console.log("Validation Errors:", newErrors);
 
         } else {
             setErrors("");
-            console.log('Data valid:', { username, password });
+            const data = { username, password }
+            const result = await RequestLogin(data)
+            console.log(result);
 
             // 11. Lanjutkan dengan logika bisnis utama, misal kirim data ke API
             // sendLoginRequest(username, password);

@@ -535,7 +535,7 @@ export const stylex = StyleSheet.create({
     ErrorAlert : {
         backgroundColor :'#C96C5B',
         paddingTop : 10,
-        paddingBottom : 0,
+        paddingBottom : 10,
         borderRadius : 5,
         flexDirection : 'row',
         ...centerAll,
