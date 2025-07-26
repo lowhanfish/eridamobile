@@ -7,6 +7,11 @@ export const AuthProvider = ({ children }) => {
   const [userToken, setUserToken] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
+
+  const ValidateToken = ()=>{
+
+  }
+
   // Fungsi untuk login
   const login = async (token) => {
     try {
