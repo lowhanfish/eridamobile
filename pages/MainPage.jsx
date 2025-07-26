@@ -25,10 +25,35 @@ import NewsDetail from "./News/NewsDetail.jsx";
 import ListTemaPenelitian from "./TemaPenelitian/ListTemaPenelitian.jsx";
 import AddTemaPenelitian from "./TemaPenelitian/AddTemaPenelitian.jsx";
 
-
-
-
 const ContentStack = createNativeStackNavigator();
+
+
+const loginSchema = Joi.object({
+    username: Joi.string()
+        // .alphanum() // Opsional: jika username hanya boleh huruf dan angka
+        .min(6)
+        .max(12)
+        .required()
+        .messages({
+            'string.empty': `Username tidak boleh kosong.`,
+            'string.alphanum': `Nama pengguna hanya boleh huruf dan angka.`,
+            'string.min': `Nama pengguna minimal {#limit} karakter.`,
+            'string.max': `Nama pengguna maksimal {#limit} karakter.`,
+            'any.required': `Nama pengguna wajib diisi.`
+        }),
+    password: Joi.string()
+        .min(6)
+        .max(12)
+        .required()
+        .messages({
+            'string.empty': `Password tidak boleh kosong.`,
+            'string.empty': `Password tidak boleh kosong.`,
+            'string.min': `Password minimal {#limit} karakter.`,
+            'string.max': `Nama pengguna maksimal {#limit} karakter.`,
+            'any.required': `Password wajib diisi.`
+        }),
+});
+
 
 const ContentAll = () => {
     return (

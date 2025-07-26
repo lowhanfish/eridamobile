@@ -14,14 +14,13 @@ import { stylex } from "../../pages/assets/css/index.js";
 // create a component
 const Login = () => {
     const navigation = useNavigation()
+    const url = useGlobalStore((state) => state.url)
 
-    // const name = useGlobalStore((state) => state.name)
-
-    const LoginAccount = async () => {
+    const RequestLogin = async () => {
         console.log("Hy saya login");
         // navigation.navigate("MainPage")
         try {
-            const url = '';
+            const url = url.URL_APP + "auth/login";
             const data = null;
             const authToken = ''
             // const response = await axios.post(url, data,{
@@ -34,9 +33,10 @@ const Login = () => {
         } catch (error) {
             console.log("error :", error);
             throw error
-
         }
+    }
 
+    const LoginAccount = () => {
 
     }
 
