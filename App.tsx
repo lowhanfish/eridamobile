@@ -21,8 +21,8 @@ const Stack = createNativeStackNavigator();
 function RootStack() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="MainPage" component={MainPage} />
       <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="MainPage" component={MainPage} />
       <Stack.Screen name="Register" component={Register} />
     </Stack.Navigator>
   );

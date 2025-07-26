@@ -1,8 +1,11 @@
 //import liraries
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView, TextInput } from 'react-native';
-import { useNavigation } from "@react-navigation/native";
 
+import axios from "axios";
+import Joi from 'joi';
+
+import { useNavigation } from "@react-navigation/native";
 import useGlobalStore from "../../stores/useGlobalStore.js";
 
 import { stylex } from "../../pages/assets/css/index.js";
@@ -14,11 +17,28 @@ const Login = () => {
 
     // const name = useGlobalStore((state) => state.name)
 
-    const LoginAccount = () => {
+    const LoginAccount = async () => {
         console.log("Hy saya login");
-        navigation.navigate("MainPage")
-    }
+        // navigation.navigate("MainPage")
+        try {
+            const url = '';
+            const data = null;
+            const authToken = ''
+            // const response = await axios.post(url, data,{
+            //     headers : {'Authorization':authToken, 'Content-Type': 'application/json'}
+            // });
+            const response = await axios.post(url, data);
+            console.log(error);
+            return response.data;
 
+        } catch (error) {
+            console.log("error :", error);
+            throw error
+
+        }
+
+
+    }
 
     return (
         <View style={stylex.container}>
