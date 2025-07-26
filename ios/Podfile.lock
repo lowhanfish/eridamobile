@@ -2209,6 +2209,34 @@ PODS:
     - React-perflogger (= 0.80.1)
     - React-utils (= 0.80.1)
     - SocketRocket
+  - RNCAsyncStorage (2.2.0):
+    - boost
+    - DoubleConversion
+    - fast_float
+    - fmt
+    - glog
+    - RCT-Folly
+    - RCT-Folly/Fabric
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-jsc
+    - React-jsi
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-renderercss
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - SocketRocket
+    - Yoga
   - RNCPicker (2.11.1):
     - boost
     - DoubleConversion
@@ -2404,6 +2432,7 @@ DEPENDENCIES:
   - ReactAppDependencyProvider (from `build/generated/ios`)
   - ReactCodegen (from `build/generated/ios`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
   - "RNCPicker (from `../node_modules/@react-native-picker/picker`)"
   - "RNDateTimePicker (from `../node_modules/@react-native-community/datetimepicker`)"
   - RNScreens (from `../node_modules/react-native-screens`)
@@ -2563,6 +2592,8 @@ EXTERNAL SOURCES:
     :path: build/generated/ios
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  RNCAsyncStorage:
+    :path: "../node_modules/@react-native-async-storage/async-storage"
   RNCPicker:
     :path: "../node_modules/@react-native-picker/picker"
   RNDateTimePicker:
@@ -2647,6 +2678,7 @@ SPEC CHECKSUMS:
   ReactAppDependencyProvider: afd905e84ee36e1678016ae04d7370c75ed539be
   ReactCodegen: cbe81c2a57b146be99212d9cfb2081cfdcfd2133
   ReactCommon: 832545e6bc03f7b2d02216e626f871532ec8da4f
+  RNCAsyncStorage: 900a4cfac7a783ee1d82c3c3678c4777787a5558
   RNCPicker: c04572d21fdaf07b438897c6d3c9fa6a6e48ae67
   RNDateTimePicker: 7b88eb6005864613e9e757da1780216f7879565d
   RNScreens: 720c0d6adf8da60c0f57200ea77dbf8f999d5a37

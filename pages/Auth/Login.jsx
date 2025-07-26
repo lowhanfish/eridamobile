@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView, TextInput 
 
 import axios from "axios";
 import Joi from 'joi';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { useNavigation } from "@react-navigation/native";
 import useGlobalStore from "../../stores/useGlobalStore.js";

@@ -46,6 +46,8 @@
 #import "react/renderer/components/safeareacontext/States.h"
 #import "ReactNativeBlobUtilSpec/ReactNativeBlobUtilSpec.h"
 #import "ReactNativeBlobUtilSpecJSI.h"
+#import "rnasyncstorage/rnasyncstorage.h"
+#import "rnasyncstorageJSI.h"
 #import "RNDateTimePickerCGen/RNDateTimePickerCGen.h"
 #import "RNDateTimePickerCGenJSI.h"
 #import "rndocumentpickerCGen/rndocumentpickerCGen.h"
