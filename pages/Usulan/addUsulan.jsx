@@ -35,6 +35,11 @@ const AddUsulan = () => {
         setFormData(prev => ({ ...prev, ...newData }));
     };
 
+    const addData = () => {
+        console.log("Sukses menambah data");
+        navigation.navigate("ListUsulan")
+    }
+
 
 
 
@@ -54,7 +59,7 @@ const AddUsulan = () => {
         case 3:
             return <AddUsulanPenelitian3 data={formData} updateData={updateFormData} nextStep={nextStep} prevStep={prevStep} />;
         case 4:
-            return <AddUsulanPenelitian4 data={formData} updateData={updateFormData} nextStep={nextStep} prevStep={prevStep} />;
+            return <AddUsulanPenelitian4 data={formData} updateData={updateFormData} nextStep={nextStep} prevStep={prevStep} addData={addData} />;
         default:
             return null;
     }
