@@ -46,7 +46,7 @@ const ListUsulan = () => {
                             </View>
                         </View>
                         <View style={[{ alignItems: 'flex-end' }]}>
-                            <TouchableOpacity onPress={() => navigation.navigate("addUsulan")} style={[stylex.btnCornerFlat, stylex.shaddow]}>
+                            <TouchableOpacity onPress={() => navigation.navigate("AddUsulan")} style={[stylex.btnCornerFlat, stylex.shaddow]}>
                                 <View>
                                     <Image style={stylex.btnCornerFlatIcon} source={require('../assets/images/icon/plus.png')} />
                                 </View>

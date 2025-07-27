@@ -13,7 +13,7 @@ import AddUsulanPenelitian4 from "./component/AddUsulanPenelitian4";
 
 
 
-const addUsulan = () => {
+const AddUsulan = () => {
     const navigation = useNavigation();
     const visibleBar = useGlobalStore((state) => state.visibleBar);
     const setRouteBack = useGlobalStore((state) => state.setRouteBack);
@@ -67,4 +67,4 @@ const addUsulan = () => {
 }
 
 
-export default addUsulan
+export default AddUsulan

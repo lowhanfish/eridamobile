@@ -14,7 +14,7 @@ import Home from "../pages/Home/Home.jsx";
 import Profile from "../pages/Profile/Profile.jsx";
 
 import ListUsulan from "../pages/Usulan/ListUsulan.jsx";
-import addUsulan from "../pages/Usulan/addUsulan.jsx";
+import AddUsulan from "./Usulan/AddUsulan.jsx";
 import AddUsulanPenelitian1 from "./Usulan/component/AddUsulanPenelitian1.jsx";
 import AddUsulanPenelitian2 from "./Usulan/component/AddUsulanPenelitian2.jsx";
 import AddUsulanPenelitian3 from "./Usulan/component/AddUsulanPenelitian3.jsx";
@@ -36,7 +36,7 @@ const ContentAll = () => {
             <ContentStack.Screen name="Profile" component={Profile} />
 
             <ContentStack.Screen name="ListUsulan" component={ListUsulan} />
-            <ContentStack.Screen name="addUsulan" component={addUsulan} />
+            <ContentStack.Screen name="AddUsulan" component={AddUsulan} />
             <ContentStack.Screen name="AddUsulanPenelitian1" component={AddUsulanPenelitian1} />
             <ContentStack.Screen name="AddUsulanPenelitian2" component={AddUsulanPenelitian2} />
             <ContentStack.Screen name="AddUsulanPenelitian3" component={AddUsulanPenelitian3} />

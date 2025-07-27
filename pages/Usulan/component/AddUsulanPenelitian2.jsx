@@ -11,14 +11,26 @@ import useGlobalStore from "../../../stores/useGlobalStore";
 import { stylex } from "../../assets/css";
 
 
-const AddUsulanPenelitian2 = () => {
+const AddUsulanPenelitian2 = ({ data, updateData, nextStep, prevStep }) => {
     const navigation = useNavigation();
-
     const visibleBar = useGlobalStore((state) => state.visibleBar)
     const setRouteBack = useGlobalStore((state) => state.setRouteBack);
 
 
     const [text, onChangeText] = useState('');
+
+
+    // ===== LIFTING_STATE_UP =====
+    const [name, setName] = useState(data.name);
+    const handleNext = () => {
+        updateData({ name }); // simpan data
+        nextStep(); // lanjut ke step berikutnya
+    };
+    const handlePrev = () => {
+        updateData({ name }); // simpan data
+        prevStep(); // lanjut ke step berikutnya
+    };
+    // ===== LIFTING_STATE_UP =====
 
 
     // ===== PICKFILE =====
@@ -209,13 +221,13 @@ const AddUsulanPenelitian2 = () => {
                 <View style={{ flex: 1, flexDirection: 'row' }}>
 
                     <View style={[stylex.paginContainerBtn, { justifyContent: 'flex-end' }]}>
-                        <TouchableOpacity onPress={() => navigation.navigate("AddUsulanPenelitian1")} style={[stylex.paginTouchBtn, stylex.shaddow]}>
+                        <TouchableOpacity onPress={handlePrev} style={[stylex.paginTouchBtn, stylex.shaddow]}>
                             <Image style={stylex.paginTouchBtnImg} source={require("../../assets/images/icon/prev.png")} />
                             <Text style={stylex.paginTouchBtnText}>PREF</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={[stylex.paginContainerBtn, { justifyContent: 'flex-start' }]}>
-                        <TouchableOpacity onPress={() => navigation.navigate("AddUsulanPenelitian3")} style={[stylex.paginTouchBtn, stylex.shaddow, { justifyContent: 'center' }]}>
+                        <TouchableOpacity onPress={handleNext} style={[stylex.paginTouchBtn, stylex.shaddow, { justifyContent: 'center' }]}>
                             <Text style={stylex.paginTouchBtnText}>NEXT</Text>
                             <Image style={stylex.paginTouchBtnImg} source={require("../../assets/images/icon/next.png")} />
                         </TouchableOpacity>

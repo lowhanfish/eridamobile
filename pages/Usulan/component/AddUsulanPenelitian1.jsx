@@ -24,7 +24,6 @@ const AddUsulanPenelitian1 = ({ data, updateData, nextStep }) => {
     const widthx = screenWidth - (screenWidth * 20 / 100)
 
     const [name, setName] = useState(data.name);
-
     const handleNext = () => {
         updateData({ name }); // simpan data
         nextStep(); // lanjut ke step berikutnya
