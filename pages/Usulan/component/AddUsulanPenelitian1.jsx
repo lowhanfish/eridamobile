@@ -16,17 +16,22 @@ import { stylex } from "../../assets/css";
 import Imagex from "../../../components/Imagex";
 
 
-const AddUsulanPenelitian1 = () => {
+const AddUsulanPenelitian1 = ({ data, updateData, nextStep }) => {
+
 
     const navigation = useNavigation();
     const screenWidth = Dimensions.get('window').width;
     const widthx = screenWidth - (screenWidth * 20 / 100)
 
+    const [name, setName] = useState(data.name);
+
+    const handleNext = () => {
+        updateData({ name }); // simpan data
+        nextStep(); // lanjut ke step berikutnya
+    };
 
     const visibleBar = useGlobalStore((state) => state.visibleBar)
     const setRouteBack = useGlobalStore((state) => state.setRouteBack);
-
-
     const [file, setFile] = useState(null);
 
     const pickDocument = async () => {
@@ -167,7 +172,7 @@ const AddUsulanPenelitian1 = () => {
                         </TouchableOpacity>
                     </View>
                     <View style={[stylex.paginContainerBtn, { justifyContent: 'flex-start' }]}>
-                        <TouchableOpacity onPress={() => navigation.navigate("AddUsulanPenelitian2")} style={[stylex.paginTouchBtn, stylex.shaddow, { justifyContent: 'center' }]}>
+                        <TouchableOpacity onPress={handleNext} style={[stylex.paginTouchBtn, stylex.shaddow, { justifyContent: 'center' }]}>
                             <Text style={stylex.paginTouchBtnText}>NEXT</Text>
                             <Image style={stylex.paginTouchBtnImg} source={require("../../assets/images/icon/next.png")} />
                         </TouchableOpacity>
