@@ -4,19 +4,12 @@ import { useNavigation, useFocusEffect } from "@react-navigation/native";
 
 import useGlobalStore from "../../stores/useGlobalStore";
 
-
 import AddUsulanPenelitian1 from "./component/AddUsulanPenelitian1";
 import AddUsulanPenelitian2 from "./component/AddUsulanPenelitian2";
 import AddUsulanPenelitian3 from "./component/AddUsulanPenelitian3";
 import AddUsulanPenelitian4 from "./component/AddUsulanPenelitian4";
 import axios from "axios";
 import GetDataToken from "../lib/GetDataToken";
-
-
-
-
-
-
 
 const AddUsulan = () => {
     const navigation = useNavigation();
@@ -26,8 +19,6 @@ const AddUsulan = () => {
     const [isModalVisibleSetting, setisModalVisibleSetting] = useState(false);
 
     const [currentStep, setCurrentStep] = useState(1);
-
-
 
     const [formData, setFormData] = useState({
         id: "",
@@ -52,12 +43,10 @@ const AddUsulan = () => {
     const addData = async (data) => {
 
         var tokenz = await GetDataToken();
-        // console.log(tokenz)
 
+        // console.log("kikensbatara " + tokenz);
 
-        console.log("kikensbatara " + tokenz);
-
-        const formData = new FormData();
+        var formData = new FormData();
         formData.append('nama', data.nama);
         formData.append('alamat', data.alamat);
         formData.append('hp', data.hp);
@@ -66,54 +55,32 @@ const AddUsulan = () => {
         formData.append('status', data.status);
         formData.append('keterangan', data.keterangan);
 
+        const file = data.ktp[0];
 
-        // const file = data.ktp[0];
-        // const fileName = file.name || 'file.jpg';
-        // const fileType = file.type || 'image/jpeg';
+        console.log(file)
 
-        // formData.append('file', {
-        //     uri: file.uri.replace('content://', 'file://'), // jika pakai library lain, sesuaikan
-        //     name: fileName,
-        //     type: fileType,
-        // });
-
-        // const response = await axios.get("http://10.0.2.2:5070/api/v1/server_penelitian/test", {
-        //     params: {
-        //         nama: 'budi',
-        //         hp: '08123'
-        //     }
-        // });
-        // console.log("Server response:", response.data);
+        formData.append('file', {
+            uri: file.uri,           // ✔️ langsung dari picker
+            name: file.name,
+            type: file.type,
+        });
 
 
+        axios.post(urlx.URL_Penelitian + "/addData", formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'Authorization': `kikensbatara ${tokenz}`,   // kalau pakai token
+            }
+        })
+            .then(response => {
+                console.log(response);
+            })
+            .catch(error => {
+                console.error(error);
+            });
 
-        // try {
-        //     const url = "http://10.216.143.96:5070/api/v1/server_penelitian/test";
-        //     console.log("try request data to:", url);
-        //     console.log("Data to send:", data);
-        //     const response = await axios.post(url, { nama: 'tai' }); // jangan pakai JSON.stringify
-        //     console.log("Server responded:", response.data);
-        //     return response.data;
-        // } catch (error) {
-        //     console.error("Request failed:", error);
-        // }
 
-
-        const dataz = {
-            nama: 'budi',
-            hp: '08123'
-        };
-
-        try {
-            const response = await axios.post("http://10.0.2.2:5070/api/v1/server_penelitian/test", data);
-            console.log("Server response:", response.data);
-        } catch (error) {
-            console.error("POST error:", error.message);
-        }
     }
-
-
-
 
     useFocusEffect(
         useCallback(() => {
@@ -121,7 +88,6 @@ const AddUsulan = () => {
             visibleBar(true, true)
         }, [visibleBar])
     )
-
 
     switch (currentStep) {
         case 1:
@@ -136,12 +102,6 @@ const AddUsulan = () => {
             return null;
     }
 
-
-
-
-
-
 }
-
 
 export default AddUsulan
