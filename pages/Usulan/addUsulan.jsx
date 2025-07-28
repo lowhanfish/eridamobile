@@ -16,7 +16,6 @@ const AddUsulan = () => {
     const visibleBar = useGlobalStore((state) => state.visibleBar);
     const setRouteBack = useGlobalStore((state) => state.setRouteBack);
     var urlx = useGlobalStore((state) => state.url)
-    const [isModalVisibleSetting, setisModalVisibleSetting] = useState(false);
 
     const [currentStep, setCurrentStep] = useState(1);
 
@@ -36,15 +35,12 @@ const AddUsulan = () => {
     const prevStep = () => setCurrentStep(prev => prev - 1);
 
     const updateFormData = (newData) => {
-        // console.log(newData)
         setFormData(prev => ({ ...prev, ...newData }));
     };
 
     const addData = async (data) => {
 
         var tokenz = await GetDataToken();
-
-        // console.log("kikensbatara " + tokenz);
 
         var formData = new FormData();
         formData.append('nama', data.nama);
@@ -60,7 +56,7 @@ const AddUsulan = () => {
         console.log(file)
 
         formData.append('file', {
-            uri: file.uri,           // ✔️ langsung dari picker
+            uri: file.uri,
             name: file.name,
             type: file.type,
         });
@@ -69,7 +65,7 @@ const AddUsulan = () => {
         axios.post(urlx.URL_Penelitian + "/addData", formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
-                'Authorization': `kikensbatara ${tokenz}`,   // kalau pakai token
+                'Authorization': `kikensbatara ${tokenz}`,
             }
         })
             .then(response => {
