@@ -90,6 +90,7 @@ const Login = () => {
 
             // Profile juga bisa disimpan jika diperlukan
             await AsyncStorage.setItem('userProfile', JSON.stringify(profile));
+            // await AsyncStorage.setItem('userProfile', JSON.stringify(profile));
             console.log('Token dan profil berhasil disimpan dan state otentikasi diperbarui.');
 
             Alert.alert("Login Berhasil", "Anda berhasil masuk!");

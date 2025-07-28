@@ -1,14 +1,11 @@
 import { useCallback, useEffect, useState } from "react";
-import { View, TouchableOpacity, Text, Image, ScrollView, StyleSheet, Button, Dimensions } from "react-native";
+import { View, TouchableOpacity, Text, Image, ScrollView, StyleSheet, TextInput, Dimensions } from "react-native";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
-
-
-
 import { pick } from '@react-native-documents/picker'
 
 
-
 import useGlobalStore from "../../../stores/useGlobalStore";
+import axios from "axios";
 
 
 
@@ -16,28 +13,41 @@ import { stylex } from "../../assets/css";
 import Imagex from "../../../components/Imagex";
 
 
-const AddUsulanPenelitian1 = ({ data, updateData, nextStep }) => {
+const AddUsulanPenelitian1 = ({ data, updateData, nextStep, excuteData }) => {
 
 
     const navigation = useNavigation();
     const screenWidth = Dimensions.get('window').width;
     const widthx = screenWidth - (screenWidth * 20 / 100)
 
-    const [name, setName] = useState(data.name);
+    const [text, onChangeText] = useState('');
+
+    const [id, setId] = useState(data.id);
+    const [nama, setNama] = useState(data.nama);
+    const [alamat, setAlamat] = useState(data.alamat);
+    const [hp, setHP] = useState(data.hp);
+    const [email, setEmail] = useState(data.email);
+    const [nik, setNIK] = useState(data.nik);
+    const [ktp, setKTP] = useState(data.ktp);
+    const [status, setStatus] = useState(data.status);
+    const [keterangan, setKeterangan] = useState(data.keterangan);
+
     const handleNext = () => {
-        updateData({ name }); // simpan data
+        const newData = { id, nama, alamat, hp, email, nik, ktp, status, keterangan };
+        updateData(newData);        // Update state global
+        excuteData(newData);
         nextStep(); // lanjut ke step berikutnya
     };
 
     const visibleBar = useGlobalStore((state) => state.visibleBar)
     const setRouteBack = useGlobalStore((state) => state.setRouteBack);
-    const [file, setFile] = useState(null);
+    // const [file, setKTP] = useState(null);
 
     const pickDocument = async () => {
         try {
             const result = await pick();
             if (result) {
-                setFile(result);
+                setKTP(result);
                 console.log('File pickedx :', result);
             }
         } catch (err) {
@@ -103,13 +113,54 @@ const AddUsulanPenelitian1 = ({ data, updateData, nextStep }) => {
                     <View style={[stylex.borderContent, { marginBottom: 75 }]}>
                         {/* source={{ uri: file[0].uri }} */}
 
+                        <View style={stylex.InputContainer}>
+                            <Text style={stylex.inputText1}>Nama</Text>
+                            <TextInput
+                                style={stylex.inputx1}
+                                onChangeText={setNama}
+                                value={nama}
+                            />
+                        </View>
+                        <View style={stylex.InputContainer}>
+                            <Text style={stylex.inputText1}>Alamat</Text>
+                            <TextInput
+                                style={stylex.inputx1}
+                                onChangeText={setAlamat}
+                                value={alamat}
+                            />
+                        </View>
+                        <View style={stylex.InputContainer}>
+                            <Text style={stylex.inputText1}>Nomor HP</Text>
+                            <TextInput
+                                style={stylex.inputx1}
+                                onChangeText={setHP}
+                                value={hp}
+                            />
+                        </View>
+                        <View style={stylex.InputContainer}>
+                            <Text style={stylex.inputText1}>Email</Text>
+                            <TextInput
+                                style={stylex.inputx1}
+                                onChangeText={setEmail}
+                                value={email}
+                            />
+                        </View>
+                        <View style={stylex.InputContainer}>
+                            <Text style={stylex.inputText1}>NIK</Text>
+                            <TextInput
+                                style={stylex.inputx1}
+                                onChangeText={setNIK}
+                                value={nik}
+                            />
+                        </View>
 
-                        {file && file[0] ? (
-                            <View style={styles.containerUpload}>
+
+                        {ktp && ktp[0] ? (
+                            <View style={styles.containerUpload1}>
                                 <View style={styles.containerUploadText}>
                                     <Imagex
                                         width={widthx}
-                                        urix={file[0].uri}
+                                        urix={ktp[0].uri}
                                     />
                                 </View>
                             </View>
@@ -129,7 +180,7 @@ const AddUsulanPenelitian1 = ({ data, updateData, nextStep }) => {
                         <TouchableOpacity onPress={pickDocument}>
                             <View style={styles.btnPickFile}>
 
-                                {file && file[0] ? (
+                                {ktp && ktp[0] ? (
                                     <Text style={styles.btnPickFileText}>Ganti Foto KTP</Text>
                                 ) : (
                                     <Text style={styles.btnPickFileText}>Cari Foto KTP</Text>
@@ -188,8 +239,17 @@ const styles = StyleSheet.create({
 
     containerUpload: {
         backgroundColor: '#D9D9D9',
-        marginVertical: 50,
+        marginVertical: 25,
         height: 210,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 7
+        // paddingHorizontal: 50,
+    },
+    containerUpload1: {
+        backgroundColor: '#D9D9D9',
+        marginVertical: 25,
+        // height: 210,
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 7
@@ -221,7 +281,7 @@ const styles = StyleSheet.create({
         height: 45,
         borderRadius: 6,
         backgroundColor: '#DFB11C',
-        marginTop: -25,
+        marginTop: -5,
 
     },
     btnPickFileText: {
