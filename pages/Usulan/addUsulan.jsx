@@ -77,14 +77,38 @@ const AddUsulan = () => {
         //     type: fileType,
         // });
 
+        // const response = await axios.get("http://10.0.2.2:5070/api/v1/server_penelitian/test", {
+        //     params: {
+        //         nama: 'budi',
+        //         hp: '08123'
+        //     }
+        // });
+        // console.log("Server response:", response.data);
+
+
+
+        // try {
+        //     const url = "http://10.216.143.96:5070/api/v1/server_penelitian/test";
+        //     console.log("try request data to:", url);
+        //     console.log("Data to send:", data);
+        //     const response = await axios.post(url, { nama: 'tai' }); // jangan pakai JSON.stringify
+        //     console.log("Server responded:", response.data);
+        //     return response.data;
+        // } catch (error) {
+        //     console.error("Request failed:", error);
+        // }
+
+
+        const dataz = {
+            nama: 'budi',
+            hp: '08123'
+        };
+
         try {
-            // var url = urlx.URL_Penelitian + "test";
-            var url = "http://10.216.143.96:5070/api/v1/server_penelitian/test";
-            console.log("try request data to: ", url)
-            const response = await axios.post(url, JSON.stringify(data));
-            return response.data;
+            const response = await axios.post("http://10.0.2.2:5070/api/v1/server_penelitian/test", data);
+            console.log("Server response:", response.data);
         } catch (error) {
-            console.log(object)
+            console.error("POST error:", error.message);
         }
     }
 
