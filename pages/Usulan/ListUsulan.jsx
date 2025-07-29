@@ -165,24 +165,28 @@ const ListUsulan = () => {
                 </View>
 
                 <View style={[stylex.paginContainer, { marginBottom: 18 }]}>
-                    <View style={{ flex: 1, flexDirection: 'row' }}>
 
-                        <View style={[stylex.paginContainerBtn, { justifyContent: 'flex-end' }]}>
-                            <TouchableOpacity onPress={btn_prev} style={[stylex.paginTouchBtn, stylex.shaddow]}>
-                                <Image style={stylex.paginTouchBtnImg} source={require("../assets/images/icon/prev.png")} />
-                                <Text style={stylex.paginTouchBtnText}>PREF</Text>
-                            </TouchableOpacity>
+                    {list_data.length >= data_batas && (
+                        <View style={{ flex: 1, flexDirection: 'row' }}>
+                            <View style={[stylex.paginContainerBtn, { justifyContent: 'flex-end' }]}>
+                                <TouchableOpacity onPress={btn_prev} style={[stylex.paginTouchBtn, stylex.shaddow]}>
+                                    <Image style={stylex.paginTouchBtnImg} source={require("../assets/images/icon/prev.png")} />
+                                    <Text style={stylex.paginTouchBtnText}>PREF</Text>
+                                </TouchableOpacity>
+                            </View>
+                            <View style={stylex.paginContainerText}>
+                                <Text style={stylex.paginText}>1 - {page_last}</Text>
+                            </View>
+                            <View style={[stylex.paginContainerBtn, { justifyContent: 'flex-start' }]}>
+                                <TouchableOpacity onPress={btn_next} style={[stylex.paginTouchBtn, stylex.shaddow, { justifyContent: 'center' }]}>
+                                    <Text style={stylex.paginTouchBtnText}>NEXT</Text>
+                                    <Image style={stylex.paginTouchBtnImg} source={require("../assets/images/icon/next.png")} />
+                                </TouchableOpacity>
+                            </View>
                         </View>
-                        <View style={stylex.paginContainerText}>
-                            <Text style={stylex.paginText}>1 - {page_last}</Text>
-                        </View>
-                        <View style={[stylex.paginContainerBtn, { justifyContent: 'flex-start' }]}>
-                            <TouchableOpacity onPress={btn_next} style={[stylex.paginTouchBtn, stylex.shaddow, { justifyContent: 'center' }]}>
-                                <Text style={stylex.paginTouchBtnText}>NEXT</Text>
-                                <Image style={stylex.paginTouchBtnImg} source={require("../assets/images/icon/next.png")} />
-                            </TouchableOpacity>
-                        </View>
-                    </View>
+
+                    )}
+
 
                 </View>
 
