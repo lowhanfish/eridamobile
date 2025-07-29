@@ -62,7 +62,7 @@ const AddUsulan = () => {
         });
 
 
-        axios.post(urlx.URL_Penelitian + "/addData", formData, {
+        axios.post(urlx.URL_Penelitian + "/addDataMobile", formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
                 'Authorization': `kikensbatara ${tokenz}`,

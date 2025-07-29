@@ -2,7 +2,7 @@ import { create } from "zustand";
 
 
 // var URL = 'http://10.216.143.96:5070/';
-var URL = 'http://10.37.73.17:5070/';
+var URL = 'http://10.2.20.57:5070/';
 
 const useGlobalStore = create((state)=>({
     name : "Ini dari store",

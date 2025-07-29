@@ -1,33 +1,102 @@
 import { useState, useEffect, useCallback } from "react";
 import { Modal, Button, View, Text, Image, TouchableOpacity, StyleSheet, ScrollView, } from "react-native";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import axios from "axios";
+
 import useGlobalStore from "../../stores/useGlobalStore";
 
 import { stylex } from "../assets/css";
 
 import ModalSetting from "./ModalSetting.jsx";
+import GetDataToken from "../lib/GetDataToken.js";
 
 
 
 const ListUsulan = () => {
     const navigation = useNavigation();
 
-
-
-
     const visibleBar = useGlobalStore((state) => state.visibleBar);
     const setRouteBack = useGlobalStore((state) => state.setRouteBack);
+    const urlx = useGlobalStore((state) => state.url);
     const [isModalVisibleSetting, setisModalVisibleSetting] = useState(false);
 
+    const [list_data, setListData] = useState([]);
+    const [page_first, setPageFirst] = useState(1);
+    const [page_last, setPageLast] = useState(0);
+    const [cari_value, setCariValue] = useState("");
+    const [cek_load_data, setCekLoadData] = useState(true);
 
 
+    const btn_prev = () => {
+        if (page_first > 1) {
+            setPageFirst(page_first--)
+        } else {
+            setPageFirst(1)
+        }
+        getData();
+    };
+
+    const btn_next = () => {
+        if (page_first >= page_last) {
+            setPageFirst(page_last)
+        } else {
+            setPageFirst(page_first++);
+        }
+        getData();
+    }
+
+    // btn_prev: function () {
+    //   this.cek_load_data = true;
+    //   if (this.page_first > 1) {
+    //     this.page_first--;
+    //   } else {
+    //     this.page_first = 1;
+    //   }
+    //   this.getView();
+    // },
+
+    // btn_next: function () {
+    //   if (this.page_first >= this.page_last) {
+    //     this.page_first == this.page_last;
+    //   } else {
+    //     this.page_first++;
+    //   }
+    //   this.getView();
+    // },
+
+
+    const getData = async () => {
+        var tokenz = await GetDataToken();
+        setCekLoadData(true);
+        // console.log(urlx.URL_Penelitian + "/view")
+        axios.post(urlx.URL_Penelitian + "/view", {
+            data_ke: page_first,
+            cari_value: cari_value,
+        }, {
+            headers: {
+                'Content-Type': "application/json",
+                'Authorization': `kikensbatara ${tokenz}`,
+            }
+        }).then(response => {
+            const data = response.data;
+            setListData(data.data);
+            setPageLast(data.jml_data);
+            setCekLoadData(false);
+            console.log(data);
+        }).catch(error => {
+            setCekLoadData(false);
+            console.log(error)
+        })
+
+    }
 
 
 
     useFocusEffect(
         useCallback(() => {
             setRouteBack("Home");
-            visibleBar(true, true)
+            visibleBar(true, true);
+            getData();
         }, [visibleBar])
 
 
@@ -64,7 +133,7 @@ const ListUsulan = () => {
 
                     <View style={stylex.borderContent}>
 
-                        {[...Array(10)].map((_, i) => (
+                        {list_data.map((data, i) => (
                             <View key={i} style={{ flex: 1, marginTop: 9 }}>
 
                                 <View >
@@ -73,7 +142,7 @@ const ListUsulan = () => {
                                             <Image style={stylex.DataListImg} source={require('../assets/images/izin_penelitian.png')} />
                                         </View>
                                         <View style={stylex.DataListTextCont}>
-                                            <Text style={stylex.DataListText1}>Dr. Djarot Melin</Text>
+                                            <Text style={stylex.DataListText1}>{data.nama}</Text>
                                             <Text style={stylex.DataListText2}>IMPLEMENTASI METODE SIMPLE ADDITIVE WEIGHTING BERBASIS WEB UNTUK MENENTUKAN PENERIMA BANTUAN RUMAH LAYAK HUNI PADA KECAMATAN ANGATA</Text>
                                             <Text style={stylex.DataListText3}>22 Mei 2025</Text>
                                         </View>
@@ -92,16 +161,16 @@ const ListUsulan = () => {
                     <View style={{ flex: 1, flexDirection: 'row' }}>
 
                         <View style={[stylex.paginContainerBtn, { justifyContent: 'flex-end' }]}>
-                            <TouchableOpacity style={[stylex.paginTouchBtn, stylex.shaddow]}>
+                            <TouchableOpacity onPress={btn_prev} style={[stylex.paginTouchBtn, stylex.shaddow]}>
                                 <Image style={stylex.paginTouchBtnImg} source={require("../assets/images/icon/prev.png")} />
                                 <Text style={stylex.paginTouchBtnText}>PREF</Text>
                             </TouchableOpacity>
                         </View>
                         <View style={stylex.paginContainerText}>
-                            <Text style={stylex.paginText}>1 - 12</Text>
+                            <Text style={stylex.paginText}>1 - {page_last}</Text>
                         </View>
                         <View style={[stylex.paginContainerBtn, { justifyContent: 'flex-start' }]}>
-                            <TouchableOpacity style={[stylex.paginTouchBtn, stylex.shaddow, { justifyContent: 'center' }]}>
+                            <TouchableOpacity onPress={btn_next} style={[stylex.paginTouchBtn, stylex.shaddow, { justifyContent: 'center' }]}>
                                 <Text style={stylex.paginTouchBtnText}>NEXT</Text>
                                 <Image style={stylex.paginTouchBtnImg} source={require("../assets/images/icon/next.png")} />
                             </TouchableOpacity>
