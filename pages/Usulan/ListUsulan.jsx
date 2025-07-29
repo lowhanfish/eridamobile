@@ -24,6 +24,7 @@ const ListUsulan = () => {
     const [page_first, setPageFirst] = useState(1);
     const [page_last, setPageLast] = useState(0);
     const [cari_value, setCariValue] = useState("");
+    const [data_batas, setDataBatas] = useState(8);
     const [cek_load_data, setCekLoadData] = useState(true);
 
 
@@ -143,7 +144,13 @@ const ListUsulan = () => {
                                         </View>
                                         <View style={stylex.DataListTextCont}>
                                             <Text style={stylex.DataListText1}>{data.nama}</Text>
-                                            <Text style={stylex.DataListText2}>IMPLEMENTASI METODE SIMPLE ADDITIVE WEIGHTING BERBASIS WEB UNTUK MENENTUKAN PENERIMA BANTUAN RUMAH LAYAK HUNI PADA KECAMATAN ANGATA</Text>
+                                            {
+                                                data.judul !== null && data.judul !== "" ? (
+                                                    <Text style={stylex.DataListText2}>{data.judul}</Text>
+                                                ) : (
+                                                    <Text style={stylex.DataListText2}>MOHON LENGKAPI DULU SEMUA TAHAPAN PENGISIAN FORM PENGAJUAN..!</Text>
+                                                )
+                                            }
                                             <Text style={stylex.DataListText3}>22 Mei 2025</Text>
                                         </View>
                                     </TouchableOpacity>
