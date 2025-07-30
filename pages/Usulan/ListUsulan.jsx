@@ -46,26 +46,6 @@ const ListUsulan = () => {
         getData();
     }
 
-    // btn_prev: function () {
-    //   this.cek_load_data = true;
-    //   if (this.page_first > 1) {
-    //     this.page_first--;
-    //   } else {
-    //     this.page_first = 1;
-    //   }
-    //   this.getView();
-    // },
-
-    // btn_next: function () {
-    //   if (this.page_first >= this.page_last) {
-    //     this.page_first == this.page_last;
-    //   } else {
-    //     this.page_first++;
-    //   }
-    //   this.getView();
-    // },
-
-
     const getData = async () => {
         var tokenz = await GetDataToken();
         setCekLoadData(true);
@@ -184,9 +164,7 @@ const ListUsulan = () => {
                                 </TouchableOpacity>
                             </View>
                         </View>
-
                     )}
-
 
                 </View>
 

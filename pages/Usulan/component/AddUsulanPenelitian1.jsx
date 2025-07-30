@@ -15,7 +15,6 @@ import Imagex from "../../../components/Imagex";
 
 const AddUsulanPenelitian1 = ({ data, updateData, nextStep, excuteData }) => {
 
-
     const navigation = useNavigation();
     const screenWidth = Dimensions.get('window').width;
     const widthx = screenWidth - (screenWidth * 20 / 100)
