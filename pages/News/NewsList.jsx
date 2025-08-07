@@ -85,10 +85,7 @@ const NewsList = () => {
 
                             <RecentNews />
 
-                            <ModalSetting
-                                visible={isModalVisibleSetting} // Teruskan state visibilitas
-                                onClose={() => setisModalVisibleSetting(!isModalVisibleSetting)} // Teruskan fungsi untuk menutup modal
-                            />
+
 
                         </View>
                     </View>
