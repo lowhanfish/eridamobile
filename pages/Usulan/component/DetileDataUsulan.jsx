@@ -4,6 +4,10 @@ import { View, ScrollView, Text, TouchableOpacity } from "react-native";
 
 const DetileDataUsulan = () => {
 
+    return (
+        <View></View>
+    )
+
 }
 
 export default DetileDataUsulan

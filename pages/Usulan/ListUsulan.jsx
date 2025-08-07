@@ -80,7 +80,6 @@ const ListUsulan = () => {
             getData();
         }, [visibleBar])
 
-
     )
 
 

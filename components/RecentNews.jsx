@@ -1,14 +1,43 @@
 import { useState, useEffect } from "react";
 import { View, Image, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import axios from "axios";
 
 import Imagex from "./Imagex";
 import { stylex } from "../pages/assets/css/index";
+import useGlobalStore from "../stores/useGlobalStore";
+import GetDataToken from "../pages/lib/GetDataToken";
+
 
 
 const RecentNews = () => {
 
     const navigation = useNavigation()
+
+    const [list_data, setListData] = useState([]);
+    const [page_first, setPageFirst] = useState(1);
+    const [page_last, setPageLast] = useState(0);
+    const [cari_value, setCariValue] = useState("");
+    const [data_batas, setDataBatas] = useState(8);
+    const [cek_load_data, setCekLoadData] = useState(true);
+
+    const btn_prev = () => {
+        if (page_first > 1) {
+            setPageFirst(page_first--)
+        } else {
+            setPageFirst(1)
+        }
+        getData();
+    };
+
+    const btn_next = () => {
+        if (page_first >= page_last) {
+            setPageFirst(page_last)
+        } else {
+            setPageFirst(page_first++);
+        }
+        getData();
+    }
 
     return (
         <>

@@ -2,15 +2,16 @@ import { useCallback, useEffect, useState } from "react";
 import { View, TouchableOpacity, Text, Image, ScrollView, TextInput, Button, StyleSheet } from "react-native";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 
-import { pick } from '@react-native-documents/picker'
-import DateTimePicker from '@react-native-community/datetimepicker';
-
+// import { pick } from '@react-native-documents/picker'
+// import DateTimePicker from '@react-native-community/datetimepicker';
 
 import useGlobalStore from "../../stores/useGlobalStore";
 import { stylex } from "../assets/css";
 
 import RecentNews from "../../components/RecentNews";
 import ModalSetting from "./ModalSetting";
+// import axios from "axios";
+// import GetDataToken from "../lib/GetDataToken";
 
 
 
@@ -30,26 +31,8 @@ const NewsList = () => {
 
 
 
-    // ===== PICKDATE =====
-    const [date, setDate] = useState(new Date());
-    const [show, setShow] = useState(false);
-    const [mode, setMode] = useState('date'); // or 'time'
 
 
-    const onChange = (event, selectedDate) => {
-        console.log(selectedDate)
-        const currentDate = selectedDate || date;
-        // console.log(currentDate)
-        setShow(Platform.OS === 'ios'); // untuk iOS tetap tampil, Android hilang
-        setDate(currentDate);
-    };
-
-    const showMode = (currentMode) => {
-        setShow(true);
-        setMode(currentMode);
-    };
-
-    // ===== PICKDATE =====
 
 
 
