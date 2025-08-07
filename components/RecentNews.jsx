@@ -44,7 +44,7 @@ const RecentNews = () => {
     const getData = async () => {
         var tokenz = await GetDataToken();
         setCekLoadData(true);
-        axios.post(urlx.URL_Penelitian + "/view", {
+        axios.post(urlx.URL_Berita + "/view", {
             data_ke: page_first,
             cari_value: cari_value
         }, {
@@ -65,6 +65,10 @@ const RecentNews = () => {
 
     }
 
+    useEffect(() => {
+        getData();
+    }, [])
+
 
 
     return (
@@ -73,7 +77,7 @@ const RecentNews = () => {
                 <View style={[styles.containerContent1]}>
 
 
-                    {[...Array(8)].map((_, i) => (
+                    {list_data.map((data, i) => (
 
                         <View key={i} style={stylex.newsListContainer}>
                             <View styl={stylex.newsListContainerImg}>
@@ -83,16 +87,16 @@ const RecentNews = () => {
                                 <View>
                                     <TouchableOpacity onPress={() => navigation.navigate("NewsDetail")}>
                                         <Text style={stylex.newsListTitle}>
-                                            Sekda Konsel Terima 30 Mahasiswa KKN-PPM UGM
+                                            {data.judul}
                                         </Text>
                                     </TouchableOpacity>
                                     <View style={stylex.newsListTitleDesc}>
                                         <Image style={stylex.newsListTitleDescIcon} source={require('../pages/assets/images/icon/time.png')} />
-                                        <Text style={stylex.newsListTitleDescText}>20 March 2025</Text>
+                                        <Text style={stylex.newsListTitleDescText}>{data.editeAt}</Text>
                                     </View>
                                     <View style={stylex.newsListTitleDesc}>
                                         <Image style={stylex.newsListTitleDescIcon} source={require('../pages/assets/images/icon/user.png')} />
-                                        <Text style={stylex.newsListTitleDescText}>admin_erida</Text>
+                                        <Text style={stylex.newsListTitleDescText}>{data.createBy}</Text>
                                     </View>
 
                                 </View>
