@@ -12,7 +12,8 @@ import GetDataToken from "../pages/lib/GetDataToken";
 
 const RecentNews = () => {
 
-    const navigation = useNavigation()
+    const navigation = useNavigation();
+    const urlx = useGlobalStore((state) => state.url);
 
     const [list_data, setListData] = useState([]);
     const [page_first, setPageFirst] = useState(1);
@@ -20,6 +21,7 @@ const RecentNews = () => {
     const [cari_value, setCariValue] = useState("");
     const [data_batas, setDataBatas] = useState(8);
     const [cek_load_data, setCekLoadData] = useState(true);
+    // const [tokenz, setTokenz] = useState("")
 
     const btn_prev = () => {
         if (page_first > 1) {
@@ -38,6 +40,32 @@ const RecentNews = () => {
         }
         getData();
     }
+
+    const getData = async () => {
+        var tokenz = await GetDataToken();
+        setCekLoadData(true);
+        axios.post(urlx.URL_Penelitian + "/view", {
+            data_ke: page_first,
+            cari_value: cari_value
+        }, {
+            headers: {
+                'Content-Type': "application/json",
+                'Authorization': `kikensbatara ${tokenz}`,
+            }
+        }).then(response => {
+            const data = response.data;
+            setListData(data.data);
+            setPageLast(data.jml_data);
+            setCekLoadData(false)
+            console.log(data)
+        }).catch(error => {
+            setCekLoadData(false);
+            console.log(error)
+        })
+
+    }
+
+
 
     return (
         <>
