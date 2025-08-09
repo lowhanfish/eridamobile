@@ -3,8 +3,8 @@ import { create } from "zustand";
 
 // var URL = 'http://10.216.143.96:5070/';
 // var URL = 'http://10.2.20.57:5070/';
-// var URL = 'http://192.168.1.3:5070/';
-var URL = 'https://server-erida.konaweselatankab.go.id/';
+var URL = 'http://192.168.1.3:5070/';
+var URL_FILE = 'https://server-erida.konaweselatankab.go.id/';
 // var URL = 'http://192.168.128.4:5070/';
 
 const useGlobalStore = create((state)=>({
@@ -13,6 +13,7 @@ const useGlobalStore = create((state)=>({
     bottomBar : true,
     url : {
       URL_APP : URL,
+      URL_FILE : URL_FILE+'uploads/',
       URL_Beranda : URL + 'api/v1/server_beranda/',
       URL_VerifikasiPenelitian : URL + 'api/v1/server_verifikasi_penelitian/',
       URL_VerifikasiUsulan : URL + 'api/v1/server_verifikasi/',

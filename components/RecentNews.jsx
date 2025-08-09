@@ -82,7 +82,7 @@ const RecentNews = () => {
                         <View key={i} style={stylex.newsListContainer}>
                             <View styl={stylex.newsListContainerImg}>
                                 {/* <Image style={stylex.ImgNews} source={{ uri: urlx.URL_APP+'https://server-erida.konaweselatankab.go.id/uploads/1750636695002.jpg' }} /> */}
-                                <Image style={stylex.ImgNews} source={{ uri: urlx.URL_APP + 'uploads/' + data.foto }} />
+                                <Image style={stylex.ImgNews} source={{ uri: urlx.URL_FILE + data.foto }} />
                             </View>
                             <View style={stylex.newsListContainerText}>
                                 <View>
