@@ -2,9 +2,9 @@ import { useEffect, useState, useCallback } from "react";
 import { View, TouchableOpacity, Text, Image, StyleSheet, ScrollView } from "react-native";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 
-import useGlobalStore from "../../stores/useGlobalStore";
-import { stylex } from "../assets/css";
-import ImageLib from "../../components/ImageLib.jsx";
+import useGlobalStore from "../stores/useGlobalStore.js";
+import { stylex } from "../pages/assets/css/index.js";
+import ImageLib from "./ImageLib.jsx";
 
 
 
@@ -33,11 +33,11 @@ const NewsDetail = () => {
                     <Text style={styles.NewsTitle}>Kopi Tolaki Robusta Belang Wira Konawe Selatan : Dari Tradisi Lokal Menuju Panggung Dunia</Text>
                     <View style={styles.newsAuthorContainer}>
                         <View style={styles.newsAuthorContainerItem}>
-                            <Image style={stylex.newsListTitleDescIcon} source={require('../../pages/assets/images/icon/time.png')} />
+                            <Image style={stylex.newsListTitleDescIcon} source={require('../pages/assets/images/icon/time.png')} />
                             <Text style={stylex.newsListTitleDescText}>20 March 2025</Text>
                         </View>
                         <View style={styles.newsAuthorContainerItem}>
-                            <Image style={stylex.newsListTitleDescIcon} source={require('../../pages/assets/images/icon/user.png')} />
+                            <Image style={stylex.newsListTitleDescIcon} source={require('../pages/assets/images/icon/user.png')} />
                             <Text style={stylex.newsListTitleDescText}>admin_erida</Text>
                         </View>
                     </View>
