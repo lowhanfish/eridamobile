@@ -86,7 +86,7 @@ const RecentNews = () => {
                             </View>
                             <View style={stylex.newsListContainerText}>
                                 <View>
-                                    <TouchableOpacity onPress={() => navigation.navigate("NewsDetail", { id: 'wooooooow' })}>
+                                    <TouchableOpacity onPress={() => navigation.navigate("NewsDetail", { id: data.id })}>
                                         <Text style={stylex.newsListTitle}>
                                             {data.judul}
                                         </Text>

@@ -1,10 +1,13 @@
 import { useEffect, useState, useCallback } from "react";
 import { View, TouchableOpacity, Text, Image, StyleSheet, ScrollView } from "react-native";
-import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation, useRoute } from "@react-navigation/native";
 
 import useGlobalStore from "../stores/useGlobalStore.js";
 import { stylex } from "../pages/assets/css/index.js";
 import ImageLib from "./ImageLib.jsx";
+import axios from "axios";
+import GetDataToken from "../pages/lib/GetDataToken.js";
+
 
 
 
@@ -13,10 +16,40 @@ const NewsDetail = () => {
     const visibleBar = useGlobalStore((state) => state.visibleBar)
     const setRouteBack = useGlobalStore((state) => state.setRouteBack);
 
+    const urlx = useGlobalStore(state => state.url)
+
+    const [cek_load_data, setCekLoadData] = useState(true);
+    const [list_data, setListData] = useState(null);
+
+
+
+    const route = useRoute();
+    const { id } = route.params;
+
+    console.log(id)
+
+
+    const getData = async () => {
+        var tokenz = await GetDataToken();
+        axios.post(urlx.URL_Berita + '/viewOne', {
+            id: id
+        }, {
+            headers: {
+                'Content-Type': "application/json",
+                'Authorization': `kikensbatara ${tokenz}`,
+            }
+        }).then(response => {
+            console.log(response)
+        }).catch(err => {
+            console.log(err)
+        })
+    }
+
     useFocusEffect(
         useCallback(() => {
             setRouteBack("NewsList");
-            visibleBar(true, true)
+            visibleBar(true, true);
+            getData();
         }, [visibleBar])
     )
 
