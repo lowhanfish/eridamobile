@@ -548,6 +548,14 @@ export const stylex = StyleSheet.create({
     },
 
 
+    loading_container : {
+        flex: 1, paddingTop: 150,
+        ...centerAll,
+    },
+    loading_text :{
+        fontSize :15,
+        fontWeight : 'bold'
+    },
 
 
     centerAll : {
