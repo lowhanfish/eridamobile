@@ -28,3 +28,6 @@
 /Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/android/app/.cxx/Debug/156q223a/x86_64/rnscreens_autolinked_build/CMakeFiles/react_codegen_rnscreens.dir
 /Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/android/app/.cxx/Debug/156q223a/x86_64/rnscreens_autolinked_build/CMakeFiles/edit_cache.dir
 /Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/android/app/.cxx/Debug/156q223a/x86_64/rnscreens_autolinked_build/CMakeFiles/rebuild_cache.dir
+/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/android/app/.cxx/Debug/156q223a/x86_64/RNCWebViewSpec_autolinked_build/CMakeFiles/react_codegen_RNCWebViewSpec.dir
+/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/android/app/.cxx/Debug/156q223a/x86_64/RNCWebViewSpec_autolinked_build/CMakeFiles/edit_cache.dir
+/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/android/app/.cxx/Debug/156q223a/x86_64/RNCWebViewSpec_autolinked_build/CMakeFiles/rebuild_cache.dir

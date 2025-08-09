@@ -53,6 +53,7 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   include("/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/android/app/.cxx/Debug/156q223a/armeabi-v7a/rnpdf_autolinked_build/cmake_install.cmake")
   include("/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/android/app/.cxx/Debug/156q223a/armeabi-v7a/safeareacontext_autolinked_build/cmake_install.cmake")
   include("/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/android/app/.cxx/Debug/156q223a/armeabi-v7a/rnscreens_autolinked_build/cmake_install.cmake")
+  include("/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/android/app/.cxx/Debug/156q223a/armeabi-v7a/RNCWebViewSpec_autolinked_build/cmake_install.cmake")
 
 endif()
 
