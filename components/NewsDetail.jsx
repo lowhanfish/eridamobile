@@ -58,6 +58,13 @@ const NewsDetail = () => {
             <ScrollView style={stylex.scrollPage}>
                 <View style={{ flex: 1, paddingBottom: 50 }}>
 
+                    <ImageLib urix={require('../pages/assets/images/loading.gif')} />
+                    <Image
+                        source={{ uri: 'https://media.giphy.com/media/ICOgUNjpvO0PC/giphy.gif' }}
+                        style={{ width: 200, height: 200 }}
+                        resizeMode="center" // atau "center"
+                    />
+
                     <ImageLib
                         urix={"https://server-erida.konaweselatankab.go.id/uploads/1752836088394.jpg"} customWidth={'100%'}
                         style={styles.ImgNews}
