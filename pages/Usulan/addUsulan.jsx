@@ -38,23 +38,26 @@ const AddUsulan = () => {
 
     const checkEdit = () => {
 
+        if (typex == 'edit') {
+            // console.log(route.params)
+            const newData = route.params
+            // console.log(newData)
+
+            setFormData(prev => ({
+                ...prev,
+                id: newData.id,
+                nama: newData.nama,
+                alamat: newData.alamat,
+                hp: newData.hp,
+                email: newData.email,
+                nik: newData.nik,
+                ktp: newData.ktpl,
+                status: newData.status,
+                keterangan: newData.keterangan,
+            }));
+        }
     }
 
-    if (typex == 'edit') {
-        // console.log(route.params)
-        const newData = route.params
-        setFormData({
-            id: newData.id,
-            nama: newData.nama,
-            alamat: newData.alamat,
-            hp: newData.hp,
-            email: newData.email,
-            nik: newData.nik,
-            ktp: newData.ktpl,
-            status: newData.status,
-            keterangan: newData.keterangan,
-        })
-    }
 
     const nextStep = () => setCurrentStep(prev => prev + 1);
     const prevStep = () => setCurrentStep(prev => prev - 1);
@@ -100,6 +103,11 @@ const AddUsulan = () => {
 
     }
 
+
+    useEffect(() => {
+        // checkEdit();
+    }, [])
+
     useFocusEffect(
         useCallback(() => {
             setRouteBack("ListUsulan");
@@ -109,7 +117,7 @@ const AddUsulan = () => {
 
     switch (currentStep) {
         case 1:
-            return <AddUsulanPenelitian1 data={formData} updateData={updateFormData} excuteData={typex === 'add' ? addData : editData} nextStep={nextStep} />;
+            return <AddUsulanPenelitian1 routex={route.params} data={formData} updateData={updateFormData} excuteData={typex === 'add' ? addData : editData} nextStep={nextStep} />;
         case 2:
             return <AddUsulanPenelitian2 data={formData} updateData={updateFormData} nextStep={nextStep} prevStep={prevStep} />;
         case 3:

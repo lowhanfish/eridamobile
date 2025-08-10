@@ -13,13 +13,14 @@ import { stylex } from "../../assets/css";
 import Imagex from "../../../components/Imagex";
 
 
-const AddUsulanPenelitian1 = ({ data, updateData, nextStep, excuteData }) => {
+const AddUsulanPenelitian1 = ({ data, updateData, nextStep, excuteData, routex }) => {
 
     const navigation = useNavigation();
     const screenWidth = Dimensions.get('window').width;
     const widthx = screenWidth - (screenWidth * 20 / 100)
 
-    const [text, onChangeText] = useState('');
+
+
 
     const [id, setId] = useState(data.id);
     const [nama, setNama] = useState(data.nama);
@@ -30,6 +31,24 @@ const AddUsulanPenelitian1 = ({ data, updateData, nextStep, excuteData }) => {
     const [ktp, setKTP] = useState(data.ktp);
     const [status, setStatus] = useState(data.status);
     const [keterangan, setKeterangan] = useState(data.keterangan);
+
+
+    const checkEdit = () => {
+
+        if (routex.typex == 'edit') {
+            setId(routex.id);
+            setNama(routex.nama);
+            setAlamat(routex.alamat);
+            setHP(routex.hp);
+            setEmail(routex.email);
+            setNIK(routex.nik);
+            // setKTP(routex.ktp);
+            setStatus(routex.status);
+            setKeterangan(routex.keterangan);
+
+
+        }
+    }
 
     const handleNext = () => {
         const newData = { id, nama, alamat, hp, email, nik, ktp, status, keterangan };
@@ -54,6 +73,9 @@ const AddUsulanPenelitian1 = ({ data, updateData, nextStep, excuteData }) => {
         }
     };
 
+    useEffect(() => {
+        checkEdit();
+    }, [])
 
 
     useFocusEffect(
