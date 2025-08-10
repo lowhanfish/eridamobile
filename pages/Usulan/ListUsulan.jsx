@@ -27,6 +27,8 @@ const ListUsulan = () => {
     const [data_batas, setDataBatas] = useState(8);
     const [cek_load_data, setCekLoadData] = useState(true);
 
+    const [datax, setDatax] = useState(null)
+
 
     const btn_prev = () => {
         if (page_first > 1) {
@@ -63,12 +65,19 @@ const ListUsulan = () => {
             setListData(data.data);
             setPageLast(data.jml_data);
             setCekLoadData(false);
-            console.log(data);
+            // console.log(data);
         }).catch(error => {
             setCekLoadData(false);
             console.log(error)
         })
 
+    }
+
+
+    const selectData = (data) => {
+        // console.log(data)
+        setDatax(data)
+        setisModalVisibleSetting(true)
     }
 
 
@@ -95,7 +104,7 @@ const ListUsulan = () => {
                             </View>
                         </View>
                         <View style={[{ alignItems: 'flex-end' }]}>
-                            <TouchableOpacity onPress={() => navigation.navigate("AddUsulan")} style={[stylex.btnCornerFlat, stylex.shaddow]}>
+                            <TouchableOpacity onPress={() => navigation.navigate("AddUsulan", { typex: 'add' })} style={[stylex.btnCornerFlat, stylex.shaddow]}>
                                 <View>
                                     <Image style={stylex.btnCornerFlatIcon} source={require('../assets/images/icon/plus.png')} />
                                 </View>
@@ -109,6 +118,7 @@ const ListUsulan = () => {
                     <ModalSetting
                         visible={isModalVisibleSetting} // Teruskan state visibilitas
                         onClose={() => setisModalVisibleSetting(!isModalVisibleSetting)} // Teruskan fungsi untuk menutup modal
+                        datax={datax}
                     />
 
                     <View style={stylex.borderContent}>
@@ -117,7 +127,7 @@ const ListUsulan = () => {
                             <View key={i} style={{ flex: 1, marginTop: 9 }}>
 
                                 <View >
-                                    <TouchableOpacity style={[stylex.DataListCont, stylex.shaddow, { backgroundColor: '#FFF3F3' }]} onLongPress={() => setisModalVisibleSetting(true)}>
+                                    <TouchableOpacity style={[stylex.DataListCont, stylex.shaddow, { backgroundColor: '#FFF3F3' }]} onLongPress={() => selectData(data)}>
                                         <View style={stylex.DataListImgCont}>
                                             <Image style={stylex.DataListImg} source={require('../assets/images/izin_penelitian.png')} />
                                         </View>

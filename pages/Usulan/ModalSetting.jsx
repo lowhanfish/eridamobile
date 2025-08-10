@@ -1,12 +1,21 @@
 import { useEffect, useState } from 'react';
 import { View, Text, Modal, TouchableOpacity, Button, StyleSheet } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 import { stylex } from '../assets/css';
 // import { StyleSheet } from 'react-native/types_generated/index';
 
-const ModalSetting = ({ visible, onClose }) => { // Terima visible dan onClose sebagai props
+const ModalSetting = ({ visible, onClose, datax }) => { // Terima visible dan onClose sebagai props
 
     // Hapus state modalVisible internal, karena sekarang dikelola oleh parent
+    // console.log(datax)
+    const navigation = useNavigation();
+
+    const routeTo = () => {
+        const dataPass = { ...datax, typex: 'edit' };
+        onClose();
+        navigation.navigate('AddUsulan', dataPass)
+    }
 
     return (
         <Modal
@@ -20,24 +29,15 @@ const ModalSetting = ({ visible, onClose }) => { // Terima visible dan onClose s
                     <TouchableOpacity style={[stylex.modalButton, stylex.shaddow, { backgroundColor: '#6DA3EF' }]}>
                         <Text style={stylex.modalText}>Detail Data</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={[stylex.modalButton, stylex.shaddow, { backgroundColor: '#EFD06D' }]}>
+                    <TouchableOpacity onPress={routeTo} style={[stylex.modalButton, stylex.shaddow, { backgroundColor: '#EFD06D' }]}>
                         <Text style={stylex.modalText}>Edit Data</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={[stylex.modalButton, stylex.shaddow, { backgroundColor: '#FF9191' }]}>
                         <Text style={stylex.modalText}>Hapus Data</Text>
                     </TouchableOpacity>
-
-
-
-
-
                     <TouchableOpacity onPress={onClose} style={[stylex.modalButton, stylex.shaddow, { backgroundColor: '#AC4345', marginTop: 22 }]}>
                         <Text style={stylex.modalText}>Tutup</Text>
                     </TouchableOpacity>
-
-
-
-
                 </View>
             </View>
         </Modal>

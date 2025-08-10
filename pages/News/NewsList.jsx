@@ -38,7 +38,7 @@ const NewsList = () => {
 
     useFocusEffect(
         useCallback(() => {
-            setRouteBack("ListUsulan");
+            setRouteBack("Home");
             visibleBar(true, true);
         }, [visibleBar])
     )
