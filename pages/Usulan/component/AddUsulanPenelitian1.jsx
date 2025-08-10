@@ -11,6 +11,8 @@ import axios from "axios";
 
 import { stylex } from "../../assets/css";
 import Imagex from "../../../components/Imagex";
+import ImageLib from "../../../components/ImageLib";
+
 
 
 const AddUsulanPenelitian1 = ({ data, updateData, nextStep, excuteData, routex }) => {
@@ -20,7 +22,7 @@ const AddUsulanPenelitian1 = ({ data, updateData, nextStep, excuteData, routex }
     const widthx = screenWidth - (screenWidth * 20 / 100)
 
 
-
+    const urlx = useGlobalStore((state) => state.url)
 
     const [id, setId] = useState(data.id);
     const [nama, setNama] = useState(data.nama);
@@ -42,11 +44,11 @@ const AddUsulanPenelitian1 = ({ data, updateData, nextStep, excuteData, routex }
             setHP(routex.hp);
             setEmail(routex.email);
             setNIK(routex.nik);
-            // setKTP(routex.ktp);
+            setKTP(routex.ktp);
             setStatus(routex.status);
             setKeterangan(routex.keterangan);
 
-
+            console.log(typeof (nama))
         }
     }
 
@@ -176,24 +178,38 @@ const AddUsulanPenelitian1 = ({ data, updateData, nextStep, excuteData, routex }
                         </View>
 
 
-                        {ktp && ktp[0] ? (
+                        {typeof (ktp) == 'string' ? (
                             <View style={styles.containerUpload1}>
-                                <View style={styles.containerUploadText}>
-                                    <Imagex
-                                        width={widthx}
-                                        urix={ktp[0].uri}
-                                    />
-                                </View>
+                                <ImageLib
+                                    urix={urlx.URL_APP + 'uploads/' + ktp} customWidth={'100%'}
+                                />
                             </View>
+
                         ) : (
 
-                            <View style={styles.containerUpload}>
-                                <View style={styles.containerUploadText}>
-                                    <Text style={styles.UploadText1}>FILE KTP MASIH KOSONG</Text>
-                                    <Text style={styles.UploadText2}>(PDF)</Text>
+
+                            ktp && ktp[0] ? (
+                                <View style={styles.containerUpload1}>
+                                    <View style={styles.containerUploadText}>
+                                        <Imagex
+                                            width={widthx}
+                                            urix={ktp[0].uri}
+                                        />
+                                    </View>
                                 </View>
-                            </View>
+                            ) : (
+
+                                <View style={styles.containerUpload}>
+                                    <View style={styles.containerUploadText}>
+                                        <Text style={styles.UploadText1}>FILE KTP MASIH KOSONG</Text>
+                                        <Text style={styles.UploadText2}>(PDF)</Text>
+                                    </View>
+                                </View>
+                            )
                         )}
+
+
+
 
 
                         {/* <Button style={styles.btnPickFile} title="Pilih Foto KTP" onPress={pickDocument} /> */}
@@ -206,7 +222,6 @@ const AddUsulanPenelitian1 = ({ data, updateData, nextStep, excuteData, routex }
                                 ) : (
                                     <Text style={styles.btnPickFileText}>Cari Foto KTP</Text>
                                 )}
-
                             </View>
                         </TouchableOpacity>
 
