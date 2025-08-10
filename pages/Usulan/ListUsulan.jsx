@@ -9,6 +9,7 @@ import { stylex } from "../assets/css";
 
 import ModalSetting from "./ModalSetting.jsx";
 import GetDataToken from "../lib/GetDataToken.js";
+import ImageLib from "../../components/ImageLib.jsx";
 
 
 
@@ -74,13 +75,8 @@ const ListUsulan = () => {
     }
 
     const removeData = async (data) => {
-        console.log("data.id")
-        console.log(data.id)
-        // console.log("data")
-        // console.log(data)
         var tokenz = await GetDataToken();
         setCekLoadData(true);
-
         axios.post(urlx.URL_Penelitian + '/removeDataMobile', {
             id: data.id
         }, {
@@ -152,29 +148,53 @@ const ListUsulan = () => {
 
                     <View style={stylex.borderContent}>
 
-                        {list_data.map((data, i) => (
-                            <View key={i} style={{ flex: 1, marginTop: 9 }}>
+                        {
 
-                                <View >
-                                    <TouchableOpacity style={[stylex.DataListCont, stylex.shaddow, { backgroundColor: '#FFF3F3' }]} onLongPress={() => selectData(data)}>
-                                        <View style={stylex.DataListImgCont}>
-                                            <Image style={stylex.DataListImg} source={require('../assets/images/izin_penelitian.png')} />
-                                        </View>
-                                        <View style={stylex.DataListTextCont}>
-                                            <Text style={stylex.DataListText1}>{data.nama}</Text>
-                                            {
-                                                data.judul !== null && data.judul !== "" ? (
-                                                    <Text style={stylex.DataListText2}>{data.judul}</Text>
-                                                ) : (
-                                                    <Text style={stylex.DataListText2}>MOHON LENGKAPI DULU SEMUA TAHAPAN PENGISIAN FORM PENGAJUAN..!</Text>
-                                                )
-                                            }
-                                            <Text style={stylex.DataListText3}>22 Mei 2025</Text>
-                                        </View>
-                                    </TouchableOpacity>
+                            cek_load_data ? (
+                                <View style={[stylex.loading_container, { paddingTop: -10 }]}>
+                                    <ImageLib style={{ width: 200 }} urix={require('../assets/images/loading2.gif')} />
+                                    <Text style={stylex.loading_text}>Memuat Data...</Text>
                                 </View>
-                            </View>
-                        ))}
+                            ) : (
+
+                                list_data.length <= 0 ? (
+                                    <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                                        <ImageLib
+                                            urix={require('../assets/images/nodata.png')} customWidth={250}
+                                        />
+                                        <Text style={{ marginTop: -50 }}>DATA KOSONG..!</Text>
+                                    </View>
+                                ) : (
+
+                                    list_data.map((data, i) => (
+                                        <View key={i} style={{ flex: 1, marginTop: 9 }}>
+
+                                            <View >
+                                                <TouchableOpacity style={[stylex.DataListCont, stylex.shaddow, { backgroundColor: '#FFF3F3' }]} onLongPress={() => selectData(data)}>
+                                                    <View style={stylex.DataListImgCont}>
+                                                        <Image style={stylex.DataListImg} source={require('../assets/images/izin_penelitian.png')} />
+                                                    </View>
+                                                    <View style={stylex.DataListTextCont}>
+                                                        <Text style={stylex.DataListText1}>{data.nama}</Text>
+                                                        {
+                                                            data.judul !== null && data.judul !== "" ? (
+                                                                <Text style={stylex.DataListText2}>{data.judul}</Text>
+                                                            ) : (
+                                                                <Text style={stylex.DataListText2}>MOHON LENGKAPI DULU SEMUA TAHAPAN PENGISIAN FORM PENGAJUAN..!</Text>
+                                                            )
+                                                        }
+                                                        <Text style={stylex.DataListText3}>22 Mei 2025</Text>
+                                                    </View>
+                                                </TouchableOpacity>
+                                            </View>
+                                        </View>
+                                    ))
+                                )
+                            )
+
+                        }
+
+
 
 
 
