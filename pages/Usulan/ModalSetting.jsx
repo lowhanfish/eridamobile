@@ -5,7 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import { stylex } from '../assets/css';
 // import { StyleSheet } from 'react-native/types_generated/index';
 
-const ModalSetting = ({ visible, onClose, datax }) => { // Terima visible dan onClose sebagai props
+const ModalSetting = ({ visible, onClose, datax, removeData }) => { // Terima visible dan onClose sebagai props
 
     // Hapus state modalVisible internal, karena sekarang dikelola oleh parent
     // console.log(datax)
@@ -32,7 +32,7 @@ const ModalSetting = ({ visible, onClose, datax }) => { // Terima visible dan on
                     <TouchableOpacity onPress={routeTo} style={[stylex.modalButton, stylex.shaddow, { backgroundColor: '#EFD06D' }]}>
                         <Text style={stylex.modalText}>Edit Data</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={[stylex.modalButton, stylex.shaddow, { backgroundColor: '#FF9191' }]}>
+                    <TouchableOpacity onPress={() => removeData(datax)} style={[stylex.modalButton, stylex.shaddow, { backgroundColor: '#FF9191' }]}>
                         <Text style={stylex.modalText}>Hapus Data</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={onClose} style={[stylex.modalButton, stylex.shaddow, { backgroundColor: '#AC4345', marginTop: 22 }]}>

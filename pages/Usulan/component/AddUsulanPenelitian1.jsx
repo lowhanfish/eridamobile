@@ -48,7 +48,7 @@ const AddUsulanPenelitian1 = ({ data, updateData, nextStep, excuteData, routex }
             setStatus(routex.status);
             setKeterangan(routex.keterangan);
 
-            console.log(typeof (nama))
+            // console.log(typeof (nama))
         }
     }
 
@@ -187,7 +187,6 @@ const AddUsulanPenelitian1 = ({ data, updateData, nextStep, excuteData, routex }
 
                         ) : (
 
-
                             ktp && ktp[0] ? (
                                 <View style={styles.containerUpload1}>
                                     <View style={styles.containerUploadText}>
@@ -208,12 +207,6 @@ const AddUsulanPenelitian1 = ({ data, updateData, nextStep, excuteData, routex }
                             )
                         )}
 
-
-
-
-
-                        {/* <Button style={styles.btnPickFile} title="Pilih Foto KTP" onPress={pickDocument} /> */}
-
                         <TouchableOpacity onPress={pickDocument}>
                             <View style={styles.btnPickFile}>
 
@@ -224,23 +217,6 @@ const AddUsulanPenelitian1 = ({ data, updateData, nextStep, excuteData, routex }
                                 )}
                             </View>
                         </TouchableOpacity>
-
-                        {/* {file && (
-                            <View style={{ alignItems: 'center' }}>
-                                <Image
-                                    source={{ uri: file[0].uri }}
-                                    style={{ width: 200, height: 200, resizeMode: 'contain' }}
-                                />
-                            </View>
-                        )} */}
-
-
-
-
-
-
-
-
 
                     </View>
 

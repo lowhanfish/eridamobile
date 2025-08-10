@@ -20,7 +20,7 @@ const AddUsulan = () => {
 
     const route = useRoute()
     const { typex } = route.params;
-    // console.log(route.params.typex)
+    console.log(typex)
 
     const [currentStep, setCurrentStep] = useState(1);
     const [formData, setFormData] = useState({
@@ -34,29 +34,6 @@ const AddUsulan = () => {
         status: "",
         keterangan: "",
     });
-
-
-    const checkEdit = () => {
-
-        if (typex == 'edit') {
-            // console.log(route.params)
-            const newData = route.params
-            // console.log(newData)
-
-            setFormData(prev => ({
-                ...prev,
-                id: newData.id,
-                nama: newData.nama,
-                alamat: newData.alamat,
-                hp: newData.hp,
-                email: newData.email,
-                nik: newData.nik,
-                ktp: newData.ktpl,
-                status: newData.status,
-                keterangan: newData.keterangan,
-            }));
-        }
-    }
 
 
     const nextStep = () => setCurrentStep(prev => prev + 1);
@@ -99,6 +76,8 @@ const AddUsulan = () => {
         });
     }
 
+
+
     const editData = async (data) => {
 
     }
@@ -106,7 +85,7 @@ const AddUsulan = () => {
 
     useEffect(() => {
         // checkEdit();
-    }, [])
+    }, [typex])
 
     useFocusEffect(
         useCallback(() => {
@@ -117,7 +96,8 @@ const AddUsulan = () => {
 
     switch (currentStep) {
         case 1:
-            return <AddUsulanPenelitian1 routex={route.params} data={formData} updateData={updateFormData} excuteData={typex === 'add' ? addData : editData} nextStep={nextStep} />;
+            // return <AddUsulanPenelitian1 routex={route.params} data={formData} updateData={updateFormData} excuteData={typex === 'add' ? addData : editData} nextStep={nextStep} />;
+            return <AddUsulanPenelitian1 routex={route.params} data={formData} updateData={updateFormData} excuteData={addData} />;
         case 2:
             return <AddUsulanPenelitian2 data={formData} updateData={updateFormData} nextStep={nextStep} prevStep={prevStep} />;
         case 3:

@@ -73,13 +73,41 @@ const ListUsulan = () => {
 
     }
 
+    const removeData = async (data) => {
+        console.log("data.id")
+        console.log(data.id)
+        // console.log("data")
+        // console.log(data)
+        var tokenz = await GetDataToken();
+        setCekLoadData(true);
+
+        axios.post(urlx.URL_Penelitian + '/removeDataMobile', {
+            id: data.id
+        }, {
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `kikensbatara ${tokenz}`,
+            }
+        }).then(response => {
+            console.log(response);
+            setisModalVisibleSetting(!isModalVisibleSetting)
+            getData();
+        }).catch(error => {
+            setisModalVisibleSetting(!isModalVisibleSetting)
+            setCekLoadData(false);
+            console.log(error)
+        })
+    }
+
 
     const selectData = (data) => {
-        // console.log(data)
         setDatax(data)
         setisModalVisibleSetting(true)
     }
 
+    useEffect(() => {
+
+    }, [])
 
 
     useFocusEffect(
@@ -119,6 +147,7 @@ const ListUsulan = () => {
                         visible={isModalVisibleSetting} // Teruskan state visibilitas
                         onClose={() => setisModalVisibleSetting(!isModalVisibleSetting)} // Teruskan fungsi untuk menutup modal
                         datax={datax}
+                        removeData={removeData}
                     />
 
                     <View style={stylex.borderContent}>
