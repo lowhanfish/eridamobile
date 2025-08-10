@@ -1,4 +1,4 @@
-export const realDate = (date) => {
+export const realDate = (tgl) => {
     var date = new Date(tgl);
     var getBulan = date.getMonth() + 1; var bulan = '';
     if (getBulan == '1') {bulan = 'Jan'} 

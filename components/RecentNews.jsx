@@ -7,6 +7,7 @@ import Imagex from "./Imagex";
 import { stylex } from "../pages/assets/css/index";
 import useGlobalStore from "../stores/useGlobalStore";
 import GetDataToken from "../pages/lib/GetDataToken";
+import { realDate } from "../pages/lib/Umum";
 
 
 
@@ -93,7 +94,7 @@ const RecentNews = () => {
                                     </TouchableOpacity>
                                     <View style={stylex.newsListTitleDesc}>
                                         <Image style={stylex.newsListTitleDescIcon} source={require('../pages/assets/images/icon/time.png')} />
-                                        <Text style={stylex.newsListTitleDescText}>{data.editeAt}</Text>
+                                        <Text style={stylex.newsListTitleDescText}>{realDate(data.editeAt)}</Text>
                                     </View>
                                     <View style={stylex.newsListTitleDesc}>
                                         <Image style={stylex.newsListTitleDescIcon} source={require('../pages/assets/images/icon/user.png')} />

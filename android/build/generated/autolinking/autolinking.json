@@ -183,6 +183,19 @@
         }
       }
     },
+    "react-native-render-html": {
+      "root": "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/react-native-render-html",
+      "name": "react-native-render-html",
+      "platforms": {
+        "ios": {
+          "podspecPath": "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/react-native-render-html/react-native-render-html.podspec",
+          "version": "6.3.4",
+          "configurations": [],
+          "scriptPhases": []
+        },
+        "android": null
+      }
+    },
     "react-native-safe-area-context": {
       "root": "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/react-native-safe-area-context",
       "name": "react-native-safe-area-context",

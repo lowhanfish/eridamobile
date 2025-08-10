@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
-import { View, TouchableOpacity, Text, Image, StyleSheet, ScrollView } from "react-native";
+import { View, useWindowDimensions, TouchableOpacity, Text, Image, StyleSheet, ScrollView } from "react-native";
 import { useFocusEffect, useNavigation, useRoute } from "@react-navigation/native";
 
 import useGlobalStore from "../stores/useGlobalStore.js";
@@ -8,10 +8,13 @@ import ImageLib from "./ImageLib.jsx";
 import axios from "axios";
 import GetDataToken from "../pages/lib/GetDataToken.js";
 
-
+import RenderHTML from 'react-native-render-html';
+import { realDate } from "../pages/lib/Umum.js";
 
 
 const NewsDetail = () => {
+
+    const { width } = useWindowDimensions();
 
     const visibleBar = useGlobalStore((state) => state.visibleBar)
     const setRouteBack = useGlobalStore((state) => state.setRouteBack);
@@ -20,8 +23,6 @@ const NewsDetail = () => {
 
     const [cek_load_data, setCekLoadData] = useState(true);
     const [list_data, setListData] = useState([]);
-
-
 
     const route = useRoute();
     const { id } = route.params;
@@ -65,7 +66,7 @@ const NewsDetail = () => {
                     {cek_load_data ? (
 
                         <View style={stylex.loading_container}>
-                            <ImageLib style={{ width: 200 }} urix={require('../pages/assets/images/loading.gif')} />
+                            <ImageLib style={{ width: 200 }} urix={require('../pages/assets/images/loading2.gif')} />
                             <Text style={stylex.loading_text}>Memuat Data...</Text>
                         </View>
                     ) : (
@@ -73,8 +74,9 @@ const NewsDetail = () => {
                         list_data.map((data, i) => (
 
                             <View key={i}>
+
                                 <ImageLib
-                                    urix={"https://server-erida.konaweselatankab.go.id/uploads/1752836088394.jpg"} customWidth={'100%'}
+                                    urix={urlx.URL_FILE + data.foto} customWidth={'100%'}
                                     style={styles.ImgNews}
                                 />
 
@@ -82,16 +84,16 @@ const NewsDetail = () => {
                                 <View style={styles.newsAuthorContainer}>
                                     <View style={styles.newsAuthorContainerItem}>
                                         <Image style={stylex.newsListTitleDescIcon} source={require('../pages/assets/images/icon/time.png')} />
-                                        <Text style={stylex.newsListTitleDescText}>20 March 2025</Text>
+                                        <Text style={stylex.newsListTitleDescText}>{realDate(data.editeAt)}</Text>
                                     </View>
                                     <View style={styles.newsAuthorContainerItem}>
                                         <Image style={stylex.newsListTitleDescIcon} source={require('../pages/assets/images/icon/user.png')} />
-                                        <Text style={stylex.newsListTitleDescText}>admin_erida</Text>
+                                        <Text style={stylex.newsListTitleDescText}>{data.createBy}</Text>
                                     </View>
                                 </View>
                                 <View>
                                     <Text style={styles.newsText}>
-                                        {data.isi}
+                                        <RenderHTML contentWidth={width} source={{ html: data.isi }} />
                                     </Text>
                                 </View>
                             </View>
@@ -99,16 +101,12 @@ const NewsDetail = () => {
 
                     )}
 
-
-
-
                 </View>
             </ScrollView>
         </View>
     )
 
 }
-
 
 
 const styles = StyleSheet.create({
