@@ -45,22 +45,26 @@ const NewsList = () => {
 
     const btn_prev = () => {
         if (page_first > 1) {
-            setPageFirst(page_first--)
+            setPageFirst(page_first - 1)
+            getData();
         } else {
             setPageFirst(1)
+            getData();
         }
-        getData();
     };
 
     const btn_next = () => {
-        var pageFirst = page_first
+        let pageFirst = page_first
 
         if (page_first >= page_last) {
             setPageFirst(page_last)
+            getData();
         } else {
-            setPageFirst(pageFirst++);
+            setPageFirst(page_first + 1);
+            getData();
         }
-        getData();
+        setTimeout(() => {
+        }, 500);
     }
 
     const getData = async () => {
@@ -79,7 +83,7 @@ const NewsList = () => {
             setListData(data.data);
             setPageLast(data.jml_data);
             setCekLoadData(false)
-            console.log(data)
+            // console.log(data)
         }).catch(error => {
             setCekLoadData(false);
             console.log(error)
@@ -89,7 +93,7 @@ const NewsList = () => {
 
     useEffect(() => {
         getData();
-    }, [])
+    }, [list_data])
 
 
     useFocusEffect(
@@ -179,7 +183,7 @@ const NewsList = () => {
                                 </TouchableOpacity>
                             </View>
                             <View style={stylex.paginContainerText}>
-                                <Text style={stylex.paginText}>1 - 12</Text>
+                                <Text style={stylex.paginText}>{page_first} - {page_last}</Text>
                             </View>
                             <View style={[stylex.paginContainerBtn, { justifyContent: 'flex-start' }]}>
                                 <TouchableOpacity onPress={btn_next} style={[stylex.paginTouchBtn, stylex.shaddow, { justifyContent: 'center' }]}>
