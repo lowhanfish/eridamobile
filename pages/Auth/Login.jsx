@@ -48,7 +48,7 @@ const Login = () => {
     var [errors, setErrors] = useState(""); // Satu string untuk semua error Joi
 
     const RequestLogin = async (data) => {
-        // console.log("Hy saya login");
+        console.log("Hy saya login", statex.URL_APP + "auth/login");
         try {
             const url = statex.URL_APP + "auth/login"; // Pastikan URL ini benar
             const response = await axios.post(url, data);
@@ -63,6 +63,7 @@ const Login = () => {
     }
 
     const LoginAccount = async () => {
+        console.log("Fungsi LoginAccount")
         // Clear error sebelumnya
         setErrors("");
 

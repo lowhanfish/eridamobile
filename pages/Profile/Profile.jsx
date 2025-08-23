@@ -46,9 +46,13 @@ const Profile = () => {
     };
 
     return (
-        <View style={styles.container}>
+        <View style={styles.containerSetting}>
+
+
+
+
             {/* Navigasi ke Home (jika Home berada dalam AppStack) */}
-            <TouchableOpacity onPress={() => navigation.navigate('MainPage')}>
+            <TouchableOpacity style={styles.btnSetting} onPress={() => navigation.navigate('MainPage')}>
                 <Text style={{ color: 'white' }}>Ke Halaman Utama (MainPage)</Text>
             </TouchableOpacity>
 
@@ -68,6 +72,23 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#2c3e50',
     },
+    containerSetting: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#E8E8E8'
+    },
+    btnSetting: {
+        backgroundColor: '#85210B',
+        height: 46,
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingLeft: 20,
+        paddingRight: 20,
+        borderRadius: 5,
+
+
+    }
 });
 
 //make this component available to the app

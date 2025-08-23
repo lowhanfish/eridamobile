@@ -6,6 +6,9 @@ import { useFocusEffect, useNavigation } from "@react-navigation/native";
 // import DateTimePicker from '@react-native-community/datetimepicker';
 
 import useGlobalStore from "../../stores/useGlobalStore";
+import GetDataToken from "../lib/GetDataToken";
+import axios from "axios";
+import { realDate } from "../lib/Umum";
 import { stylex } from "../assets/css";
 
 import RecentNews from "../../components/RecentNews";
@@ -17,23 +20,76 @@ import ModalSetting from "./ModalSetting";
 
 
 
+
 const NewsList = () => {
     const navigation = useNavigation();
 
     const visibleBar = useGlobalStore((state) => state.visibleBar)
     const setRouteBack = useGlobalStore((state) => state.setRouteBack);
-
     const [isModalVisibleSetting, setisModalVisibleSetting] = useState(false);
+
+
+    const urlx = useGlobalStore((state) => state.url);
+
+    const [list_data, setListData] = useState([]);
+    const [page_first, setPageFirst] = useState(1);
+    const [page_last, setPageLast] = useState(0);
+    const [cari_value, setCariValue] = useState("");
+    const [data_batas, setDataBatas] = useState(8);
+    const [cek_load_data, setCekLoadData] = useState(true);
+
 
     const [text, onChangeText] = useState('');
 
 
 
+    const btn_prev = () => {
+        if (page_first > 1) {
+            setPageFirst(page_first--)
+        } else {
+            setPageFirst(1)
+        }
+        getData();
+    };
 
+    const btn_next = () => {
+        var pageFirst = page_first
 
+        if (page_first >= page_last) {
+            setPageFirst(page_last)
+        } else {
+            setPageFirst(pageFirst++);
+        }
+        getData();
+    }
 
+    const getData = async () => {
+        var tokenz = await GetDataToken();
+        setCekLoadData(true);
+        axios.post(urlx.URL_Berita + "/view", {
+            data_ke: page_first,
+            cari_value: cari_value
+        }, {
+            headers: {
+                'Content-Type': "application/json",
+                'Authorization': `kikensbatara ${tokenz}`,
+            }
+        }).then(response => {
+            const data = response.data;
+            setListData(data.data);
+            setPageLast(data.jml_data);
+            setCekLoadData(false)
+            console.log(data)
+        }).catch(error => {
+            setCekLoadData(false);
+            console.log(error)
+        })
 
+    }
 
+    useEffect(() => {
+        getData();
+    }, [])
 
 
     useFocusEffect(
@@ -56,17 +112,8 @@ const NewsList = () => {
                         </View>
                     </View>
 
-
-
-
-
-
-
-
-
                     <View style={[stylex.borderContent, { marginBottom: 80 }]}>
                         <View style={{ paddingTop: 5 }}>
-
 
                             <View style={[stylex.InputContainer, styles.filterContainer]}>
                                 <Text style={stylex.inputText1}>Cari Berita</Text>
@@ -83,19 +130,50 @@ const NewsList = () => {
                                 </View>
                             </View>
 
-                            <RecentNews />
+                            <View>
+                                <View style={[styles.containerContent1]}>
 
 
+                                    {list_data.map((data, i) => (
+
+                                        <View key={i} style={stylex.newsListContainer}>
+                                            <View styl={stylex.newsListContainerImg}>
+                                                {/* <Image style={stylex.ImgNews} source={{ uri: urlx.URL_APP+'https://server-erida.konaweselatankab.go.id/uploads/1750636695002.jpg' }} /> */}
+                                                <Image style={stylex.ImgNews} source={{ uri: urlx.URL_FILE + data.foto }} />
+                                            </View>
+                                            <View style={stylex.newsListContainerText}>
+                                                <View>
+                                                    <TouchableOpacity onPress={() => navigation.navigate("NewsDetail", { id: data.id })}>
+                                                        <Text style={stylex.newsListTitle}>
+                                                            {data.judul}
+                                                        </Text>
+                                                    </TouchableOpacity>
+                                                    <View style={stylex.newsListTitleDesc}>
+                                                        <Image style={stylex.newsListTitleDescIcon} source={require('../assets/images/icon/time.png')} />
+                                                        <Text style={stylex.newsListTitleDescText}>{realDate(data.editeAt)}</Text>
+                                                    </View>
+                                                    <View style={stylex.newsListTitleDesc}>
+                                                        <Image style={stylex.newsListTitleDescIcon} source={require('../assets/images/icon/user.png')} />
+                                                        <Text style={stylex.newsListTitleDescText}>{data.createBy}</Text>
+                                                    </View>
+
+                                                </View>
+                                            </View>
+                                        </View>
+
+                                    ))}
+
+                                </View>
+                            </View>
 
                         </View>
                     </View>
-
 
                     <View style={stylex.paginContainer}>
                         <View style={{ flex: 1, flexDirection: 'row' }}>
 
                             <View style={[stylex.paginContainerBtn, { justifyContent: 'flex-end' }]}>
-                                <TouchableOpacity style={[stylex.paginTouchBtn, stylex.shaddow]}>
+                                <TouchableOpacity onPress={btn_prev} style={[stylex.paginTouchBtn, stylex.shaddow]}>
                                     <Image style={stylex.paginTouchBtnImg} source={require("../assets/images/icon/prev.png")} />
                                     <Text style={stylex.paginTouchBtnText}>PREF</Text>
                                 </TouchableOpacity>
@@ -104,7 +182,7 @@ const NewsList = () => {
                                 <Text style={stylex.paginText}>1 - 12</Text>
                             </View>
                             <View style={[stylex.paginContainerBtn, { justifyContent: 'flex-start' }]}>
-                                <TouchableOpacity style={[stylex.paginTouchBtn, stylex.shaddow, { justifyContent: 'center' }]}>
+                                <TouchableOpacity onPress={btn_next} style={[stylex.paginTouchBtn, stylex.shaddow, { justifyContent: 'center' }]}>
                                     <Text style={stylex.paginTouchBtnText}>NEXT</Text>
                                     <Image style={stylex.paginTouchBtnImg} source={require("../assets/images/icon/next.png")} />
                                 </TouchableOpacity>
@@ -129,7 +207,15 @@ const styles = StyleSheet.create({
         borderBottomColor: '#DFDDDD',
         borderBottomWidth: 5,
         paddingBottom: 10,
-    }
+    },
+    containerContent1: {
+        flex: 1,
+        // borderStyle: 'solid',
+        // borderTopWidth: 14,
+        // borderTopColor: '#D9D9D9',
+        // flexDirection: 'row',
+        paddingTop: 10,
+    },
 })
 
 
