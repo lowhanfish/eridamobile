@@ -41,34 +41,23 @@ const NewsList = () => {
 
     const [text, onChangeText] = useState('');
 
-
-
     const btn_prev = () => {
         if (page_first > 1) {
-            setPageFirst(page_first - 1)
-            getData();
-        } else {
-            setPageFirst(1)
-            getData();
+            setPageFirst(page_first - 1);
         }
     };
 
     const btn_next = () => {
-        let pageFirst = page_first
-
-        if (page_first >= page_last) {
-            setPageFirst(page_last)
-            getData();
-        } else {
+        if (page_first < page_last) {
             setPageFirst(page_first + 1);
-            getData();
         }
-        setTimeout(() => {
-        }, 500);
-    }
+    };
+
+
 
     const getData = async () => {
         var tokenz = await GetDataToken();
+        console.log(page_first)
         setCekLoadData(true);
         axios.post(urlx.URL_Berita + "/view", {
             data_ke: page_first,
@@ -91,9 +80,13 @@ const NewsList = () => {
 
     }
 
+    const test = () => {
+        console.log(cari_value)
+    }
+
     useEffect(() => {
         getData();
-    }, [list_data])
+    }, [page_first])
 
 
     useFocusEffect(
@@ -125,10 +118,10 @@ const NewsList = () => {
 
                                     <TextInput
                                         style={stylex.inputx2}
-                                        onChangeText={onChangeText}
-                                        value={text}
+                                        onChangeText={setCariValue}
+                                        value={cari_value}
                                     />
-                                    <TouchableOpacity onPress={() => setisModalVisibleSetting(true)} style={stylex.inputIcon2}>
+                                    <TouchableOpacity onPress={() => test()} style={stylex.inputIcon2}>
                                         <Image style={stylex.inputIconImg} source={require("../assets/images/icon/filter.png")} />
                                     </TouchableOpacity>
                                 </View>
@@ -136,7 +129,6 @@ const NewsList = () => {
 
                             <View>
                                 <View style={[styles.containerContent1]}>
-
 
                                     {list_data.map((data, i) => (
 
@@ -177,7 +169,7 @@ const NewsList = () => {
                         <View style={{ flex: 1, flexDirection: 'row' }}>
 
                             <View style={[stylex.paginContainerBtn, { justifyContent: 'flex-end' }]}>
-                                <TouchableOpacity onPress={btn_prev} style={[stylex.paginTouchBtn, stylex.shaddow]}>
+                                <TouchableOpacity onPress={() => btn_prev()} style={[stylex.paginTouchBtn, stylex.shaddow]}>
                                     <Image style={stylex.paginTouchBtnImg} source={require("../assets/images/icon/prev.png")} />
                                     <Text style={stylex.paginTouchBtnText}>PREF</Text>
                                 </TouchableOpacity>
@@ -186,7 +178,7 @@ const NewsList = () => {
                                 <Text style={stylex.paginText}>{page_first} - {page_last}</Text>
                             </View>
                             <View style={[stylex.paginContainerBtn, { justifyContent: 'flex-start' }]}>
-                                <TouchableOpacity onPress={btn_next} style={[stylex.paginTouchBtn, stylex.shaddow, { justifyContent: 'center' }]}>
+                                <TouchableOpacity onPress={() => btn_next()} style={[stylex.paginTouchBtn, stylex.shaddow, { justifyContent: 'center' }]}>
                                     <Text style={stylex.paginTouchBtnText}>NEXT</Text>
                                     <Image style={stylex.paginTouchBtnImg} source={require("../assets/images/icon/next.png")} />
                                 </TouchableOpacity>
