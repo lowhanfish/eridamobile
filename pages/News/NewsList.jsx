@@ -13,6 +13,8 @@ import { stylex } from "../assets/css";
 
 import RecentNews from "../../components/RecentNews";
 import ModalSetting from "./ModalSetting";
+import ImageLib from "../../components/ImageLib";
+
 // import axios from "axios";
 // import GetDataToken from "../lib/GetDataToken";
 
@@ -33,7 +35,7 @@ const NewsList = () => {
 
     const [list_data, setListData] = useState([]);
     const [page_first, setPageFirst] = useState(1);
-    const [page_last, setPageLast] = useState(0);
+    const [page_last, setPageLast] = useState(1);
     const [cari_value, setCariValue] = useState("");
     const [data_batas, setDataBatas] = useState(8);
     const [cek_load_data, setCekLoadData] = useState(true);
@@ -135,34 +137,46 @@ const NewsList = () => {
                             <View>
                                 <View style={[styles.containerContent1]}>
 
-                                    {list_data.map((data, i) => (
 
-                                        <View key={i} style={stylex.newsListContainer}>
-                                            <View styl={stylex.newsListContainerImg}>
-                                                {/* <Image style={stylex.ImgNews} source={{ uri: urlx.URL_APP+'https://server-erida.konaweselatankab.go.id/uploads/1750636695002.jpg' }} /> */}
-                                                <Image style={stylex.ImgNews} source={{ uri: urlx.URL_FILE + data.foto }} />
-                                            </View>
-                                            <View style={stylex.newsListContainerText}>
-                                                <View>
-                                                    <TouchableOpacity onPress={() => navigation.navigate("NewsDetail", { id: data.id })}>
-                                                        <Text style={stylex.newsListTitle}>
-                                                            {data.judul}
-                                                        </Text>
-                                                    </TouchableOpacity>
-                                                    <View style={stylex.newsListTitleDesc}>
-                                                        <Image style={stylex.newsListTitleDescIcon} source={require('../assets/images/icon/time.png')} />
-                                                        <Text style={stylex.newsListTitleDescText}>{realDate(data.editeAt)}</Text>
-                                                    </View>
-                                                    <View style={stylex.newsListTitleDesc}>
-                                                        <Image style={stylex.newsListTitleDescIcon} source={require('../assets/images/icon/user.png')} />
-                                                        <Text style={stylex.newsListTitleDescText}>{data.createBy}</Text>
-                                                    </View>
+                                    {cek_load_data ? (
+                                        <View style={[stylex.loading_container, { paddingTop: -10 }]}>
+                                            <ImageLib style={{ width: 200 }} urix={require('../assets/images/loading2.gif')} />
+                                            <Text style={stylex.loading_text}>Memuat Data...</Text>
+                                        </View>
+                                    ) : (
+                                        // Kode untuk menampilkan daftar berita
 
+                                        list_data.map((data, i) => (
+
+                                            <View key={i} style={stylex.newsListContainer}>
+                                                <View styl={stylex.newsListContainerImg}>
+                                                    {/* <Image style={stylex.ImgNews} source={{ uri: urlx.URL_APP+'https://server-erida.konaweselatankab.go.id/uploads/1750636695002.jpg' }} /> */}
+                                                    <Image style={stylex.ImgNews} source={{ uri: urlx.URL_FILE + data.foto }} />
+                                                </View>
+                                                <View style={stylex.newsListContainerText}>
+                                                    <View>
+                                                        <TouchableOpacity onPress={() => navigation.navigate("NewsDetail", { id: data.id })}>
+                                                            <Text style={stylex.newsListTitle}>
+                                                                {data.judul}
+                                                            </Text>
+                                                        </TouchableOpacity>
+                                                        <View style={stylex.newsListTitleDesc}>
+                                                            <Image style={stylex.newsListTitleDescIcon} source={require('../assets/images/icon/time.png')} />
+                                                            <Text style={stylex.newsListTitleDescText}>{realDate(data.editeAt)}</Text>
+                                                        </View>
+                                                        <View style={stylex.newsListTitleDesc}>
+                                                            <Image style={stylex.newsListTitleDescIcon} source={require('../assets/images/icon/user.png')} />
+                                                            <Text style={stylex.newsListTitleDescText}>{data.createBy}</Text>
+                                                        </View>
+
+                                                    </View>
                                                 </View>
                                             </View>
-                                        </View>
 
-                                    ))}
+                                        ))
+                                    )}
+
+
 
                                 </View>
                             </View>
