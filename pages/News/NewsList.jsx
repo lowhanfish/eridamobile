@@ -127,7 +127,7 @@ const NewsList = () => {
                                         value={cari_value}
                                     />
                                     <TouchableOpacity onPress={() => cariData()} style={stylex.inputIcon2}>
-                                        <Image style={stylex.inputIconImg} source={require("../assets/images/icon/filter.png")} />
+                                        <Image style={stylex.inputIconImg} source={require("../assets/images/icon/search.png")} />
                                     </TouchableOpacity>
                                 </View>
                             </View>
