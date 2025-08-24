@@ -31,18 +31,20 @@ const ListUsulan = () => {
     const [datax, setDatax] = useState(null)
 
 
+
+
     const btn_prev = () => {
         if (page_first > 1) {
-            setPageFirst(page_first--)
+            setPageFirst(page_first - 1);
         }
-
     };
 
     const btn_next = () => {
-        if (page_first >= page_last) {
-            setPageFirst(page_last)
+        if (page_first < page_last) {
+            setPageFirst(page_first + 1);
         }
-    }
+    };
+
 
     const getData = async () => {
         var tokenz = await GetDataToken();
