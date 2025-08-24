@@ -53,6 +53,11 @@ const NewsList = () => {
         }
     };
 
+    const cariData = () => {
+        setPageFirst(1); // Reset halaman ke 1 saat pencarian baru
+        getData();
+    };
+
 
 
     const getData = async () => {
@@ -121,7 +126,7 @@ const NewsList = () => {
                                         onChangeText={setCariValue}
                                         value={cari_value}
                                     />
-                                    <TouchableOpacity onPress={() => test()} style={stylex.inputIcon2}>
+                                    <TouchableOpacity onPress={() => cariData()} style={stylex.inputIcon2}>
                                         <Image style={stylex.inputIconImg} source={require("../assets/images/icon/filter.png")} />
                                     </TouchableOpacity>
                                 </View>
