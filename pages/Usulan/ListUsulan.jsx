@@ -99,7 +99,7 @@ const ListUsulan = () => {
     }
 
     useEffect(() => {
-
+        getData();
     }, [page_first])
 
 
@@ -107,7 +107,6 @@ const ListUsulan = () => {
         useCallback(() => {
             setRouteBack("Home");
             visibleBar(true, true);
-            getData();
         }, [visibleBar])
 
     )

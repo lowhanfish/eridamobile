@@ -35,7 +35,6 @@ const AddUsulan = () => {
         keterangan: "",
     });
 
-
     const nextStep = () => setCurrentStep(prev => prev + 1);
     const prevStep = () => setCurrentStep(prev => prev - 1);
 
@@ -43,34 +42,38 @@ const AddUsulan = () => {
         setFormData(prev => ({ ...prev, ...newData }));
     };
 
+
     const addData = async (data) => {
         var tokenz = await GetDataToken();
-        var formData = new FormData();
-        formData.append('nama', data.nama);
-        formData.append('alamat', data.alamat);
-        formData.append('hp', data.hp);
-        formData.append('email', data.email);
-        formData.append('nik', data.nik);
-        formData.append('status', data.status);
-        formData.append('keterangan', data.keterangan);
+        var formDatax = new FormData();
+        formDatax.append('nama', data.nama);
+        formDatax.append('alamat', data.alamat);
+        formDatax.append('hp', data.hp);
+        formDatax.append('email', data.email);
+        formDatax.append('nik', data.nik);
+        formDatax.append('status', data.status);
+        formDatax.append('keterangan', data.keterangan);
 
         const file = data.ktp[0];
 
         // console.log(file)
 
-        formData.append('file', {
+        formDatax.append('file', {
             uri: file.uri,
             name: file.name,
             type: file.type,
         });
 
-        axios.post(urlx.URL_Penelitian + "/addDataMobile", formData, {
+        axios.post(urlx.URL_Penelitian + "/addDataMobile", formDatax, {
             headers: {
                 'Content-Type': 'multipart/form-data',
                 'Authorization': `kikensbatara ${tokenz}`,
             }
         }).then(response => {
             console.log(response);
+            updateFormData({
+                id: response.data.insertId
+            });
         }).catch(error => {
             console.error(error);
         });
