@@ -34,19 +34,14 @@ const ListUsulan = () => {
     const btn_prev = () => {
         if (page_first > 1) {
             setPageFirst(page_first--)
-        } else {
-            setPageFirst(1)
         }
-        getData();
+
     };
 
     const btn_next = () => {
         if (page_first >= page_last) {
             setPageFirst(page_last)
-        } else {
-            setPageFirst(page_first++);
         }
-        getData();
     }
 
     const getData = async () => {
@@ -103,7 +98,7 @@ const ListUsulan = () => {
 
     useEffect(() => {
 
-    }, [])
+    }, [page_first])
 
 
     useFocusEffect(
