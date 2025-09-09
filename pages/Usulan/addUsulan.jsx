@@ -12,15 +12,15 @@ import axios from "axios";
 import GetDataToken from "../lib/GetDataToken";
 
 const AddUsulan = () => {
+    // console.log("ADD")
     const navigation = useNavigation();
     const visibleBar = useGlobalStore((state) => state.visibleBar);
     const setRouteBack = useGlobalStore((state) => state.setRouteBack);
     var urlx = useGlobalStore((state) => state.url)
 
-
     const route = useRoute()
     const { typex } = route.params;
-    console.log(typex)
+    console.log(typex, " XXXX")
 
     const [currentStep, setCurrentStep] = useState(1);
     const [formData, setFormData] = useState({
@@ -33,6 +33,12 @@ const AddUsulan = () => {
         ktp: null,
         status: "",
         keterangan: "",
+
+        nomorP: "",
+        tanggalP: "",
+        namaP: "",
+        jabatanP: "",
+        suratP: null,
     });
 
     const nextStep = () => setCurrentStep(prev => prev + 1);
@@ -43,9 +49,13 @@ const AddUsulan = () => {
     };
 
 
+    const [pathx, setPathx] = useState('')
+
+
+
     const addData = async (data) => {
         var tokenz = await GetDataToken();
-        var formDatax = new FormData();
+        const formDatax = new FormData();
         formDatax.append('nama', data.nama);
         formDatax.append('alamat', data.alamat);
         formDatax.append('hp', data.hp);
@@ -78,8 +88,34 @@ const AddUsulan = () => {
             console.error(error);
         });
     }
+    const addData2 = async (data) => {
 
+        var tokenz = await GetDataToken();
+        const formDatax = new FormData();
+        formDatax.append('nomorP', data.nomorP);
+        formDatax.append('tanggalP', data.tanggalP);
+        formDatax.append('namaP', data.namaP);
+        formDatax.append('jabatanP', data.jabatanP);
 
+        const file = data.suratP[0];
+
+        formDatax.append('file', {
+            uri: file.uri,
+            name: file.name,
+            type: file.type,
+        });
+
+        axios.post(urlx.URL_Penelitian + "/addPengantarMobile", formDatax, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'Authorization': `kikensbatara ${tokenz}`,
+            }
+        }).then(response => {
+            console.log(response);
+        }).catch(error => {
+            console.error(error);
+        });
+    }
 
     const editData = async (data) => {
 
@@ -88,6 +124,17 @@ const AddUsulan = () => {
 
     useEffect(() => {
         // checkEdit();
+
+        if (typex == 'add') {
+            setPathx("/addDataMobile")
+            console.log("YUK NAMBAH")
+        } else if (typex == 'edit') {
+            setPathx("/editDataMobile")
+            console.log("YUK EDIT")
+
+        }
+
+
     }, [typex])
 
     useFocusEffect(
