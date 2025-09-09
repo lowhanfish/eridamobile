@@ -53,9 +53,15 @@ const AddUsulan = () => {
 
 
 
+
     const addData = async (data) => {
         var tokenz = await GetDataToken();
         const formDatax = new FormData();
+
+        if (typex == 'edit') {
+            formDatax.append('id', data.id);
+        }
+
         formDatax.append('nama', data.nama);
         formDatax.append('alamat', data.alamat);
         formDatax.append('hp', data.hp);
@@ -74,7 +80,7 @@ const AddUsulan = () => {
             type: file.type,
         });
 
-        axios.post(urlx.URL_Penelitian + "/addDataMobile", formDatax, {
+        axios.post(urlx.URL_Penelitian + pathx, formDatax, {
             headers: {
                 'Content-Type': 'multipart/form-data',
                 'Authorization': `kikensbatara ${tokenz}`,
