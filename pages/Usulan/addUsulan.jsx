@@ -58,10 +58,6 @@ const AddUsulan = () => {
         var tokenz = await GetDataToken();
         const formDatax = new FormData();
 
-        if (typex == 'edit') {
-            formDatax.append('id', data.id);
-        }
-
         formDatax.append('nama', data.nama);
         formDatax.append('alamat', data.alamat);
         formDatax.append('hp', data.hp);
@@ -71,75 +67,76 @@ const AddUsulan = () => {
         formDatax.append('keterangan', data.keterangan);
 
         const file = data.ktp[0];
-
-        // console.log(file)
-
         formDatax.append('file', {
             uri: file.uri,
             name: file.name,
             type: file.type,
         });
 
-        axios.post(urlx.URL_Penelitian + pathx, formDatax, {
+        axios.post(urlx.URL_Penelitian + "/addDataMobile", formDatax, {
             headers: {
                 'Content-Type': 'multipart/form-data',
                 'Authorization': `kikensbatara ${tokenz}`,
             }
         }).then(response => {
+            console.log("SUKSES BOSSS")
             console.log(response);
             updateFormData({
                 id: response.data.insertId
             });
+
         }).catch(error => {
-            console.error(error);
-        });
-    }
-    const addData2 = async (data) => {
-
-        var tokenz = await GetDataToken();
-        const formDatax = new FormData();
-        formDatax.append('nomorP', data.nomorP);
-        formDatax.append('tanggalP', data.tanggalP);
-        formDatax.append('namaP', data.namaP);
-        formDatax.append('jabatanP', data.jabatanP);
-
-        const file = data.suratP[0];
-
-        formDatax.append('file', {
-            uri: file.uri,
-            name: file.name,
-            type: file.type,
-        });
-
-        axios.post(urlx.URL_Penelitian + "/addPengantarMobile", formDatax, {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-                'Authorization': `kikensbatara ${tokenz}`,
-            }
-        }).then(response => {
-            console.log(response);
-        }).catch(error => {
+            console.log("ada yang error yaaa...")
             console.error(error);
         });
     }
 
     const editData = async (data) => {
+        // Ambil token lebih dulu dengan await
+        const tokenz = await GetDataToken();
 
-    }
+        const formDatax = new FormData();
+        formDatax.append('id', data.id);
+        formDatax.append('nama', data.nama);
+        formDatax.append('alamat', data.alamat);
+        formDatax.append('hp', data.hp);
+        formDatax.append('email', data.email);
+        formDatax.append('nik', data.nik);
+        formDatax.append('status', data.status);
+        formDatax.append('keterangan', data.keterangan);
+
+        // Hanya tambahkan file jika ada file baru
+        let file;
+        if (Array.isArray(data.ktp) && data.ktp.length > 0) {
+            file = data.ktp[0];
+        }
+        if (file) {
+            formDatax.append('file', {
+                uri: file.uri,
+                name: file.name,
+                type: file.type,
+            });
+        }
+
+        // console.log('POST URL', urlx.URL_Penelitian + "/editDataMobile");
+        // console.log('KTP type', typeof data.ktp, data.ktp);
+
+        axios.post(urlx.URL_Penelitian + "/editDataMobile", formDatax, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'Authorization': `kikensbatara ${tokenz}`,
+            },
+        }).then((response) => {
+            console.log("Edit sukses", response.data);
+        }).catch((error) => {
+            console.log("Edit gagal", error.message);
+        });
+    };
+
+
 
 
     useEffect(() => {
-        // checkEdit();
-
-        if (typex == 'add') {
-            setPathx("/addDataMobile")
-            console.log("YUK NAMBAH")
-        } else if (typex == 'edit') {
-            setPathx("/editDataMobile")
-            console.log("YUK EDIT")
-
-        }
-
 
     }, [typex])
 
@@ -153,13 +150,13 @@ const AddUsulan = () => {
     switch (currentStep) {
         case 1:
             // return <AddUsulanPenelitian1 routex={route.params} data={formData} updateData={updateFormData} excuteData={typex === 'add' ? addData : editData} nextStep={nextStep} />;
-            return <AddUsulanPenelitian1 routex={route.params} data={formData} updateData={updateFormData} excuteData={addData} nextStep={nextStep} />;
+            return <AddUsulanPenelitian1 routex={route.params} data={formData} updateData={updateFormData} excuteData={addData} editData={editData} nextStep={nextStep} />;
         case 2:
-            return <AddUsulanPenelitian2 data={formData} updateData={updateFormData} nextStep={nextStep} prevStep={prevStep} />;
+            return <AddUsulanPenelitian2 data={formData} updateData={updateFormData} nextStep={nextStep} editData={editData} prevStep={prevStep} />;
         case 3:
-            return <AddUsulanPenelitian3 data={formData} updateData={updateFormData} nextStep={nextStep} prevStep={prevStep} />;
+            return <AddUsulanPenelitian3 data={formData} updateData={updateFormData} nextStep={nextStep} editData={editData} prevStep={prevStep} />;
         case 4:
-            return <AddUsulanPenelitian4 data={formData} updateData={updateFormData} nextStep={nextStep} prevStep={prevStep} addData={addData} />;
+            return <AddUsulanPenelitian4 data={formData} updateData={updateFormData} nextStep={nextStep} editData={editData} prevStep={prevStep} addData={addData} />;
         default:
             return null;
     }

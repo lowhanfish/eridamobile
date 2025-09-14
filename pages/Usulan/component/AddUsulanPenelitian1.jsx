@@ -15,7 +15,7 @@ import ImageLib from "../../../components/ImageLib";
 
 
 
-const AddUsulanPenelitian1 = ({ data, updateData, nextStep, excuteData, routex }) => {
+const AddUsulanPenelitian1 = ({ data, updateData, nextStep, excuteData, editData, routex }) => {
 
     const navigation = useNavigation();
     const screenWidth = Dimensions.get('window').width;
@@ -53,8 +53,17 @@ const AddUsulanPenelitian1 = ({ data, updateData, nextStep, excuteData, routex }
     const handleNext = () => {
         const newData = { id, nama, alamat, hp, email, nik, ktp, status, keterangan };
         updateData(newData);        // Update state global
-        excuteData(newData);
-        nextStep(); // lanjut ke step berikutnya
+
+        if (routex.typex == 'edit') {
+            console.log("ini edit")
+            editData(newData);
+        } else {
+            console.log("ini add")
+            excuteData(newData);
+        }
+
+
+        // nextStep(); // lanjut ke step berikutnya
     };
 
     const visibleBar = useGlobalStore((state) => state.visibleBar)
