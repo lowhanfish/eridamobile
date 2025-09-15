@@ -54,84 +54,7 @@ const AddUsulan = () => {
 
 
 
-    const addData = async (data) => {
-        var tokenz = await GetDataToken();
-        const formDatax = new FormData();
 
-        formDatax.append('nama', data.nama);
-        formDatax.append('alamat', data.alamat);
-        formDatax.append('hp', data.hp);
-        formDatax.append('email', data.email);
-        formDatax.append('nik', data.nik);
-        formDatax.append('status', data.status);
-        formDatax.append('keterangan', data.keterangan);
-
-        const file = data.ktp[0];
-        formDatax.append('file', {
-            uri: file.uri,
-            name: file.name,
-            type: file.type,
-        });
-
-        axios.post(urlx.URL_Penelitian + "/addDataMobile", formDatax, {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-                'Authorization': `kikensbatara ${tokenz}`,
-            }
-        }).then(response => {
-            console.log("SUKSES BOSSS")
-            console.log(response);
-            updateFormData({
-                id: response.data.insertId
-            });
-
-        }).catch(error => {
-            console.log("ada yang error yaaa...")
-            console.error(error);
-        });
-    }
-
-    const editData = async (data) => {
-        // Ambil token lebih dulu dengan await
-        const tokenz = await GetDataToken();
-
-        const formDatax = new FormData();
-        formDatax.append('id', data.id);
-        formDatax.append('nama', data.nama);
-        formDatax.append('alamat', data.alamat);
-        formDatax.append('hp', data.hp);
-        formDatax.append('email', data.email);
-        formDatax.append('nik', data.nik);
-        formDatax.append('status', data.status);
-        formDatax.append('keterangan', data.keterangan);
-
-        // Hanya tambahkan file jika ada file baru
-        let file;
-        if (Array.isArray(data.ktp) && data.ktp.length > 0) {
-            file = data.ktp[0];
-        }
-        if (file) {
-            formDatax.append('file', {
-                uri: file.uri,
-                name: file.name,
-                type: file.type,
-            });
-        }
-
-        // console.log('POST URL', urlx.URL_Penelitian + "/editDataMobile");
-        // console.log('KTP type', typeof data.ktp, data.ktp);
-
-        axios.post(urlx.URL_Penelitian + "/editDataMobile", formDatax, {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-                'Authorization': `kikensbatara ${tokenz}`,
-            },
-        }).then((response) => {
-            console.log("Edit sukses", response.data);
-        }).catch((error) => {
-            console.log("Edit gagal", error.message);
-        });
-    };
 
 
 
@@ -152,11 +75,11 @@ const AddUsulan = () => {
             // return <AddUsulanPenelitian1 routex={route.params} data={formData} updateData={updateFormData} excuteData={typex === 'add' ? addData : editData} nextStep={nextStep} />;
             return <AddUsulanPenelitian1 routex={route.params} data={formData} updateData={updateFormData} nextStep={nextStep} />;
         case 2:
-            return <AddUsulanPenelitian2 data={formData} updateData={updateFormData} nextStep={nextStep} editData={editData} prevStep={prevStep} />;
+            return <AddUsulanPenelitian2 data={formData} updateData={updateFormData} nextStep={nextStep} prevStep={prevStep} />;
         case 3:
-            return <AddUsulanPenelitian3 data={formData} updateData={updateFormData} nextStep={nextStep} editData={editData} prevStep={prevStep} />;
+            return <AddUsulanPenelitian3 data={formData} updateData={updateFormData} nextStep={nextStep} prevStep={prevStep} />;
         case 4:
-            return <AddUsulanPenelitian4 data={formData} updateData={updateFormData} nextStep={nextStep} editData={editData} prevStep={prevStep} addData={addData} />;
+            return <AddUsulanPenelitian4 data={formData} updateData={updateFormData} nextStep={nextStep} prevStep={prevStep} />;
         default:
             return null;
     }
