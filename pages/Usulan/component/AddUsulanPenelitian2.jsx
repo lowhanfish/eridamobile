@@ -11,13 +11,41 @@ import useGlobalStore from "../../../stores/useGlobalStore";
 import { stylex } from "../../assets/css";
 
 
-const AddUsulanPenelitian2 = ({ data, updateData, nextStep, prevStep }) => {
+const AddUsulanPenelitian2 = ({ data, updateData, nextStep, prevStep, routex }) => {
     const navigation = useNavigation();
     const visibleBar = useGlobalStore((state) => state.visibleBar)
     const setRouteBack = useGlobalStore((state) => state.setRouteBack);
 
+    const urlx = useGlobalStore((state) => state.url)
+
+    const [id, setId] = useState(data.id);
+    const [nama, setNama] = useState(data.nama);
+    const [alamat, setAlamat] = useState(data.alamat);
+    const [hp, setHP] = useState(data.hp);
+    const [email, setEmail] = useState(data.email);
+    const [nik, setNIK] = useState(data.nik);
+    const [ktp, setKTP] = useState(data.ktp);
+    const [status, setStatus] = useState(data.status);
+    const [keterangan, setKeterangan] = useState(data.keterangan);
+
 
     const [text, onChangeText] = useState('');
+
+
+    const checkEdit = () => {
+
+        if (routex.typex == 'edit') {
+            setId(routex.id);
+            setNama(routex.nama);
+            setAlamat(routex.alamat);
+            setHP(routex.hp);
+            setEmail(routex.email);
+            setNIK(routex.nik);
+            setKTP(routex.ktp);
+            setStatus(routex.status);
+            setKeterangan(routex.keterangan);
+        }
+    }
 
 
     // ===== LIFTING_STATE_UP =====
@@ -74,6 +102,11 @@ const AddUsulanPenelitian2 = ({ data, updateData, nextStep, prevStep }) => {
     };
 
     // ===== PICKDATE =====
+
+
+    useEffect(() => {
+        checkEdit();
+    }, [])
 
 
 

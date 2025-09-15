@@ -75,11 +75,11 @@ const AddUsulan = () => {
             // return <AddUsulanPenelitian1 routex={route.params} data={formData} updateData={updateFormData} excuteData={typex === 'add' ? addData : editData} nextStep={nextStep} />;
             return <AddUsulanPenelitian1 routex={route.params} data={formData} updateData={updateFormData} nextStep={nextStep} />;
         case 2:
-            return <AddUsulanPenelitian2 data={formData} updateData={updateFormData} nextStep={nextStep} prevStep={prevStep} />;
+            return <AddUsulanPenelitian2 routex={route.params} data={formData} updateData={updateFormData} nextStep={nextStep} prevStep={prevStep} />;
         case 3:
-            return <AddUsulanPenelitian3 data={formData} updateData={updateFormData} nextStep={nextStep} prevStep={prevStep} />;
+            return <AddUsulanPenelitian3 routex={route.params} data={formData} updateData={updateFormData} nextStep={nextStep} prevStep={prevStep} />;
         case 4:
-            return <AddUsulanPenelitian4 data={formData} updateData={updateFormData} nextStep={nextStep} prevStep={prevStep} />;
+            return <AddUsulanPenelitian4 routex={route.params} data={formData} updateData={updateFormData} nextStep={nextStep} prevStep={prevStep} />;
         default:
             return null;
     }
