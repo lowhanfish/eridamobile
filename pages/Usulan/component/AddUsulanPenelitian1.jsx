@@ -12,6 +12,10 @@ import axios from "axios";
 import { stylex } from "../../assets/css";
 import Imagex from "../../../components/Imagex";
 import ImageLib from "../../../components/ImageLib";
+import GetDataToken from "../../lib/GetDataToken";
+
+
+
 
 
 
@@ -45,26 +49,129 @@ const AddUsulanPenelitian1 = ({ data, updateData, nextStep, excuteData, editData
             setKTP(routex.ktp);
             setStatus(routex.status);
             setKeterangan(routex.keterangan);
-
-            // console.log(typeof (nama))
         }
     }
 
-    const handleNext = () => {
+
+    const addDatax = async (datax) => {
+        var tokenz = await GetDataToken();
+        const formDatax = new FormData();
+
+        formDatax.append('nama', datax.nama);
+        formDatax.append('alamat', datax.alamat);
+        formDatax.append('hp', datax.hp);
+        formDatax.append('email', datax.email);
+        formDatax.append('nik', datax.nik);
+        formDatax.append('status', datax.status);
+        formDatax.append('keterangan', datax.keterangan);
+
+        const file = datax.ktp[0];
+        formDatax.append('file', {
+            uri: file.uri,
+            name: file.name,
+            type: file.type,
+        });
+
+        axios.post(urlx.URL_Penelitian + "/addDataMobile", formDatax, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'Authorization': `kikensbatara ${tokenz}`,
+            }
+        }).then(response => {
+            console.log("SUKSES BOSSS")
+            console.log(response);
+            updateData({
+                id: response.data.insertId
+            });
+
+        }).catch(error => {
+            console.log("ada yang error yaaa...")
+            console.error(error);
+        });
+    }
+
+    const editDatax = async (data) => {
+        // Ambil token lebih dulu dengan await
+        const tokenz = await GetDataToken();
+
+        const formDatax = new FormData();
+        formDatax.append('id', data.id);
+        formDatax.append('nama', data.nama);
+        formDatax.append('alamat', data.alamat);
+        formDatax.append('hp', data.hp);
+        formDatax.append('email', data.email);
+        formDatax.append('nik', data.nik);
+        formDatax.append('status', data.status);
+        formDatax.append('keterangan', data.keterangan);
+
+        // Hanya tambahkan file jika ada file baru
+        let file;
+        if (Array.isArray(data.ktp) && data.ktp.length > 0) {
+            file = data.ktp[0];
+        }
+        if (file) {
+            formDatax.append('file', {
+                uri: file.uri,
+                name: file.name,
+                type: file.type,
+            });
+        }
+
+        // console.log('POST URL', urlx.URL_Penelitian + "/editDataMobile");
+        // console.log('KTP type', typeof data.ktp, data.ktp);
+
+        axios.post(urlx.URL_Penelitian + "/editDataMobile", formDatax, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'Authorization': `kikensbatara ${tokenz}`,
+            },
+        }).then((response) => {
+            console.log("Edit sukses", response.data);
+        }).catch((error) => {
+            console.log("Edit gagal", error.message);
+        });
+    };
+
+    const setAction = () => {
+
         const newData = { id, nama, alamat, hp, email, nik, ktp, status, keterangan };
         updateData(newData);        // Update state global
 
+
+        // console.log(newData)
+
         if (routex.typex == 'edit') {
-            console.log("ini edit")
-            editData(newData);
+            // console.log("ini edit")
+            editDatax(newData);
+            nextStep();
         } else {
-            console.log("ini add")
-            excuteData(newData);
+            // console.log("ini add")
+            addDatax(newData);
+            nextStep();
         }
 
 
-        // nextStep(); // lanjut ke step berikutnya
-    };
+    }
+
+
+
+    // const handleNext = () => {
+    //     const newData = { id, nama, alamat, hp, email, nik, ktp, status, keterangan };
+    //     updateData(newData);        // Update state global
+
+    //     if (routex.typex == 'edit') {
+    //         console.log("ini edit")
+    //         editData(newData);
+    //     } else {
+    //         console.log("ini add")
+    //         excuteData(newData);
+    //     }
+
+
+    //     // nextStep(); // lanjut ke step berikutnya
+    // };
+
+
 
     const visibleBar = useGlobalStore((state) => state.visibleBar)
     const setRouteBack = useGlobalStore((state) => state.setRouteBack);
@@ -241,7 +348,7 @@ const AddUsulanPenelitian1 = ({ data, updateData, nextStep, excuteData, editData
                         </TouchableOpacity>
                     </View>
                     <View style={[stylex.paginContainerBtn, { justifyContent: 'flex-start' }]}>
-                        <TouchableOpacity onPress={handleNext} style={[stylex.paginTouchBtn, stylex.shaddow, { justifyContent: 'center' }]}>
+                        <TouchableOpacity onPress={setAction} style={[stylex.paginTouchBtn, stylex.shaddow, { justifyContent: 'center' }]}>
                             <Text style={stylex.paginTouchBtnText}>NEXT</Text>
                             <Image style={stylex.paginTouchBtnImg} source={require("../../assets/images/icon/next.png")} />
                         </TouchableOpacity>

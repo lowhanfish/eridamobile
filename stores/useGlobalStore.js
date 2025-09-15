@@ -3,9 +3,9 @@ import { create } from "zustand";
 
 // var URL = 'http://10.216.143.96:5070/';
 // var URL = 'http://10.2.20.57:5070/';
-var URL = 'http://192.168.1.5:5070/';
+// var URL = 'http://192.168.1.5:5070/';
 var URL_FILE = 'https://server-erida.konaweselatankab.go.id/';
-// var URL = 'http://192.168.128.4:5070/';
+var URL = 'http://192.168.128.4:5070/';
 // var URL = 'http://172.16.128.187:5070/';
 
 const useGlobalStore = create((state)=>({
