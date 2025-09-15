@@ -19,7 +19,7 @@ import GetDataToken from "../../lib/GetDataToken";
 
 
 
-const AddUsulanPenelitian1 = ({ data, updateData, nextStep, excuteData, editData, routex }) => {
+const AddUsulanPenelitian1 = ({ data, updateData, nextStep, routex }) => {
 
     const navigation = useNavigation();
     const screenWidth = Dimensions.get('window').width;

@@ -150,7 +150,7 @@ const AddUsulan = () => {
     switch (currentStep) {
         case 1:
             // return <AddUsulanPenelitian1 routex={route.params} data={formData} updateData={updateFormData} excuteData={typex === 'add' ? addData : editData} nextStep={nextStep} />;
-            return <AddUsulanPenelitian1 routex={route.params} data={formData} updateData={updateFormData} excuteData={addData} editData={editData} nextStep={nextStep} />;
+            return <AddUsulanPenelitian1 routex={route.params} data={formData} updateData={updateFormData} nextStep={nextStep} />;
         case 2:
             return <AddUsulanPenelitian2 data={formData} updateData={updateFormData} nextStep={nextStep} editData={editData} prevStep={prevStep} />;
         case 3:
