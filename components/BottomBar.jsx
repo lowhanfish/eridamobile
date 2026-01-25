@@ -4,6 +4,8 @@ import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 
 
 import { useNavigation } from "@react-navigation/native";
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
 
 
 
@@ -11,11 +13,12 @@ import { useNavigation } from "@react-navigation/native";
 
 
 const BottomBar = ({ navigation }) => {
+    const insets = useSafeAreaInsets();
 
     // const navigation = useNavigation();
 
     return (
-        <View style={styles.bottomBar}>
+        <View style={[styles.bottomBar, { paddingBottom: insets.bottom }]}>
             <View style={styles.bottomBarContainer}>
 
                 <View style={[styles.containerIconBottomBar]}>
@@ -62,7 +65,7 @@ const styles = StyleSheet.create({
     bottomBar: {
         // backgroundColor: 'purple',
         width: '100%',
-        height: 86,
+        height: 120,
         // flex :1,
     },
 
@@ -92,7 +95,8 @@ const styles = StyleSheet.create({
     iconBottomBar: {
         // backgroundColor: 'yellow',
         width: 36,
-        height: 36
+        height: 36,
+        resizeMode: 'contain'
     },
     iconBottomBarText: {
         color: 'white',
@@ -108,3 +112,4 @@ const styles = StyleSheet.create({
 
 
 export default BottomBar
+
