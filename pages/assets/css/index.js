@@ -36,6 +36,7 @@ export const stylex = StyleSheet.create({
         display: "flex",
         flex: 1,
         ...centerAll,
+        // paddingBottom: 45,
         
         // backgroundColor: 'pink',
     },
