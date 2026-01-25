@@ -14,7 +14,7 @@ import Home from "../pages/Home/Home.jsx";
 import Profile from "../pages/Profile/Profile.jsx";
 
 import ListUsulan from "../pages/Usulan/ListUsulan.jsx";
-import AddUsulan from "./Usulan/AddUsulan.jsx";
+import AddUsulan from "./Usulan/addUsulan.jsx";
 import AddUsulanPenelitian1 from "./Usulan/component/AddUsulanPenelitian1.jsx";
 import AddUsulanPenelitian2 from "./Usulan/component/AddUsulanPenelitian2.jsx";
 import AddUsulanPenelitian3 from "./Usulan/component/AddUsulanPenelitian3.jsx";
