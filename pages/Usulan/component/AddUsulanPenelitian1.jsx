@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
-import { View, TouchableOpacity, Text, Image, ScrollView, StyleSheet, TextInput, Dimensions } from "react-native";
+import { View, TouchableOpacity, Text, Image, ScrollView, StyleSheet, TextInput, Dimensions, Linking, Platform, Modal, ActivityIndicator, ToastAndroid } from "react-native";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { pick } from '@react-native-documents/picker'
-
+import Pdf from 'react-native-pdf';
+import RNFS from 'react-native-fs';
 
 import useGlobalStore from "../../../stores/useGlobalStore";
 import axios from "axios";
@@ -35,6 +36,13 @@ const AddUsulanPenelitian1 = ({ data, updateData, nextStep, routex }) => {
     const [ktp, setKTP] = useState(data.ktp);
     const [status, setStatus] = useState(data.status);
     const [keterangan, setKeterangan] = useState(data.keterangan);
+    
+    // Modal state for PDF viewer
+    const [showPdfModal, setShowPdfModal] = useState(false);
+    const [pdfLoading, setPdfLoading] = useState(false);
+    const [pdfError, setPdfError] = useState(null);
+    const [pdfUri, setPdfUri] = useState(null);
+    const [pdfKey, setPdfKey] = useState(0);
 
 
     const checkEdit = () => {
@@ -65,7 +73,7 @@ const AddUsulanPenelitian1 = ({ data, updateData, nextStep, routex }) => {
         formDatax.append('status', datax.status);
         formDatax.append('keterangan', datax.keterangan);
 
-        const file = datax.ktp[0];
+        const file = datax.ktp;
         formDatax.append('file', {
             uri: file.uri,
             name: file.name,
@@ -105,20 +113,14 @@ const AddUsulanPenelitian1 = ({ data, updateData, nextStep, routex }) => {
         formDatax.append('keterangan', data.keterangan);
 
         // Hanya tambahkan file jika ada file baru
-        let file;
-        if (Array.isArray(data.ktp) && data.ktp.length > 0) {
-            file = data.ktp[0];
-        }
-        if (file) {
+        let file = data.ktp;
+        if (file && file.uri) {
             formDatax.append('file', {
                 uri: file.uri,
                 name: file.name,
                 type: file.type,
             });
         }
-
-        // console.log('POST URL', urlx.URL_Penelitian + "/editDataMobile");
-        // console.log('KTP type', typeof data.ktp, data.ktp);
 
         axios.post(urlx.URL_Penelitian + "/editDataMobile", formDatax, {
             headers: {
@@ -179,14 +181,73 @@ const AddUsulanPenelitian1 = ({ data, updateData, nextStep, routex }) => {
 
     const pickDocument = async () => {
         try {
-            const result = await pick();
+            const result = await pick({
+                mode: 'open',
+                type: ['application/pdf'],
+            });
             if (result) {
-                setKTP(result);
-                console.log('File pickedx :', result);
+                // Handle array result from document picker
+                const fileData = Array.isArray(result) ? result[0] : result;
+                console.log('File picked:', fileData);
+                
+                // Copy file to app's internal storage for PDF viewer
+                if (fileData.uri && (fileData.uri.startsWith('content://') || fileData.uri.startsWith('file://'))) {
+                    const destPath = `${RNFS.CachesDirectoryPath}/ktp_${Date.now()}.pdf`;
+                    try {
+                        await RNFS.copyFile(fileData.uri, destPath);
+                        setPdfUri('file://' + destPath);
+                        setKTP({
+                            ...fileData,
+                            uri: 'file://' + destPath
+                        });
+                        console.log('File copied to:', destPath);
+                    } catch (copyError) {
+                        console.error('Error copying file:', copyError);
+                        // Fallback ke URI asli
+                        setPdfUri(fileData.uri);
+                        setKTP(fileData);
+                    }
+                } else {
+                    setPdfUri(fileData.uri);
+                    setKTP(fileData);
+                }
             }
         } catch (err) {
             console.error('Error picking document:', err);
+            ToastAndroid.show('Gagal memilih file', ToastAndroid.SHORT);
         }
+    };
+
+    const openKtpViewer = async () => {
+        const uriToUse = pdfUri || (ktp && ktp.uri);
+        if (uriToUse) {
+            setPdfError(null);
+            setPdfLoading(true);
+            // Increment key to force re-render of Pdf component
+            setPdfKey(prev => prev + 1);
+            setTimeout(() => {
+                setShowPdfModal(true);
+                console.log('Opening PDF from:', uriToUse);
+            }, 100);
+        } else {
+            ToastAndroid.show('Pilih file KTP terlebih dahulu', ToastAndroid.SHORT);
+        }
+    };
+
+    const closePdfModal = () => {
+        setShowPdfModal(false);
+        setPdfError(null);
+    };
+
+    const handlePdfLoadComplete = (numberOfPages, filePath) => {
+        console.log(`PDF loaded: ${numberOfPages} pages`);
+        setPdfLoading(false);
+    };
+
+    const handlePdfError = (error) => {
+        setPdfLoading(false);
+        setPdfError('Gagal memuat PDF. Silakan pilih file lain.');
+        console.error('PDF Error:', error);
     };
 
     useEffect(() => {
@@ -301,13 +362,13 @@ const AddUsulanPenelitian1 = ({ data, updateData, nextStep, routex }) => {
 
                         ) : (
 
-                            ktp && ktp[0] ? (
+                            ktp && ktp.uri ? (
                                 <View style={styles.containerUpload1}>
                                     <View style={styles.containerUploadText}>
-                                        <Imagex
-                                            width={widthx}
-                                            urix={ktp[0].uri}
-                                        />
+                                        <View style={styles.pdfIconContainer}>
+                                            <Text style={styles.pdfIconText}>📄</Text>
+                                            <Text style={styles.pdfFileName}>{ktp.name || 'KTP.pdf'}</Text>
+                                        </View>
                                     </View>
                                 </View>
                             ) : (
@@ -324,13 +385,20 @@ const AddUsulanPenelitian1 = ({ data, updateData, nextStep, routex }) => {
                         <TouchableOpacity onPress={pickDocument}>
                             <View style={styles.btnPickFile}>
 
-                                {ktp && ktp[0] ? (
+                                {ktp && ktp.uri ? (
                                     <Text style={styles.btnPickFileText}>Ganti Foto KTP</Text>
                                 ) : (
                                     <Text style={styles.btnPickFileText}>Cari Foto KTP</Text>
                                 )}
                             </View>
                         </TouchableOpacity>
+                        {ktp && ktp.uri && (
+                            <TouchableOpacity onPress={openKtpViewer}>
+                                <View style={[styles.btnPickFile, { backgroundColor: '#4CAF50', marginTop: 5 }]}>
+                                    <Text style={styles.btnPickFileText}>👁 Lihat KTP</Text>
+                                </View>
+                            </TouchableOpacity>
+                        )}
 
                     </View>
 
@@ -356,9 +424,67 @@ const AddUsulanPenelitian1 = ({ data, updateData, nextStep, routex }) => {
                 </View>
 
             </View>
+
+            {/* PDF Viewer Modal */}
+            <Modal
+                visible={showPdfModal}
+                animationType="slide"
+                transparent={false}
+                onRequestClose={closePdfModal}
+            >
+                <View style={styles.modalContainer}>
+                    <View style={styles.modalContent}>
+                        {/* Modal Header */}
+                        <View style={styles.modalHeader}>
+                            <Text style={styles.modalTitle}>Preview KTP</Text>
+                            <TouchableOpacity onPress={closePdfModal} style={styles.closeButton}>
+                                <Text style={styles.closeButtonText}>✕</Text>
+                            </TouchableOpacity>
+                        </View>
+
+                        {/* PDF Viewer */}
+                        <View style={styles.pdfContainer} key={pdfKey}>
+                            {pdfError ? (
+                                <View style={styles.errorContainer}>
+                                    <Text style={styles.errorText}>{pdfError}</Text>
+                                    <TouchableOpacity onPress={closePdfModal} style={[styles.btnPickFile, { marginTop: 20, width: 200 }]}>
+                                        <Text style={styles.btnPickFileText}>Tutup</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            ) : (pdfUri || (ktp && ktp.uri)) ? (
+                                <Pdf
+                                    source={{ uri: pdfUri || ktp.uri }}
+                                    style={{ flex: 1 }}
+                                    onLoadComplete={(numberOfPages, filePath) => {
+                                        console.log(`PDF loaded: ${numberOfPages} pages`);
+                                        setPdfLoading(false);
+                                    }}
+                                    onError={(error) => {
+                                        setPdfLoading(false);
+                                        setPdfError('Gagal memuat PDF. Silakan pilih file lain.');
+                                        console.error('PDF Error:', error);
+                                    }}
+                                    onPageChanged={(page, numberOfPages) => {
+                                        console.log(`Page: ${page}/${numberOfPages}`);
+                                        setPdfLoading(false);
+                                    }}
+                                    enablePaging={true}
+                                    horizontal={false}
+                                />
+                            ) : (
+                                <View style={styles.errorContainer}>
+                                    <Text style={styles.errorText}>File tidak ditemukan</Text>
+                                    <TouchableOpacity onPress={closePdfModal} style={[styles.btnPickFile, { marginTop: 20, width: 200 }]}>
+                                        <Text style={styles.btnPickFileText}>Tutup</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            )}
+                        </View>
+                    </View>
+                </View>
+            </Modal>
         </View>
     )
-
 }
 
 const styles = StyleSheet.create({
@@ -413,10 +539,76 @@ const styles = StyleSheet.create({
     btnPickFileText: {
         color: 'white',
         fontWeight: '700'
-    }
+    },
+    modalContainer: {
+        flex: 1,
+        backgroundColor: 'rgba(0,0,0,0.8)',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    modalContent: {
+        width: '95%',
+        height: '90%',
+        backgroundColor: 'white',
+        borderRadius: 10,
+        overflow: 'hidden',
+    },
+    modalHeader: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        padding: 15,
+        backgroundColor: '#DFB11C',
+    },
+    modalTitle: {
+        color: 'white',
+        fontSize: 16,
+        fontWeight: 'bold',
+    },
+    closeButton: {
+        padding: 5,
+    },
+    closeButtonText: {
+        color: 'white',
+        fontSize: 18,
+        fontWeight: 'bold',
+    },
+    pdfContainer: {
+        flex: 1,
+        backgroundColor: '#f5f5f5',
+    },
+    loadingContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    errorContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 20,
+    },
+    errorText: {
+        color: 'red',
+        fontSize: 14,
+        textAlign: 'center',
+    },
+    pdfIconContainer: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 20,
+    },
+    pdfIconText: {
+        fontSize: 48,
+        marginBottom: 10,
+    },
+    pdfFileName: {
+        fontSize: 14,
+        color: '#333',
+        fontWeight: 'bold',
+        textAlign: 'center',
+    },
 
 })
-
-
 
 export default AddUsulanPenelitian1
