@@ -5,6 +5,7 @@ import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { pick } from '@react-native-documents/picker'
 import Pdf from 'react-native-pdf';
 import RNFS from 'react-native-fs';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 import useGlobalStore from "../../../stores/useGlobalStore";
 import { stylex } from "../../assets/css";
