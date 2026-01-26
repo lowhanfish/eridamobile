@@ -29,25 +29,25 @@ const BottomBar = ({ navigation }) => {
                 </View>
                 <View style={[styles.containerIconBottomBar]}>
                     <TouchableOpacity onPress={() => navigation.navigate("MainPage", { screen: "ListUsulan" })} style={styles.btnMenu}>
-                        <Image style={styles.iconBottomBar} source={require('../pages/assets/images/icon/news.png')} />
+                        <Image style={styles.iconBottomBar} source={require('../pages/assets/images/icon/data.png')} />
                         <Text style={styles.iconBottomBarText}>DATA</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={[styles.containerIconBottomBar]}>
                     <TouchableOpacity onPress={() => navigation.navigate("MainPage", { screen: "NewsList" })} style={styles.btnMenu}>
-                        <Image style={styles.iconBottomBar} source={require('../pages/assets/images/icon/documents.png')} />
+                        <Image style={styles.iconBottomBar} source={require('../pages/assets/images/icon/news.png')} />
                         <Text style={styles.iconBottomBarText}>NEWS</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={[styles.containerIconBottomBar]}>
                     <TouchableOpacity onPress={() => navigation.navigate("MainPage", { screen: "Profile" })} style={styles.btnMenu}>
-                        <Image style={styles.iconBottomBar} source={require('../pages/assets/images/icon/settings.png')} />
+                        <Image style={styles.iconBottomBar} source={require('../pages/assets/images/icon/documents.png')} />
                         <Text style={styles.iconBottomBarText}>DOCUMENTS</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={[styles.containerIconBottomBar]}>
                     <TouchableOpacity onPress={() => navigation.navigate("MainPage", { screen: "Profile" })} style={styles.btnMenu}>
-                        <Image style={styles.iconBottomBar} source={require('../pages/assets/images/icon/data.png')} />
+                        <Image style={styles.iconBottomBar} source={require('../pages/assets/images/icon/settings.png')} />
                         <Text style={styles.iconBottomBarText}>SETTING</Text>
                     </TouchableOpacity>
                 </View>
