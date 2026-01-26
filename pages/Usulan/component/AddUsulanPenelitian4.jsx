@@ -375,7 +375,7 @@ const AddUsulanPenelitian4 = ({ data, updateData, nextStep, prevStep, addData })
                     <View style={[stylex.paginContainerBtn, { justifyContent: 'flex-end' }]}>
                         <TouchableOpacity onPress={handlePrev} style={[stylex.paginTouchBtn, stylex.shaddow]}>
                             <Image style={stylex.paginTouchBtnImg} source={require("../../assets/images/icon/prev.png")} />
-                            <Text style={stylex.paginTouchBtnText}>PREF</Text>
+                            <Text style={stylex.paginTouchBtnText}>PREV</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={[stylex.paginContainerBtn, { justifyContent: 'flex-start' }]}>
