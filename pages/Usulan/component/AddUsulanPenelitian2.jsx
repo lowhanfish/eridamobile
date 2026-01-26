@@ -30,6 +30,9 @@ const AddUsulanPenelitian2 = ({ data, updateData, nextStep, prevStep, routex }) 
     const [keterangan, setKeterangan] = useState(data.keterangan);
 
 
+    const [suratpengantar, setSuratpengantar] = useState('');
+    const [namapengantar, setNamapengantar] = useState('');
+    const [jabatanpengantar, setJabatanpengantar] = useState('');
     const [text, onChangeText] = useState('');
 
 
@@ -230,8 +233,8 @@ const AddUsulanPenelitian2 = ({ data, updateData, nextStep, prevStep, routex }) 
                                 <Text style={stylex.inputText1}>Nomor Surat Pengantar</Text>
                                 <TextInput
                                     style={stylex.inputx1}
-                                    onChangeText={onChangeText}
-                                    value={text}
+                                    onChangeText={setSuratpengantar}
+                                    value={suratpengantar}
                                 />
                             </View>
                             <View style={stylex.InputContainer}>
@@ -254,16 +257,16 @@ const AddUsulanPenelitian2 = ({ data, updateData, nextStep, prevStep, routex }) 
                                 <Text style={stylex.inputText1}>Nama Penandatangan Surat Pengantar</Text>
                                 <TextInput
                                     style={stylex.inputx1}
-                                    onChangeText={onChangeText}
-                                    value={text}
+                                    onChangeText={setNamapengantar}
+                                    value={namapengantar}
                                 />
                             </View>
                             <View style={stylex.InputContainer}>
                                 <Text style={stylex.inputText1}>Jabatan Penandatangan Surat Pengantar</Text>
                                 <TextInput
                                     style={stylex.inputx1}
-                                    onChangeText={onChangeText}
-                                    value={text}
+                                    onChangeText={setJabatanpengantar}
+                                    value={jabatanpengantar}
                                 />
                             </View>
                             <View style={stylex.InputContainer}>

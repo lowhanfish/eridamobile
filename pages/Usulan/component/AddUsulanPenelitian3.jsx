@@ -19,6 +19,9 @@ const AddUsulanPenelitian3 = ({ data, updateData, nextStep, prevStep }) => {
     const setRouteBack = useGlobalStore((state) => state.setRouteBack);
 
 
+    const [suratrekom, setSuratrekom] = useState('');
+    const [namarekom, setNamarekom] = useState('');
+    const [jabatanrekom, setJabatanrekom] = useState('');
     const [text, onChangeText] = useState('');
 
     // ===== LIFTING_STATE_UP =====
@@ -44,6 +47,11 @@ const AddUsulanPenelitian3 = ({ data, updateData, nextStep, prevStep }) => {
     const [pdfError, setPdfError] = useState(null);
     const [pdfUri, setPdfUri] = useState(null);
     const [pdfKey, setPdfKey] = useState(0);
+
+
+
+
+
 
     const pickDocument = async () => {
         try {
@@ -210,8 +218,8 @@ const AddUsulanPenelitian3 = ({ data, updateData, nextStep, prevStep }) => {
                                 <Text style={stylex.inputText1}>Nomor Surat Rekomendasi</Text>
                                 <TextInput
                                     style={stylex.inputx1}
-                                    onChangeText={onChangeText}
-                                    value={text}
+                                    onChangeText={setSuratrekom}
+                                    value={suratrekom}
                                 />
                             </View>
                             <View style={stylex.InputContainer}>
@@ -234,16 +242,16 @@ const AddUsulanPenelitian3 = ({ data, updateData, nextStep, prevStep }) => {
                                 <Text style={stylex.inputText1}>Nama Penandatangan Surat Rekomendasi</Text>
                                 <TextInput
                                     style={stylex.inputx1}
-                                    onChangeText={onChangeText}
-                                    value={text}
+                                    onChangeText={setNamarekom}
+                                    value={namarekom}
                                 />
                             </View>
                             <View style={stylex.InputContainer}>
                                 <Text style={stylex.inputText1}>Jabatan Penandatangan Surat Rekomendasi</Text>
                                 <TextInput
                                     style={stylex.inputx1}
-                                    onChangeText={onChangeText}
-                                    value={text}
+                                    onChangeText={setJabatanrekom}
+                                    value={jabatanrekom}
                                 />
                             </View>
                             <View style={stylex.InputContainer}>

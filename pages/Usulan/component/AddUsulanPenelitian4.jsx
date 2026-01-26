@@ -1,15 +1,11 @@
 import { useCallback, useEffect, useState } from "react";
 import { View, TouchableOpacity, Text, Image, ScrollView, TextInput, Button, StyleSheet, Platform, Modal, ToastAndroid } from "react-native";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
-
+import { Picker } from '@react-native-picker/picker';
 import { pick } from '@react-native-documents/picker'
 import Pdf from 'react-native-pdf';
 import RNFS from 'react-native-fs';
-
 import DateTimePicker from '@react-native-community/datetimepicker';
-
-
-
 import useGlobalStore from "../../../stores/useGlobalStore";
 import { stylex } from "../../assets/css";
 
@@ -22,6 +18,12 @@ const AddUsulanPenelitian4 = ({ data, updateData, nextStep, prevStep, addData })
 
 
     const [text, onChangeText] = useState('');
+    const [kategori, setKategori] = useState('');
+    const [judulpenelitian, setJudulpenelitian] = useState('');
+    const [lokasipenelitian, setLokasipenelitian] = useState('');
+    const [maksudtujuan, setMaksudtujuan] = useState('');
+    const [ruanglingkup, setRuanglingkup] = useState('');
+
 
     // ===== LIFTING_STATE_UP =====
     const [name, setName] = useState(data.name);
@@ -208,44 +210,56 @@ const AddUsulanPenelitian4 = ({ data, updateData, nextStep, prevStep, addData })
 
                     <View style={[stylex.borderContent, { marginBottom: 150 }]}>
                         <View style={{ paddingTop: 26 }}>
-                            <View style={stylex.InputContainer}>
+                        <View style={stylex.InputContainer}>
                                 <Text style={stylex.inputText1}>Kategori</Text>
-                                <TextInput
-                                    style={stylex.inputx1}
-                                    onChangeText={onChangeText}
-                                    value={text}
-                                />
+                                <View style={{ height: 45, borderRadius: 6, borderWidth: 1, borderColor: '#DEDCDC', paddingLeft: 10, justifyContent: 'center' }}>
+                                    <Picker
+                                        selectedValue={kategori}
+                                        onValueChange={(itemValue) => setKategori(itemValue)}
+                                        style={{ height: 45, width: '100%' }}
+                                        mode="dialog"
+                                        enabled={true}
+                                    >
+                                        <Picker.Item label="-- Pilih Kategori --" value="" />
+                                        <Picker.Item label="Mahasiswa D3" value="mahasiswa_d3" />
+                                        <Picker.Item label="Mahasiswa S1" value="mahasiswa_s1" />
+                                        <Picker.Item label="Mahasiswa S2" value="mahasiswa_s2" />
+                                        <Picker.Item label="Mahasiswa S3" value="mahasiswa_s3" />
+                                        <Picker.Item label="Peneliti" value="peneliti" />
+                                    </Picker>
+                                </View>
                             </View>
+
                             <View style={stylex.InputContainer}>
                                 <Text style={stylex.inputText1}>Judul Penelitian</Text>
                                 <TextInput
                                     style={stylex.inputx1}
-                                    onChangeText={onChangeText}
-                                    value={text}
+                                    onChangeText={setJudulpenelitian}
+                                    value={judulpenelitian}
                                 />
                             </View>
                             <View style={stylex.InputContainer}>
                                 <Text style={stylex.inputText1}>Lokasi Penelitian</Text>
                                 <TextInput
                                     style={stylex.inputx1}
-                                    onChangeText={onChangeText}
-                                    value={text}
+                                    onChangeText={setLokasipenelitian}
+                                    value={lokasipenelitian}
                                 />
                             </View>
                             <View style={stylex.InputContainer}>
                                 <Text style={stylex.inputText1}>Maksud & Tujuan Penelitian</Text>
                                 <TextInput
                                     style={stylex.inputx1}
-                                    onChangeText={onChangeText}
-                                    value={text}
+                                    onChangeText={setMaksudtujuan}
+                                    value={maksudtujuan}
                                 />
                             </View>
                             <View style={stylex.InputContainer}>
                                 <Text style={stylex.inputText1}>Ruang Lingkup Penelitian</Text>
                                 <TextInput
                                     style={stylex.inputx1}
-                                    onChangeText={onChangeText}
-                                    value={text}
+                                    onChangeText={setRuanglingkup}
+                                    value={ruanglingkup}
                                 />
                             </View>
                             <View style={stylex.InputContainer}>
