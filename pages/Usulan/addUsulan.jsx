@@ -19,7 +19,7 @@ const AddUsulan = () => {
     var urlx = useGlobalStore((state) => state.url)
 
     const route = useRoute()
-    const { typex } = route.params;
+    const { typex, id } = route.params;
     console.log(typex, " XXXX")
 
     const [currentStep, setCurrentStep] = useState(1);
@@ -55,17 +55,44 @@ const AddUsulan = () => {
 
     const [pathx, setPathx] = useState('')
 
+    const fetchDetail = async (id) => {
+        try {
+          const token = await GetDataToken();
+      
+          const res = await axios.post(
+            urlx.URL_Penelitian + "/detailMobile", // endpoint detail by id
+            { id },
+            {
+              headers: {
+                Authorization: `kikensbatara ${token}`,
+              },
+            }
+          );
+      
+          const d = res.data;
+      
+          // 1️⃣ isi formData
+          setFormData(d);
+      
+          // 2️⃣ tentukan step
+          if (!d.ktp) setCurrentStep(1);
+          else if (!d.nomorP) setCurrentStep(2);
+          else if (!d.nomorR) setCurrentStep(3);
+          else if (!d.judul) setCurrentStep(4);
+          else setCurrentStep(4); // semua lengkap
+      
+        } catch (err) {
+          console.log(err);
+        }
+      };
 
+      
+      useEffect(() => {
+        if (typex === "edit" && id) {
+          fetchDetail(id);
+        }
+      }, [typex, id]);
 
-
-
-
-
-
-
-    useEffect(() => {
-
-    }, [typex])
 
     useFocusEffect(
         useCallback(() => {

@@ -166,7 +166,16 @@ const ListUsulan = () => {
                                         <View key={i} style={{ flex: 1, marginTop: 9 }}>
 
                                             <View >
-                                                <TouchableOpacity style={[stylex.DataListCont, stylex.shaddow, { backgroundColor: '#FFF3F3' }]} onLongPress={() => selectData(data)}>
+                                            <TouchableOpacity
+                                                    style={[stylex.DataListCont, stylex.shaddow, { backgroundColor: '#FFF3F3' }]}
+                                                    onPress={() =>
+                                                        navigation.navigate("AddUsulan", {
+                                                        typex: "edit",
+                                                        id: data.id,     // ✅ ID DI SINI
+                                                        })
+                                                    }
+                                                    onLongPress={() => selectData(data)}
+                                                    >
                                                     <View style={stylex.DataListImgCont}>
                                                         <Image style={stylex.DataListImg} source={require('../assets/images/izin_penelitian.png')} />
                                                     </View>

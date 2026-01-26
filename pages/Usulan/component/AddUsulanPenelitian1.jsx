@@ -396,46 +396,35 @@ const AddUsulanPenelitian1 = ({ data, updateData, nextStep, routex }) => {
                         </View>
 
 
-                        {typeof (ktp) == 'string' ? (
-                            <View style={styles.containerUpload1}>
-                                <ImageLib
-                                    urix={urlx.URL_APP + 'uploads/' + ktp} customWidth={'100%'}
-                                />
-                            </View>
-
-                        ) : (
-
-                            ktp && ktp.uri ? (
-                                <View style={styles.containerUpload1}>
-                                    <View style={styles.containerUploadText}>
-                                        <View style={styles.pdfIconContainer}>
-                                            <Text style={styles.pdfIconText}>📄</Text>
-                                            <Text style={styles.pdfFileName}>{ktp.name || 'KTP.pdf'}</Text>
-                                        </View>
+                        <View style={styles.containerUpload1}>
+                            {ktp ? (
+                                <View style={styles.containerUploadText}>
+                                    <View style={styles.pdfIconContainer}>
+                                        <Text style={styles.pdfIconText}>📄</Text>
+                                        <Text style={styles.pdfFileName}>
+                                            {typeof ktp === 'string'
+                                                ? ktp
+                                                : (ktp.name || 'KTP.pdf')}
+                                        </Text>
                                     </View>
                                 </View>
                             ) : (
-
-                                <View style={styles.containerUpload}>
-                                    <View style={styles.containerUploadText}>
-                                        <Text style={styles.UploadText1}>FILE KTP MASIH KOSONG</Text>
-                                        <Text style={styles.UploadText2}>(PDF)</Text>
-                                    </View>
+                                <View style={styles.containerUploadText}>
+                                    <Text style={styles.UploadText1}>FILE KTP MASIH KOSONG</Text>
+                                    <Text style={styles.UploadText2}>(PDF)</Text>
                                 </View>
-                            )
-                        )}
+                            )}
+                        </View>
+
 
                         <TouchableOpacity onPress={pickDocument}>
                             <View style={styles.btnPickFile}>
-
-                                {ktp && ktp.uri ? (
-                                    <Text style={styles.btnPickFileText}>Ganti Foto KTP</Text>
-                                ) : (
-                                    <Text style={styles.btnPickFileText}>Cari Foto KTP</Text>
-                                )}
+                                <Text style={styles.btnPickFileText}>
+                                    {ktp ? 'Ganti Foto KTP' : 'Cari Foto KTP'}
+                                </Text>
                             </View>
                         </TouchableOpacity>
-                        {ktp && ktp.uri && (
+                        {ktp && (
                             <TouchableOpacity onPress={openKtpViewer}>
                                 <View style={[styles.btnPickFile, { backgroundColor: '#4CAF50', marginTop: 5 }]}>
                                     <Text style={styles.btnPickFileText}>👁 Lihat KTP</Text>
