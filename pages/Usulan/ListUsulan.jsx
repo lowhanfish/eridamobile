@@ -29,6 +29,7 @@ const ListUsulan = () => {
     const [cek_load_data, setCekLoadData] = useState(true);
 
     const [datax, setDatax] = useState(null)
+    
 
 
 
@@ -111,6 +112,13 @@ const ListUsulan = () => {
 
     )
 
+    const getBgColorByStatus = (status) => {
+        if (status === 'diterima') {
+            return '#FFFFFF'; // normal
+        }
+        return '#FFF3F3'; // default (merah muda)
+    };
+
 
     return (
         <View style={stylex.container}>
@@ -167,7 +175,7 @@ const ListUsulan = () => {
 
                                             <View >
                                             <TouchableOpacity
-                                                    style={[stylex.DataListCont, stylex.shaddow, { backgroundColor: '#FFF3F3' }]}
+                                                    style={[stylex.DataListCont, stylex.shaddow, { backgroundColor: getBgColorByStatus(data.status) }]}
                                                     onPress={() =>
                                                         navigation.navigate("AddUsulan", {
                                                         typex: "edit",
