@@ -8,6 +8,9 @@ import RNFS from 'react-native-fs';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import useGlobalStore from "../../../stores/useGlobalStore";
 import { stylex } from "../../assets/css";
+import axios from "axios";
+import GetDataToken from "../../lib/GetDataToken";
+
 
 
 const AddUsulanPenelitian4 = ({ data, updateData, nextStep, prevStep, addData }) => {
@@ -27,15 +30,96 @@ const AddUsulanPenelitian4 = ({ data, updateData, nextStep, prevStep, addData })
 
     // ===== LIFTING_STATE_UP =====
     const [name, setName] = useState(data.name);
-    const handleAddData = () => {
-        updateData({ name }); // simpan data
-        addData(); // lanjut ke step berikutnya
-    };
+    const handleAddData = async () => {
+        if (!data.id) {
+          ToastAndroid.show(
+            "ID tidak ditemukan, kembali ke step 1",
+            ToastAndroid.LONG
+          );
+          return;
+        }
+      
+        try {
+          await submitPenelitian();
+      
+          ToastAndroid.show(
+            "Usulan penelitian berhasil disimpan",
+            ToastAndroid.LONG
+          );
+      
+          navigation.replace("ListUsulan");
+        } catch (e) {
+          console.log(e);
+          ToastAndroid.show(
+            "Gagal menyimpan data penelitian",
+            ToastAndroid.SHORT
+          );
+        }
+      };
+      
     const handlePrev = () => {
         updateData({ name }); // simpan data
         prevStep(); // lanjut ke step berikutnya
     };
     // ===== LIFTING_STATE_UP =====
+
+    const submitPenelitian = async () => {
+        const token = await GetDataToken();
+        const formData = new FormData();
+      
+        formData.append(
+          "data",
+          JSON.stringify({
+            id: data.id,
+            judul: judulpenelitian,
+            lokasi: lokasipenelitian,
+            tujuan: maksudtujuan,
+            lingkup: ruanglingkup,
+            tgl_mulai: tglMulai.toISOString().slice(0, 10),
+            tgl_selesai: tglSelesai.toISOString().slice(0, 10),
+            kategori_id: kategori,
+          })
+        );
+      
+        if (file && file.uri && !file.uri.startsWith("http")) {
+          formData.append("file", {
+            uri: file.uri,
+            name: file.name || "proposal.pdf",
+            type: "application/pdf",
+          });
+        }
+      
+        return axios.post(
+          useGlobalStore.getState().url.URL_Penelitian + "/addPenelitianMobile",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `kikensbatara ${token}`,
+            },
+          }
+        );
+      };
+
+      useEffect(() => {
+        setJudulpenelitian(data.judul || '');
+        setLokasipenelitian(data.lokasi || '');
+        setMaksudtujuan(data.tujuan || '');
+        setRuanglingkup(data.lingkup || '');
+        setKategori(data.kategori_id || '');
+      
+        if (data.proposal) {
+          setFile({
+            name: data.proposal,
+            uri: useGlobalStore.getState().url.URL_APP + 'uploads/' + data.proposal,
+            type: 'application/pdf',
+          });
+          setPdfUri(
+            useGlobalStore.getState().url.URL_APP + 'uploads/' + data.proposal
+          );
+        }
+      }, [data]);
+      
 
 
     // ===== PICKFILE =====
@@ -109,18 +193,27 @@ const AddUsulanPenelitian4 = ({ data, updateData, nextStep, prevStep, addData })
 
 
     // ===== PICKDATE =====
-    const [date, setDate] = useState(new Date());
-    const [show, setShow] = useState(false);
+    const [tglMulai, setTglMulai] = useState(new Date());
+    const [tglSelesai, setTglSelesai] = useState(new Date());
+
+    const [showMulai, setShowMulai] = useState(false);
+    const [showSelesai, setShowSelesai] = useState(false);
+
     const [mode, setMode] = useState('date'); // or 'time'
 
 
-    const onChange = (event, selectedDate) => {
-        console.log(selectedDate)
-        const currentDate = selectedDate || date;
-        // console.log(currentDate)
-        setShow(Platform.OS === 'ios'); // untuk iOS tetap tampil, Android hilang
-        setDate(currentDate);
-    };
+    const onChangeMulai = (event, selectedDate) => {
+        const currentDate = selectedDate || tglMulai;
+        setShowMulai(Platform.OS === 'ios');
+        setTglMulai(currentDate);
+      };
+
+      const onChangeSelesai = (event, selectedDate) => {
+        const currentDate = selectedDate || tglSelesai;
+        setShowSelesai(Platform.OS === 'ios');
+        setTglSelesai(currentDate);
+      };
+      
 
     const showMode = (currentMode) => {
         setShow(true);
@@ -264,36 +357,38 @@ const AddUsulanPenelitian4 = ({ data, updateData, nextStep, prevStep, addData })
                             </View>
                             <View style={stylex.InputContainer}>
                                 <Text style={stylex.inputText1}>Tanggal Mulai</Text>
-                                <TouchableOpacity onPress={() => showMode('date')} style={stylex.inputx1}>
+                                <TouchableOpacity onPress={() => setShowMulai(true)} style={stylex.inputx1}>
                                     <Image style={stylex.iconInput} source={require("../../assets/images/icon/date.png")} />
-                                    <Text>Tgl : {date.toLocaleDateString()}</Text>
-                                    {show && (
+                                    <Text>Tgl : {tglMulai.toLocaleDateString()}</Text>
+                                </TouchableOpacity>
+
+                                {showMulai && (
+                                    <DateTimePicker
+                                    value={tglMulai}
+                                    mode="date"
+                                    display="default"
+                                    onChange={onChangeMulai}
+                                    />
+                                )}
+                                </View>
+
+                                <View style={stylex.InputContainer}>
+                                    <Text style={stylex.inputText1}>Tanggal Selesai</Text>
+                                    <TouchableOpacity onPress={() => setShowSelesai(true)} style={stylex.inputx1}>
+                                        <Image style={stylex.iconInput} source={require("../../assets/images/icon/date.png")} />
+                                        <Text>Tgl : {tglSelesai.toLocaleDateString()}</Text>
+                                    </TouchableOpacity>
+
+                                    {showSelesai && (
                                         <DateTimePicker
-                                            value={date}
-                                            mode={mode}
-                                            is24Hour={true}
-                                            display="default"
-                                            onChange={onChange}
+                                        value={tglSelesai}
+                                        mode="date"
+                                        display="default"
+                                        onChange={onChangeSelesai}
                                         />
                                     )}
-                                </TouchableOpacity>
-                            </View>
-                            <View style={stylex.InputContainer}>
-                                <Text style={stylex.inputText1}>Tanggal Selesai</Text>
-                                <TouchableOpacity onPress={() => showMode('date')} style={stylex.inputx1}>
-                                    <Image style={stylex.iconInput} source={require("../../assets/images/icon/date.png")} />
-                                    <Text>Tgl : {date.toLocaleDateString()}</Text>
-                                    {show && (
-                                        <DateTimePicker
-                                            value={date}
-                                            mode={mode}
-                                            is24Hour={true}
-                                            display="default"
-                                            onChange={onChange}
-                                        />
-                                    )}
-                                </TouchableOpacity>
-                            </View>
+                                    </View>
+
 
                             <View style={stylex.InputContainer}>
                                 <Text style={stylex.inputText1}>Unggah Proposal Penelitian (PDF)</Text>
