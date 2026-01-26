@@ -11,12 +11,18 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import useGlobalStore from "../../../stores/useGlobalStore";
 import { stylex } from "../../assets/css";
 
+import axios from "axios";
+import GetDataToken from "../../lib/GetDataToken";
+
+
 
 const AddUsulanPenelitian3 = ({ data, updateData, nextStep, prevStep }) => {
     const navigation = useNavigation();
 
     const visibleBar = useGlobalStore((state) => state.visibleBar)
     const setRouteBack = useGlobalStore((state) => state.setRouteBack);
+
+    const urlx = useGlobalStore((state) => state.url)
 
 
     const [suratrekom, setSuratrekom] = useState('');
@@ -26,15 +32,103 @@ const AddUsulanPenelitian3 = ({ data, updateData, nextStep, prevStep }) => {
 
     // ===== LIFTING_STATE_UP =====
     const [name, setName] = useState(data.name);
-    const handleNext = () => {
-        updateData({ name }); // simpan data
-        nextStep(); // lanjut ke step berikutnya
-    };
-    const handlePrev = () => {
-        updateData({ name }); // simpan data
-        prevStep(); // lanjut ke step berikutnya
-    };
+    const handleNext = async () => {
+        if (!data.id) {
+          ToastAndroid.show(
+            "Data belum memiliki ID. Kembali ke step 1.",
+            ToastAndroid.LONG
+          );
+          return;
+        }
+      
+        try {
+          await submitRekomendasi();
+      
+          updateData({
+            nomorR: suratrekom,
+            tanggalR: date,
+            namaR: namarekom,
+            jabatanR: jabatanrekom,
+            suratR: file,
+          });
+      
+          nextStep();
+        } catch (e) {
+          console.log(e);
+          ToastAndroid.show("Gagal menyimpan surat rekomendasi", ToastAndroid.SHORT);
+        }
+      };
+      
+      const handlePrev = () => {
+        updateData({
+          nomorR: suratrekom,
+          tanggalR: date,
+          namaR: namarekom,
+          jabatanR: jabatanrekom,
+          suratR: file,
+        });
+        prevStep();
+      };
+      
     // ===== LIFTING_STATE_UP =====
+
+    const submitRekomendasi = async () => {
+        if (!data.id) {
+          throw new Error("ID kosong, tidak bisa simpan");
+        }
+      
+        const token = await GetDataToken();
+        const formData = new FormData();
+      
+        formData.append(
+          "data",
+          JSON.stringify({
+            id: data.id,
+            nomorR: suratrekom,
+            tanggalR: date.toISOString().slice(0, 10), // ⬅️ STRING
+            namaR: namarekom,
+            jabatanR: jabatanrekom,
+          })
+        );
+      
+        if (file && file.uri && !file.uri.startsWith("http")) {
+          formData.append("file", {
+            uri: file.uri,
+            name: file.name || "rekomendasi.pdf",
+            type: "application/pdf",
+          });
+        }
+      
+        return axios.post(
+          urlx.URL_Penelitian + "/addRekomendasiMobile",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `kikensbatara ${token}`,
+            },
+          }
+        );
+      };
+      useEffect(() => {
+        setSuratrekom(data.nomorR || '');
+        setNamarekom(data.namaR || '');
+        setJabatanrekom(data.jabatanR || '');
+      
+        if (data.suratR && typeof data.suratR === 'string') {
+          setFile({
+            name: data.suratR,
+            uri: urlx.URL_APP + 'uploads/' + data.suratR,
+            type: 'application/pdf',
+          });
+          setPdfUri(urlx.URL_APP + 'uploads/' + data.suratR);
+        }
+      
+        if (data.tanggalR) {
+          setDate(new Date(data.tanggalR));
+        }
+      }, [data]);
+            
 
 
     // ===== PICKFILE =====
