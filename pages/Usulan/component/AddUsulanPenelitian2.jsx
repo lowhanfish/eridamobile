@@ -19,7 +19,7 @@ const AddUsulanPenelitian2 = ({ data, updateData, nextStep, prevStep, routex }) 
     const screenWidth = Dimensions.get('window').width;
     const urlx = useGlobalStore((state) => state.url)
 
-    const [id, setId] = useState(data.id);
+    // const [id, setId] = useState(data.id);
     const [nama, setNama] = useState(data.nama);
     const [alamat, setAlamat] = useState(data.alamat);
     const [hp, setHP] = useState(data.hp);
@@ -36,33 +36,46 @@ const AddUsulanPenelitian2 = ({ data, updateData, nextStep, prevStep, routex }) 
     const [text, onChangeText] = useState('');
 
 
-    const checkEdit = () => {
+    // const checkEdit = () => {
 
-        if (routex.typex == 'edit') {
-            setId(routex.id);
-            setNama(routex.nama);
-            setAlamat(routex.alamat);
-            setHP(routex.hp);
-            setEmail(routex.email);
-            setNIK(routex.nik);
-            setKTP(routex.ktp);
-            setStatus(routex.status);
-            setKeterangan(routex.keterangan);
-        }
-    }
+    //     if (routex.typex == 'edit') {
+    //         setId(routex.id);
+    //         setNama(routex.nama);
+    //         setAlamat(routex.alamat);
+    //         setHP(routex.hp);
+    //         setEmail(routex.email);
+    //         setNIK(routex.nik);
+    //         setKTP(routex.ktp);
+    //         setStatus(routex.status);
+    //         setKeterangan(routex.keterangan);
+    //     }
+    // }
 
 
-    // ===== LIFTING_STATE_UP =====
-    const [name, setName] = useState(data.name);
-    const handleNext = () => {
-        updateData({ name }); // simpan data
-        nextStep(); // lanjut ke step berikutnya
-    };
-    const handlePrev = () => {
-        updateData({ name }); // simpan data
-        prevStep(); // lanjut ke step berikutnya
-    };
-    // ===== LIFTING_STATE_UP =====
+// ===== SAVE STEP-2 DATA (AMAN) =====
+const handleNext = () => {
+    updateData({
+        nomorP: suratpengantar,
+        tanggalP: date,
+        namaP: namapengantar,
+        jabatanP: jabatanpengantar,
+        suratP: file,
+    });
+    nextStep();
+};
+
+const handlePrev = () => {
+    updateData({
+        nomorP: suratpengantar,
+        tanggalP: date,
+        namaP: namapengantar,
+        jabatanP: jabatanpengantar,
+        suratP: file,
+    });
+    prevStep();
+};
+// ===== END =====
+
 
 
     // ===== PICKFILE =====
@@ -156,9 +169,16 @@ const AddUsulanPenelitian2 = ({ data, updateData, nextStep, prevStep, routex }) 
     // ===== PICKDATE =====
 
 
+    // useEffect(() => {
+    //     checkEdit();
+    // }, [])
+
     useEffect(() => {
-        checkEdit();
-    }, [])
+        setSuratpengantar(data.nomorP || '');
+        setNamapengantar(data.namaP || '');
+        setJabatanpengantar(data.jabatanP || '');
+    }, [data]);
+    
 
 
 

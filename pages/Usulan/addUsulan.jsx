@@ -24,7 +24,7 @@ const AddUsulan = () => {
 
     const [currentStep, setCurrentStep] = useState(1);
     const [formData, setFormData] = useState({
-        id: "",
+        id: null,
         nama: "",
         alamat: "",
         hp: "",
@@ -41,12 +41,16 @@ const AddUsulan = () => {
         suratP: null,
     });
 
+    const updateData = (partial) => {
+        setFormData(prev => ({
+            ...prev,      // ⬅️ JANGAN DIHAPUS
+            ...partial,   // ⬅️ hanya update field yang dikirim
+        }));
+    };
     const nextStep = () => setCurrentStep(prev => prev + 1);
     const prevStep = () => setCurrentStep(prev => prev - 1);
 
-    const updateFormData = (newData) => {
-        setFormData(prev => ({ ...prev, ...newData }));
-    };
+  
 
 
     const [pathx, setPathx] = useState('')
@@ -73,13 +77,13 @@ const AddUsulan = () => {
     switch (currentStep) {
         case 1:
             // return <AddUsulanPenelitian1 routex={route.params} data={formData} updateData={updateFormData} excuteData={typex === 'add' ? addData : editData} nextStep={nextStep} />;
-            return <AddUsulanPenelitian1 routex={route.params} data={formData} updateData={updateFormData} nextStep={nextStep} />;
+            return <AddUsulanPenelitian1 routex={route.params} data={formData} updateData={updateData} nextStep={nextStep} />;
         case 2:
-            return <AddUsulanPenelitian2 routex={route.params} data={formData} updateData={updateFormData} nextStep={nextStep} prevStep={prevStep} />;
+            return <AddUsulanPenelitian2 routex={route.params} data={formData} updateData={updateData} nextStep={nextStep} prevStep={prevStep} />;
         case 3:
-            return <AddUsulanPenelitian3 routex={route.params} data={formData} updateData={updateFormData} nextStep={nextStep} prevStep={prevStep} />;
+            return <AddUsulanPenelitian3 routex={route.params} data={formData} updateData={updateData} nextStep={nextStep} prevStep={prevStep} />;
         case 4:
-            return <AddUsulanPenelitian4 routex={route.params} data={formData} updateData={updateFormData} nextStep={nextStep} prevStep={prevStep} />;
+            return <AddUsulanPenelitian4 routex={route.params} data={formData} updateData={updateData} nextStep={nextStep} prevStep={prevStep} />;
         default:
             return null;
     }

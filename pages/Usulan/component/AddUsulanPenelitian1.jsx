@@ -27,7 +27,7 @@ const AddUsulanPenelitian1 = ({ data, updateData, nextStep, routex }) => {
     const widthx = screenWidth - (screenWidth * 20 / 100)
     const urlx = useGlobalStore((state) => state.url)
 
-    const [id, setId] = useState(data.id);
+    // const [id, setId] = useState(data.id);
     const [nama, setNama] = useState(data.nama);
     const [alamat, setAlamat] = useState(data.alamat);
     const [hp, setHP] = useState(data.hp);
@@ -44,116 +44,147 @@ const AddUsulanPenelitian1 = ({ data, updateData, nextStep, routex }) => {
     const [pdfUri, setPdfUri] = useState(null);
     const [pdfKey, setPdfKey] = useState(0);
 
+    const [localId, setLocalId] = useState(data.id);
 
-    const checkEdit = () => {
+    useEffect(() => {
+        setLocalId(data.id);
+    }, [data.id]);
 
-        if (routex.typex == 'edit') {
-            setId(routex.id);
-            setNama(routex.nama);
-            setAlamat(routex.alamat);
-            setHP(routex.hp);
-            setEmail(routex.email);
-            setNIK(routex.nik);
-            setKTP(routex.ktp);
-            setStatus(routex.status);
-            setKeterangan(routex.keterangan);
-        }
-    }
+
+
+    // const checkEdit = () => {
+
+    //     if (routex.typex == 'edit') {
+    //         // setId(routex.id);
+    //         setNama(routex.nama);
+    //         setAlamat(routex.alamat);
+    //         setHP(routex.hp);
+    //         setEmail(routex.email);
+    //         setNIK(routex.nik);
+    //         setKTP(routex.ktp);
+    //         setStatus(routex.status);
+    //         setKeterangan(routex.keterangan);
+    //     }
+    // }
 
 
     const addDatax = async (datax) => {
-        var tokenz = await GetDataToken();
-        const formDatax = new FormData();
-
-        formDatax.append('nama', datax.nama);
-        formDatax.append('alamat', datax.alamat);
-        formDatax.append('hp', datax.hp);
-        formDatax.append('email', datax.email);
-        formDatax.append('nik', datax.nik);
-        formDatax.append('status', datax.status);
-        formDatax.append('keterangan', datax.keterangan);
-
-        const file = datax.ktp;
-        formDatax.append('file', {
-            uri: file.uri,
-            name: file.name,
-            type: file.type,
-        });
-
-        axios.post(urlx.URL_Penelitian + "/addDataMobile", formDatax, {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-                'Authorization': `kikensbatara ${tokenz}`,
-            }
-        }).then(response => {
-            console.log("SUKSES BOSSS")
-            console.log(response);
-            updateData({
-                id: response.data.insertId
-            });
-
-        }).catch(error => {
-            console.log("ada yang error yaaa...")
-            console.error(error);
-        });
-    }
-
-    const editDatax = async (data) => {
-        // Ambil token lebih dulu dengan await
         const tokenz = await GetDataToken();
-
         const formDatax = new FormData();
-        formDatax.append('id', data.id);
-        formDatax.append('nama', data.nama);
-        formDatax.append('alamat', data.alamat);
-        formDatax.append('hp', data.hp);
-        formDatax.append('email', data.email);
-        formDatax.append('nik', data.nik);
-        formDatax.append('status', data.status);
-        formDatax.append('keterangan', data.keterangan);
-
-        // Hanya tambahkan file jika ada file baru
-        let file = data.ktp;
-        if (file && file.uri) {
+    
+        // ⬇️ WAJIB: kirim data sebagai JSON string
+        formDatax.append('data', JSON.stringify({
+            nama: datax.nama,
+            alamat: datax.alamat,
+            hp: datax.hp,
+            email: datax.email,
+            nik: datax.nik,
+        }));
+    
+        if (datax.ktp && datax.ktp.uri) {
             formDatax.append('file', {
-                uri: file.uri,
-                name: file.name,
-                type: file.type,
+                uri: datax.ktp.uri,
+                name: datax.ktp.name,
+                type: datax.ktp.type || 'application/pdf',
             });
         }
-
-        axios.post(urlx.URL_Penelitian + "/editDataMobile", formDatax, {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-                'Authorization': `kikensbatara ${tokenz}`,
-            },
-        }).then((response) => {
-            console.log("Edit sukses", response.data);
-        }).catch((error) => {
-            console.log("Edit gagal", error.message);
-        });
+    
+        // ⬇️ WAJIB return
+        return axios.post(
+            urlx.URL_Penelitian + "/addDataMobilePengusul",
+            formDatax,
+            {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Authorization: `kikensbatara ${tokenz}`,
+                },
+            }
+        );
     };
+    
 
-    const setAction = () => {
-
-        const newData = { id, nama, alamat, hp, email, nik, ktp, status, keterangan };
-        updateData(newData);        // Update state global
-
-
-        // console.log(newData)
-
-        if (routex.typex == 'edit') {
-            // console.log("ini edit")
-            editDatax(newData);
-            nextStep();
-        } else {
-            // console.log("ini add")
-            addDatax(newData);
-            nextStep();
+    const editDatax = async (datax) => {
+        const tokenz = await GetDataToken();
+        const formDatax = new FormData();
+    
+        formDatax.append(
+            'data',
+            JSON.stringify({
+                id: datax.id,
+                nama: datax.nama,
+                alamat: datax.alamat,
+                hp: datax.hp,
+                email: datax.email,
+                nik: datax.nik,
+                status: datax.status,
+                keterangan: datax.keterangan,
+            })
+        );
+    
+        if (datax.ktp && datax.ktp.uri) {
+            formDatax.append('file', {
+                uri: datax.ktp.uri,
+                name: datax.ktp.name,
+                type: datax.ktp.type || 'application/pdf',
+            });
         }
+    
+        return axios.post(
+            urlx.URL_Penelitian + "/editData",
+            formDatax,
+            {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Authorization: `kikensbatara ${tokenz}`,
+                },
+            }
+        );
+    };
+    
 
+    const setAction = async () => {
+        const payload = {
+            id: localId,
+            nama,
+            alamat,
+            hp,
+            email,
+            nik,
+            ktp,
+            status,
+            keterangan,
+        };
+    
+        try {
+            console.log('ID SAAT NEXT STEP-1:', data.id);
 
-    }
+            // 🔴 INSERT HANYA SEKALI
+            if (localId === null) {
+
+                const res = await addDatax(payload);
+
+                setLocalId(res.data.id);
+                    updateData({
+                        ...payload,
+                        id: res.data.id,
+                    });
+            } 
+            // 🟢 SETELAH ITU SEMUA UPDATE
+            else {
+                await editDatax(payload);
+    
+                // pastikan id tetap ikut
+                updateData(payload);
+            }
+    
+            nextStep();
+        } catch (err) {
+            console.log(err);
+            ToastAndroid.show("Gagal menyimpan data", ToastAndroid.SHORT);
+        }
+    };
+    
+    
 
 
 
@@ -250,9 +281,21 @@ const AddUsulanPenelitian1 = ({ data, updateData, nextStep, routex }) => {
         console.error('PDF Error:', error);
     };
 
+    // useEffect(() => {
+    //     checkEdit();
+    // }, [])
+
     useEffect(() => {
-        checkEdit();
-    }, [])
+        setNama(data.nama);
+        setAlamat(data.alamat);
+        setHP(data.hp);
+        setEmail(data.email);
+        setNIK(data.nik);
+        setKTP(data.ktp);
+        setStatus(data.status);
+        setKeterangan(data.keterangan);
+    }, [data]);
+    
 
 
     useFocusEffect(
