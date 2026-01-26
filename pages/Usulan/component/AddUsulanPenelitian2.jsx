@@ -9,6 +9,8 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 
 import useGlobalStore from "../../../stores/useGlobalStore";
 import { stylex } from "../../assets/css";
+import GetDataToken from "../../lib/GetDataToken";
+import axios from "axios";
 
 
 
@@ -53,16 +55,32 @@ const AddUsulanPenelitian2 = ({ data, updateData, nextStep, prevStep, routex }) 
 
 
 // ===== SAVE STEP-2 DATA (AMAN) =====
-const handleNext = () => {
-    updateData({
+const handleNext = async () => {
+    if (!data.id) {
+      ToastAndroid.show(
+        "Data belum memiliki ID. Kembali ke step 1.",
+        ToastAndroid.LONG
+      );
+      return;
+    }
+  
+    try {
+      await submitPengantar();
+      updateData({
         nomorP: suratpengantar,
         tanggalP: date,
         namaP: namapengantar,
         jabatanP: jabatanpengantar,
         suratP: file,
-    });
-    nextStep();
-};
+      });
+      nextStep();
+    } catch (e) {
+      console.log(e);
+      ToastAndroid.show("Gagal menyimpan surat pengantar", ToastAndroid.SHORT);
+    }
+  };
+  
+  
 
 const handlePrev = () => {
     updateData({
@@ -169,15 +187,69 @@ const handlePrev = () => {
     // ===== PICKDATE =====
 
 
-    // useEffect(() => {
-    //     checkEdit();
-    // }, [])
+    const submitPengantar = async () => {
+        if (!data.id) {
+          throw new Error("ID kosong, tidak bisa simpan");
+        }
+      
+        const token = await GetDataToken();
+        const formData = new FormData();
+      
+        formData.append(
+          "data",
+          JSON.stringify({
+            id: data.id, // ⬅️ SEKARANG DIJAMIN ADA
+            nomorP: suratpengantar,
+            tanggalP: date.toISOString().slice(0, 10),
+            namaP: namapengantar,
+            jabatanP: jabatanpengantar,
+          })
+        );
+      
+        if (file && file.uri && !file.uri.startsWith("http")) {
+          formData.append("file", {
+            uri: file.uri,
+            name: file.name || "pengantar.pdf",
+            type: "application/pdf",
+          });
+        }
+      
+        return axios.post(
+          urlx.URL_Penelitian + "/addPengantarMobile",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `kikensbatara ${token}`,
+            },
+          }
+        );
+      };
+      
+      
+
 
     useEffect(() => {
         setSuratpengantar(data.nomorP || '');
         setNamapengantar(data.namaP || '');
         setJabatanpengantar(data.jabatanP || '');
+    
+        // ⬇️ RESTORE FILE PDF DARI DATA GLOBAL
+        if (data.suratP && typeof data.suratP === 'string') {
+            setFile({
+                name: data.suratP,
+                uri: urlx.URL_APP + 'uploads/' + data.suratP,
+                type: 'application/pdf',
+            });
+            setPdfUri(urlx.URL_APP + 'uploads/' + data.suratP);
+        }
+    
+        // ⬇️ RESTORE TANGGAL
+        if (data.tanggalP) {
+            setDate(new Date(data.tanggalP));
+        }
     }, [data]);
+    
     
 
 
