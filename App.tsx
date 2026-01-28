@@ -16,6 +16,7 @@ import Register from "./pages/Auth/Register";
 import Home from "./pages/Home/Home";
 import Profile from "./pages/Profile/Profile";
 import MainPage from "./pages/MainPage";
+import AlurUsulanPenelitian from "./pages/Alur/alurUsulanPenelitian";
 
 const Stack = createNativeStackNavigator();
 
@@ -43,6 +44,7 @@ function AppStack() {
       {/* Tambahkan layar lain yang hanya bisa diakses setelah login */}
       {/* <Stack.Screen name="Home" component={Home} /> */}
       {/* <Stack.Screen name="Profile" component={Profile} /> */}
+      <Stack.Screen name="AlurUsulanPenelitian" component={AlurUsulanPenelitian} />
     </Stack.Navigator>
   );
 }

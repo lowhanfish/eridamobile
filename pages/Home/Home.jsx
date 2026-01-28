@@ -107,7 +107,7 @@ const Home = () => {
 
                     <View style={[styles.containerContent, { marginTop: 23 }]}>
                         <View style={[styles.containerContentDiv, { justifyContent: 'center', alignItems: 'center', marginTop: -20 }]}>
-                            <TouchableOpacity>
+                        <TouchableOpacity onPress={() => navigation.navigate("AlurUsulanPenelitian")}>
                                 <Imagex width={150} urix={require('../../pages/assets/images/list_usulan.png')} />
                             </TouchableOpacity>
                         </View>

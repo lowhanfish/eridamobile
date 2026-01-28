@@ -26,6 +26,8 @@ import NewsDetail from "../components/NewsDetail.jsx";
 import ListTemaPenelitian from "./TemaPenelitian/ListTemaPenelitian.jsx";
 import AddTemaPenelitian from "./TemaPenelitian/AddTemaPenelitian.jsx";
 
+import AlurUsulanPenelitian from "./Alur/alurUsulanPenelitian.jsx";
+
 const ContentStack = createNativeStackNavigator();
 
 
@@ -47,6 +49,8 @@ const ContentAll = () => {
 
             <ContentStack.Screen name="ListTemaPenelitian" component={ListTemaPenelitian} />
             <ContentStack.Screen name="AddTemaPenelitian" component={AddTemaPenelitian} />
+
+            <ContentStack.Screen name="AlurUsulanPenelitian" component={AlurUsulanPenelitian} />
         </ContentStack.Navigator>
     );
 };
