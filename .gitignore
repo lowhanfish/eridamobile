@@ -135,6 +135,46 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
+# Android
+/android/.gradle/
+/android/.idea/
+/android/local.properties
+/android/app/build/
+/android/build/
+/android/captures/
+/android/.settings/
+/android/.classpath
+/android/.project
+
+# Android keystore
+*.keystore
+*.jks
+/android/app/*.keystore
+/android/app/*.jks
+
+
+# iOS
+/ios/Pods/
+/ios/build/
+/ios/DerivedData/
+/ios/*.xcworkspace
+/ios/*.xcuserstate
+/ios/*.xcuserdatad
+
+# React Native
+.expo/
+.expo-shared/
+.metro-health-check*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# VSCode
+.vscode/
+!.vscode/extensions.json
+
+
 
 
 /android/app/build/

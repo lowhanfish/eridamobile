@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "rndocumentviewerCGen_autolinked_build",
+		"source" : "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/@react-native-documents/viewer/android/build/generated/source/codegen/jni"
+	}
+}

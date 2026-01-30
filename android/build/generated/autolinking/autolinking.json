@@ -1,26 +1,26 @@
 {
-  "root": "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile",
-  "reactNativePath": "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/react-native",
+  "root": "/Users/simplephi/Documents/riswan/new/new/eridamobile",
+  "reactNativePath": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/react-native",
   "reactNativeVersion": "0.80",
   "dependencies": {
     "@react-native-async-storage/async-storage": {
-      "root": "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/@react-native-async-storage/async-storage",
+      "root": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/@react-native-async-storage/async-storage",
       "name": "@react-native-async-storage/async-storage",
       "platforms": {
         "ios": {
-          "podspecPath": "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/@react-native-async-storage/async-storage/RNCAsyncStorage.podspec",
+          "podspecPath": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/@react-native-async-storage/async-storage/RNCAsyncStorage.podspec",
           "version": "2.2.0",
           "configurations": [],
           "scriptPhases": []
         },
         "android": {
-          "sourceDir": "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/@react-native-async-storage/async-storage/android",
+          "sourceDir": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/@react-native-async-storage/async-storage/android",
           "packageImportPath": "import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;",
           "packageInstance": "new AsyncStoragePackage()",
           "buildTypes": [],
           "libraryName": "rnasyncstorage",
           "componentDescriptors": [],
-          "cmakeListsPath": "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/@react-native-async-storage/async-storage/android/build/generated/source/codegen/jni/CMakeLists.txt",
+          "cmakeListsPath": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/@react-native-async-storage/async-storage/android/build/generated/source/codegen/jni/CMakeLists.txt",
           "cxxModuleCMakeListsModuleName": null,
           "cxxModuleCMakeListsPath": null,
           "cxxModuleHeaderName": null,
@@ -29,23 +29,23 @@
       }
     },
     "@react-native-community/datetimepicker": {
-      "root": "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/@react-native-community/datetimepicker",
+      "root": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/@react-native-community/datetimepicker",
       "name": "@react-native-community/datetimepicker",
       "platforms": {
         "ios": {
-          "podspecPath": "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/@react-native-community/datetimepicker/RNDateTimePicker.podspec",
+          "podspecPath": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/@react-native-community/datetimepicker/RNDateTimePicker.podspec",
           "version": "8.4.2",
           "configurations": [],
           "scriptPhases": []
         },
         "android": {
-          "sourceDir": "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/@react-native-community/datetimepicker/android",
+          "sourceDir": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/@react-native-community/datetimepicker/android",
           "packageImportPath": "import com.reactcommunity.rndatetimepicker.RNDateTimePickerPackage;",
           "packageInstance": "new RNDateTimePickerPackage()",
           "buildTypes": [],
           "libraryName": "RNDateTimePickerCGen",
           "componentDescriptors": [],
-          "cmakeListsPath": "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/@react-native-community/datetimepicker/android/build/generated/source/codegen/jni/CMakeLists.txt",
+          "cmakeListsPath": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/@react-native-community/datetimepicker/android/build/generated/source/codegen/jni/CMakeLists.txt",
           "cxxModuleCMakeListsModuleName": null,
           "cxxModuleCMakeListsPath": null,
           "cxxModuleHeaderName": null,
@@ -54,23 +54,23 @@
       }
     },
     "@react-native-documents/picker": {
-      "root": "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/@react-native-documents/picker",
+      "root": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/@react-native-documents/picker",
       "name": "@react-native-documents/picker",
       "platforms": {
         "ios": {
-          "podspecPath": "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/@react-native-documents/picker/react-native-document-picker.podspec",
+          "podspecPath": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/@react-native-documents/picker/react-native-document-picker.podspec",
           "version": "10.1.5",
           "configurations": [],
           "scriptPhases": []
         },
         "android": {
-          "sourceDir": "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/@react-native-documents/picker/android",
+          "sourceDir": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/@react-native-documents/picker/android",
           "packageImportPath": "import com.reactnativedocumentpicker.RNDocumentPickerPackage;",
           "packageInstance": "new RNDocumentPickerPackage()",
           "buildTypes": [],
           "libraryName": "rndocumentpickerCGen",
           "componentDescriptors": [],
-          "cmakeListsPath": "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/@react-native-documents/picker/android/build/generated/source/codegen/jni/CMakeLists.txt",
+          "cmakeListsPath": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/@react-native-documents/picker/android/build/generated/source/codegen/jni/CMakeLists.txt",
           "cxxModuleCMakeListsModuleName": null,
           "cxxModuleCMakeListsPath": null,
           "cxxModuleHeaderName": null,
@@ -79,23 +79,23 @@
       }
     },
     "@react-native-documents/viewer": {
-      "root": "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/@react-native-documents/viewer",
+      "root": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/@react-native-documents/viewer",
       "name": "@react-native-documents/viewer",
       "platforms": {
         "ios": {
-          "podspecPath": "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/@react-native-documents/viewer/react-native-document-viewer.podspec",
+          "podspecPath": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/@react-native-documents/viewer/react-native-document-viewer.podspec",
           "version": "1.0.1",
           "configurations": [],
           "scriptPhases": []
         },
         "android": {
-          "sourceDir": "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/@react-native-documents/viewer/android",
+          "sourceDir": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/@react-native-documents/viewer/android",
           "packageImportPath": "import com.reactnativedocumentviewer.RNDocumentViewerPackage;",
           "packageInstance": "new RNDocumentViewerPackage()",
           "buildTypes": [],
           "libraryName": "rndocumentviewerCGen",
           "componentDescriptors": [],
-          "cmakeListsPath": "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/@react-native-documents/viewer/android/build/generated/source/codegen/jni/CMakeLists.txt",
+          "cmakeListsPath": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/@react-native-documents/viewer/android/build/generated/source/codegen/jni/CMakeLists.txt",
           "cxxModuleCMakeListsModuleName": null,
           "cxxModuleCMakeListsPath": null,
           "cxxModuleHeaderName": null,
@@ -104,17 +104,17 @@
       }
     },
     "@react-native-picker/picker": {
-      "root": "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/@react-native-picker/picker",
+      "root": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/@react-native-picker/picker",
       "name": "@react-native-picker/picker",
       "platforms": {
         "ios": {
-          "podspecPath": "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/@react-native-picker/picker/RNCPicker.podspec",
+          "podspecPath": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/@react-native-picker/picker/RNCPicker.podspec",
           "version": "2.11.1",
           "configurations": [],
           "scriptPhases": []
         },
         "android": {
-          "sourceDir": "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/@react-native-picker/picker/android",
+          "sourceDir": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/@react-native-picker/picker/android",
           "packageImportPath": "import com.reactnativecommunity.picker.RNCPickerPackage;",
           "packageInstance": "new RNCPickerPackage()",
           "buildTypes": [],
@@ -123,7 +123,7 @@
             "RNCAndroidDialogPickerComponentDescriptor",
             "RNCAndroidDropdownPickerComponentDescriptor"
           ],
-          "cmakeListsPath": "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/@react-native-picker/picker/android/src/main/jni/CMakeLists.txt",
+          "cmakeListsPath": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/@react-native-picker/picker/android/src/main/jni/CMakeLists.txt",
           "cxxModuleCMakeListsModuleName": null,
           "cxxModuleCMakeListsPath": null,
           "cxxModuleHeaderName": null,
@@ -132,23 +132,47 @@
       }
     },
     "react-native-blob-util": {
-      "root": "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/react-native-blob-util",
+      "root": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/react-native-blob-util",
       "name": "react-native-blob-util",
       "platforms": {
         "ios": {
-          "podspecPath": "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/react-native-blob-util/react-native-blob-util.podspec",
+          "podspecPath": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/react-native-blob-util/react-native-blob-util.podspec",
           "version": "0.22.2",
           "configurations": [],
           "scriptPhases": []
         },
         "android": {
-          "sourceDir": "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/react-native-blob-util/android",
+          "sourceDir": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/react-native-blob-util/android",
           "packageImportPath": "import com.ReactNativeBlobUtil.ReactNativeBlobUtilPackage;",
           "packageInstance": "new ReactNativeBlobUtilPackage()",
           "buildTypes": [],
           "libraryName": "ReactNativeBlobUtilSpec",
           "componentDescriptors": [],
-          "cmakeListsPath": "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/react-native-blob-util/android/build/generated/source/codegen/jni/CMakeLists.txt",
+          "cmakeListsPath": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/react-native-blob-util/android/build/generated/source/codegen/jni/CMakeLists.txt",
+          "cxxModuleCMakeListsModuleName": null,
+          "cxxModuleCMakeListsPath": null,
+          "cxxModuleHeaderName": null,
+          "isPureCxxDependency": false
+        }
+      }
+    },
+    "react-native-fs": {
+      "root": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/react-native-fs",
+      "name": "react-native-fs",
+      "platforms": {
+        "ios": {
+          "podspecPath": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/react-native-fs/RNFS.podspec",
+          "version": "2.20.0",
+          "configurations": [],
+          "scriptPhases": []
+        },
+        "android": {
+          "sourceDir": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/react-native-fs/android",
+          "packageImportPath": "import com.rnfs.RNFSPackage;",
+          "packageInstance": "new RNFSPackage()",
+          "buildTypes": [],
+          "componentDescriptors": [],
+          "cmakeListsPath": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/react-native-fs/android/build/generated/source/codegen/jni/CMakeLists.txt",
           "cxxModuleCMakeListsModuleName": null,
           "cxxModuleCMakeListsPath": null,
           "cxxModuleHeaderName": null,
@@ -157,17 +181,17 @@
       }
     },
     "react-native-pdf": {
-      "root": "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/react-native-pdf",
+      "root": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/react-native-pdf",
       "name": "react-native-pdf",
       "platforms": {
         "ios": {
-          "podspecPath": "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/react-native-pdf/react-native-pdf.podspec",
+          "podspecPath": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/react-native-pdf/react-native-pdf.podspec",
           "version": "6.7.7",
           "configurations": [],
           "scriptPhases": []
         },
         "android": {
-          "sourceDir": "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/react-native-pdf/android",
+          "sourceDir": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/react-native-pdf/android",
           "packageImportPath": "import org.wonday.pdf.RNPDFPackage;",
           "packageInstance": "new RNPDFPackage()",
           "buildTypes": [],
@@ -175,7 +199,7 @@
           "componentDescriptors": [
             "RNPDFPdfViewComponentDescriptor"
           ],
-          "cmakeListsPath": "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/react-native-pdf/android/build/generated/source/codegen/jni/CMakeLists.txt",
+          "cmakeListsPath": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/react-native-pdf/android/build/generated/source/codegen/jni/CMakeLists.txt",
           "cxxModuleCMakeListsModuleName": null,
           "cxxModuleCMakeListsPath": null,
           "cxxModuleHeaderName": null,
@@ -184,11 +208,11 @@
       }
     },
     "react-native-render-html": {
-      "root": "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/react-native-render-html",
+      "root": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/react-native-render-html",
       "name": "react-native-render-html",
       "platforms": {
         "ios": {
-          "podspecPath": "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/react-native-render-html/react-native-render-html.podspec",
+          "podspecPath": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/react-native-render-html/react-native-render-html.podspec",
           "version": "6.3.4",
           "configurations": [],
           "scriptPhases": []
@@ -197,17 +221,17 @@
       }
     },
     "react-native-safe-area-context": {
-      "root": "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/react-native-safe-area-context",
+      "root": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/react-native-safe-area-context",
       "name": "react-native-safe-area-context",
       "platforms": {
         "ios": {
-          "podspecPath": "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/react-native-safe-area-context/react-native-safe-area-context.podspec",
+          "podspecPath": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/react-native-safe-area-context/react-native-safe-area-context.podspec",
           "version": "5.5.2",
           "configurations": [],
           "scriptPhases": []
         },
         "android": {
-          "sourceDir": "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/react-native-safe-area-context/android",
+          "sourceDir": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/react-native-safe-area-context/android",
           "packageImportPath": "import com.th3rdwave.safeareacontext.SafeAreaContextPackage;",
           "packageInstance": "new SafeAreaContextPackage()",
           "buildTypes": [],
@@ -216,7 +240,7 @@
             "RNCSafeAreaProviderComponentDescriptor",
             "RNCSafeAreaViewComponentDescriptor"
           ],
-          "cmakeListsPath": "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/react-native-safe-area-context/android/src/main/jni/CMakeLists.txt",
+          "cmakeListsPath": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/react-native-safe-area-context/android/src/main/jni/CMakeLists.txt",
           "cxxModuleCMakeListsModuleName": null,
           "cxxModuleCMakeListsPath": null,
           "cxxModuleHeaderName": null,
@@ -225,17 +249,17 @@
       }
     },
     "react-native-screens": {
-      "root": "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/react-native-screens",
+      "root": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/react-native-screens",
       "name": "react-native-screens",
       "platforms": {
         "ios": {
-          "podspecPath": "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/react-native-screens/RNScreens.podspec",
+          "podspecPath": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/react-native-screens/RNScreens.podspec",
           "version": "4.11.1",
           "configurations": [],
           "scriptPhases": []
         },
         "android": {
-          "sourceDir": "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/react-native-screens/android",
+          "sourceDir": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/react-native-screens/android",
           "packageImportPath": "import com.swmansion.rnscreens.RNScreensPackage;",
           "packageInstance": "new RNScreensPackage()",
           "buildTypes": [],
@@ -253,7 +277,7 @@
             "RNSScreenContentWrapperComponentDescriptor",
             "RNSModalScreenComponentDescriptor"
           ],
-          "cmakeListsPath": "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/react-native-screens/android/src/main/jni/CMakeLists.txt",
+          "cmakeListsPath": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/react-native-screens/android/src/main/jni/CMakeLists.txt",
           "cxxModuleCMakeListsModuleName": null,
           "cxxModuleCMakeListsPath": null,
           "cxxModuleHeaderName": null,
@@ -262,17 +286,17 @@
       }
     },
     "react-native-webview": {
-      "root": "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/react-native-webview",
+      "root": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/react-native-webview",
       "name": "react-native-webview",
       "platforms": {
         "ios": {
-          "podspecPath": "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/react-native-webview/react-native-webview.podspec",
+          "podspecPath": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/react-native-webview/react-native-webview.podspec",
           "version": "13.15.0",
           "configurations": [],
           "scriptPhases": []
         },
         "android": {
-          "sourceDir": "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/react-native-webview/android",
+          "sourceDir": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/react-native-webview/android",
           "packageImportPath": "import com.reactnativecommunity.webview.RNCWebViewPackage;",
           "packageInstance": "new RNCWebViewPackage()",
           "buildTypes": [],
@@ -280,7 +304,7 @@
           "componentDescriptors": [
             "RNCWebViewComponentDescriptor"
           ],
-          "cmakeListsPath": "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/node_modules/react-native-webview/android/build/generated/source/codegen/jni/CMakeLists.txt",
+          "cmakeListsPath": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/react-native-webview/android/build/generated/source/codegen/jni/CMakeLists.txt",
           "cxxModuleCMakeListsModuleName": null,
           "cxxModuleCMakeListsPath": null,
           "cxxModuleHeaderName": null,
@@ -451,7 +475,7 @@
         {
           "name": "--path <path>",
           "description": "Path to the React Native project root.",
-          "default": "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile"
+          "default": "/Users/simplephi/Documents/riswan/new/new/eridamobile"
         },
         {
           "name": "--platform <string>",
@@ -751,7 +775,7 @@
   "assets": [],
   "project": {
     "ios": {
-      "sourceDir": "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/ios",
+      "sourceDir": "/Users/simplephi/Documents/riswan/new/new/eridamobile/ios",
       "xcodeProject": {
         "name": "erida.xcworkspace",
         "path": ".",
@@ -760,7 +784,7 @@
       "assets": []
     },
     "android": {
-      "sourceDir": "/Users/dinaskominfo/kiken/Project/ReactNative/eridamobile/android",
+      "sourceDir": "/Users/simplephi/Documents/riswan/new/new/eridamobile/android",
       "appName": "app",
       "packageName": "com.erida",
       "applicationId": "com.erida",

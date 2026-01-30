@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     bottomBar: {
         // backgroundColor: 'purple',
         width: '100%',
-        height: 120,
+        height: 80,
         // flex :1,
     },
 

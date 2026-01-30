@@ -106,15 +106,15 @@ const Setting = () => {
                             <Text style={styles.profileRole}>{user?.role || 'User'}</Text>
                         </View>
                     </View>
-                    <TouchableOpacity 
+                    {/* <TouchableOpacity 
                         style={styles.editProfileBtn}
                         onPress={() => navigation.navigate('EditProfile')}
                     >
                         <Text style={styles.editProfileBtnText}>Ubah</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                 </View>
 
-                {/* Main Settings */}
+                {/* Main Settings
                 <SectionHeader title="AKUN" />
                 <View style={styles.card}>
                     <SettingItem 
@@ -159,16 +159,16 @@ const Setting = () => {
                         subtitle="Indonesia"
                         onPress={() => navigation.navigate('Language')}
                     />
-                </View>
+                </View> */}
 
                 <SectionHeader title="BANTUAN & TENTANG" />
                 <View style={styles.card}>
-                    <SettingItem 
+                    {/* <SettingItem 
                         icon={require('../../pages/assets/images/icon/file.png')}
                         title="FAQ"
                         subtitle="Pertanyaan yang sering diajukan"
                         onPress={() => navigation.navigate('FAQ')}
-                    />
+                    /> */}
                     <View style={styles.divider} />
                     <SettingItem 
                         icon={require('../../pages/assets/images/icon/file.png')}
@@ -429,4 +429,3 @@ const styles = StyleSheet.create({
 });
 
 export default Setting;
-

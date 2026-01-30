@@ -28,6 +28,7 @@ import ListTemaPenelitian from "./TemaPenelitian/ListTemaPenelitian.jsx";
 import AddTemaPenelitian from "./TemaPenelitian/AddTemaPenelitian.jsx";
 
 import AlurUsulanPenelitian from "./Alur/alurUsulanPenelitian.jsx";
+import LombaInovda from "./Kreanova/LombaInovda.jsx";
 
 const ContentStack = createNativeStackNavigator();
 
@@ -53,6 +54,7 @@ const ContentAll = () => {
             <ContentStack.Screen name="AddTemaPenelitian" component={AddTemaPenelitian} />
 
             <ContentStack.Screen name="AlurUsulanPenelitian" component={AlurUsulanPenelitian} />
+            <ContentStack.Screen name="LombaInovda" component={LombaInovda} />
         </ContentStack.Navigator>
     );
 };

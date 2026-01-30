@@ -5,6 +5,11 @@
             <certificates src="system" />
         </trust-anchors>
     </base-config>
+    <!-- Allow cleartext traffic to localhost for Metro bundler during development -->
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">localhost</domain>
+        <domain includeSubdomains="true">10.0.2.2</domain>
+    </domain-config>
     <domain-config cleartextTrafficPermitted="false">
         <domain includeSubdomains="true">server-erida.konaweselatankab.go.id</domain>
         <trust-anchors>

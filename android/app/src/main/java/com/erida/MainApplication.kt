@@ -33,14 +33,17 @@ class MainApplication : Application(), ReactApplication {
     get() = getDefaultReactHost(applicationContext, reactNativeHost)
 
   override fun onCreate() {
-    super.onCreate()
+  super.onCreate()
 
-    val config = ImagePipelineConfig.newBuilder(this)
-        .setDownsampleEnabled(true) // memperbaiki scaling
-        .build()
-    Fresco.initialize(this, config)
+  val config = ImagePipelineConfig.newBuilder(this)
+      .setDownsampleEnabled(true)
+      .build()
+  Fresco.initialize(this, config)
 
-    // Load React Native
+  // 🔥 PENTING: hanya load kalau New Architecture aktif
+  if (BuildConfig.IS_NEW_ARCHITECTURE_ENABLED) {
     loadReactNative(this)
   }
+}
+
 }
