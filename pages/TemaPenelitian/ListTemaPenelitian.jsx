@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from "react";
-import { View, ScrollView, TouchableOpacity, Text, Image, StyleSheet } from "react-native";
+import { View, ScrollView, TouchableOpacity, Text, Image, StyleSheet, RefreshControl } from "react-native";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 
 import useGlobalStore from "../../stores/useGlobalStore";
@@ -22,10 +22,21 @@ const ListTemaPenelitian = () => {
     const [totalPage, setTotalPage] = useState(1);
     const [loading, setLoading] = useState(false);
 
+    const [refreshing, setRefreshing] = useState(false);
+
     const navigation = useNavigation();
     const visibleBar = useGlobalStore((state) => state.visibleBar)
     const setRouteBack = useGlobalStore((state) => state.setRouteBack);
     const [isModalVisibleSetting, setisModalVisibleSetting] = useState(false)
+
+    const onRefresh = async () => {
+        try {
+            setRefreshing(true);
+            await getTema(1); // selalu reload dari page 1
+        } finally {
+            setRefreshing(false);
+        }
+    };
 
 
     const getTema = async (pageNumber = 1) => {
@@ -74,7 +85,18 @@ const ListTemaPenelitian = () => {
 
     return (
         <View style={stylex.container}>
-            <ScrollView style={[stylex.scrollPage]}>
+            <ScrollView
+                    style={stylex.scrollPage}
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={refreshing}
+                            onRefresh={onRefresh}
+                            colors={['#EFD06D']}       
+                            tintColor="#EFD06D"        
+                        />
+                    }
+                >
+
 
                 <View style={{ flex: 1, paddingBottom: 72 }}>
                     <View style={stylex.pageTitleContainer}>
