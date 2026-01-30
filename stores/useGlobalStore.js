@@ -12,6 +12,10 @@ const useGlobalStore = create((state)=>({
     name : "Ini dari store",
     topBar : true,
     bottomBar : true,
+
+    user: null,
+    setUser: (user) => set({ user }),
+    clearUser: () => set({ user: null }),
     url : {
       URL_APP : URL,
       URL_FILE : URL_FILE+'uploads/',
@@ -45,6 +49,9 @@ const useGlobalStore = create((state)=>({
       URL_Krenova : URL + 'api/v1/server_krenova/',
       URL_Tema : URL + 'api/v1/server_tema/',
       URL_Dokumen : URL + 'api/v1/server_dokumen/',
+
+
+     
     
     },
 

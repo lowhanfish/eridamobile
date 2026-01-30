@@ -83,7 +83,7 @@ const AlurUsulanPenelitian = ({ navigation }) => {
                     <View style={styles.headerContainer}>
                         <View style={styles.headerIconContainer}>
                             <Image 
-                                source={require("../assets/images/icon/documents.png")} 
+                                source={require("../assets/images/icon/alur.png")} 
                                 style={styles.headerIcon}
                             />
                         </View>
@@ -211,23 +211,23 @@ const styles = StyleSheet.create({
         marginTop: 10,
     },
     headerIconContainer: {
-        width: 80,
-        height: 80,
-        borderRadius: 40,
-        backgroundColor: '#E9BC41',
+        width: 160,
+        height: 160,
+        borderRadius: 80,
+        // backgroundColor: '#E9BC41',
         justifyContent: 'center',
         alignItems: 'center',
         marginBottom: 15,
         shadowColor: '#E9BC41',
-        shadowOffset: { width: 0, height: 4 },
+        // shadowOffset: { width: 0, height: 4 },
         shadowOpacity: 0.3,
         shadowRadius: 8,
         elevation: 5,
     },
     headerIcon: {
-        width: 40,
-        height: 40,
-        tintColor: 'white',
+        width: 100,
+        height: 100,
+        // tintColor: 'white',
     },
     headerTitle: {
         fontSize: 22,

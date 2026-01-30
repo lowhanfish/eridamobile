@@ -9,12 +9,19 @@ import { stylex } from "../../pages/assets/css/index.js";
 import Imagex from "../../components/Imagex.jsx";
 
 import RecentNews from "../../components/RecentNews.jsx";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
 
 
 
 const Home = () => {
     const navigation = useNavigation();
     const visibleBar = useGlobalStore((state) => state.visibleBar);
+    // const user = useGlobalStore((state) => state.user);
+    const [user, setUser] = useState(null);
+
+
 
 
     const fontFamilies = [
@@ -35,8 +42,17 @@ const Home = () => {
     )
 
     useEffect(() => {
-
-    }, [])
+        const loadUser = async () => {
+          const storedUser = await AsyncStorage.getItem('userProfile');
+          if (storedUser) {
+            const parsed = JSON.parse(storedUser);
+            console.log('USER FROM STORAGE:', parsed);
+            setUser(parsed);
+          }
+        };
+        loadUser();
+      }, []);
+      
 
     return (
         <View style={stylex.container}>
@@ -63,9 +79,35 @@ const Home = () => {
                         ))} */}
                     </View>
                     <View style={{ flex: 1, alignItems: 'flex-end' }}>
-                        <Image style={{ width: 48, height: 48, borderRadius: 50, opacity: 0.8 }} source={{ uri: "https://smkn1tanjungpinang.sch.id/storage/guru/PRPaFyfrjnsDD919xxuyBXJISTXZFnTsl5Dwg69s.jpeg" }} />
-                        <Text style={{ fontSize: 10, fontWeight: 200 }}>Dr. Djarot Melin</Text>
-                    </View>
+                        <View style={{ alignItems: 'center' }}>
+                            <Image
+                            style={{
+                                width: 48,
+                                height: 48,
+                                borderRadius: 24,
+                                opacity: 0.9,
+                                marginBottom: 4,
+                            }}
+                            source={
+                                user?.foto
+                                ? { uri: user.foto }
+                                : require('../../pages/assets/images/user3d.png')
+                            }
+                            />
+
+                            <Text
+                            style={{
+                                fontSize: 10,
+                                fontWeight: '400',
+                                textAlign: 'center',
+                            }}
+                            numberOfLines={1}
+                            >
+                            {user?.profile?.nama || user?.username || 'Pengguna'}
+                            </Text>
+                        </View>
+                        </View>
+
                 </View>
 
                 <View>

@@ -43,8 +43,8 @@ const Login = () => {
     var statex = useGlobalStore((state) => state.url)
     const { login } = useContext(AuthContext); // Dapatkan fungsi login dari AuthContext
 
-    var [username, setUsername] = useState('monkeydluffy');
-    var [password, setPassword] = useState('monkeydluffy');
+    var [username, setUsername] = useState('naurariswan');
+    var [password, setPassword] = useState('naurariswan');
     var [errors, setErrors] = useState(""); // Satu string untuk semua error Joi
 
     const RequestLogin = async (data) => {
@@ -61,6 +61,8 @@ const Login = () => {
             throw error // Penting untuk melempar error agar ditangkap di LoginAccount
         }
     }
+
+
 
     const LoginAccount = async () => {
         console.log("Fungsi LoginAccount")
@@ -88,6 +90,8 @@ const Login = () => {
 
             // 3. Simpan token dan profil ke AsyncStorage dan update state otentikasi via Context
             await login(token); // <--- INI PENTING! Memanggil fungsi login dari AuthContext
+
+   
 
             // Profile juga bisa disimpan jika diperlukan
             await AsyncStorage.setItem('userProfile', JSON.stringify(profile));
