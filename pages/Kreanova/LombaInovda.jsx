@@ -54,30 +54,34 @@ const [loadingPanduan, setLoadingPanduan] = useState(true);
         }, [])
       );
 
-    const handleUnduhPanduan = () => {
-        // Ganti dengan URL panduan yang sebenarnya
-        const panduanUrl = 'https://example.com/panduan-lomba-inovasi.pdf';
-        
+      const handleUnduhPanduan = () => {
+        if (!panduan?.file) {
+            Alert.alert("Info", "File panduan belum tersedia");
+            return;
+        }
+    
+        const panduanUrl = urlx.URL_FILE + panduan.file;
+    
         Alert.alert(
             'Unduh Panduan',
             'Apakah Anda ingin mengunduh panduan Lomba Inovasi Daerah?',
             [
-                {
-                    text: 'Batal',
-                    style: 'cancel',
-                },
+                { text: 'Batal', style: 'cancel' },
                 {
                     text: 'Unduh',
                     onPress: () => {
-                        Linking.openURL(panduanUrl)
-                            .catch(err => {
-                                Alert.alert('Error', 'Tidak dapat membuka URL: ' + err.message);
-                            });
+                        Linking.openURL(panduanUrl).catch(err => {
+                            Alert.alert(
+                                'Error',
+                                'Tidak dapat membuka file panduan'
+                            );
+                        });
                     },
                 },
             ]
         );
     };
+    
 
     return (
         <View style={styles.container}>
