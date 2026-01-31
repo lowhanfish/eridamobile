@@ -10,7 +10,7 @@ import { stylex } from "../assets/css";
 import ImageLib from "../../components/ImageLib.jsx";
 import GetDataToken from "../lib/GetDataToken"; // pastikan ada
 import RNFS from 'react-native-fs';
-import { Linking, ToastAndroid } from 'react-native';
+import { Linking, ToastAndroid, RefreshControl } from 'react-native';
 
 
 
@@ -30,6 +30,15 @@ const ListKrenova = () => {
     const [cari_value, setCariValue] = useState("");
     const [data_batas, setDataBatas] = useState(8);
     const [cek_load_data, setCekLoadData] = useState(true);
+    const [refreshing, setRefreshing] = useState(false);
+
+    const onRefresh = useCallback(async () => {
+        setRefreshing(true);
+        setPageFirst(1);   // reset page
+        await getData();
+        setRefreshing(false);
+    }, []);
+    
 
     const [datax, setDatax] = useState(null)
     const downloadFile = async (data) => {
@@ -170,7 +179,18 @@ const ListKrenova = () => {
 
     return (
         <View style={stylex.container}>
-            <ScrollView style={stylex.scrollPage}>
+            <ScrollView
+                style={stylex.scrollPage}
+                refreshControl={
+                    <RefreshControl
+                        refreshing={refreshing}
+                        onRefresh={onRefresh}
+                        colors={['#E9BC41']}       // Android
+                        tintColor="#E9BC41"        // iOS
+                    />
+                }
+            >
+
                 <View style={{ flex: 1, paddingBottom: 72 }}>
                     <View style={stylex.pageTitleContainer}>
                         <View style={[stylex.pageTitleItemContainer, { justifyContent: 'center' }]}>
