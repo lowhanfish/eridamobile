@@ -123,8 +123,8 @@ const Home = () => {
                         </TouchableOpacity>
                         <Text style={styles.imageMenuItemListText}>IzinPenelitian</Text>
                     </View>
-                    <View style={styles.menuImageContainer}>
-                        <TouchableOpacity style={[styles.menuImageContainerItem, stylex.shaddow]}>
+<View style={styles.menuImageContainer}>
+                        <TouchableOpacity onPress={() => navigation.navigate("ListKrenova")} style={[styles.menuImageContainerItem, stylex.shaddow]}>
                             <Image style={styles.imageMenuItemList} source={require('../../pages/assets/images/inovasi.png')} />
                         </TouchableOpacity>
                         <Text style={styles.imageMenuItemListText}>Kreatifitas/inovasi</Text>
