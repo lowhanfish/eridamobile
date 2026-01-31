@@ -343,7 +343,7 @@ return (
                                         <View style={styles.docIconContainer}>
                                             <Image 
                                                 style={{ width: 32, height: 32 }}
-                                                source={require('../assets/images/izin_penelitian.png')}
+                                                source={require('../assets/images/riset.png')}
                                             />
                                         </View>
                                         
