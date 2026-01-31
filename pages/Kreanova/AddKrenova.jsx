@@ -19,7 +19,8 @@ const AddKrenova = () => {
     const urlx = useGlobalStore((state) => state.url);
 
     const route = useRoute();
-    const { typex, id } = route.params || {};
+    const { typex, id, data } = route.params || {};
+
 
     const [currentStep, setCurrentStep] = useState(1);
     const [loading, setLoading] = useState(false);
@@ -58,22 +59,32 @@ const AddKrenova = () => {
         setErrorMessage("");
     };
 
-    const addDataKrenova = async () => {
+    const saveDataKrenova = async () => {
         const token = await GetDataToken();
         const formDataSend = new FormData();
     
-        formDataSend.append(
-            'data',
-            JSON.stringify({
-                penulis: formData.author,
-                judul: formData.judul,
-                isi: formData.deskripsi,
-                tahun: {
-                    id: formData.tahun,
-                },
-            })
-        );
+        const payload = {
+            penulis: formData.author,
+            judul: formData.judul,
+            isi: formData.deskripsi,
+            tahun: {
+                id: formData.tahun,
+            },
+        };
     
+        // 🔑 JIKA EDIT → WAJIB KIRIM ID
+        if (typex === 'edit' && id) {
+            payload.id = id;
+        }
+    
+        // 🔑 JIKA EDIT + GANTI FILE → KIRIM FILE LAMA
+        if (typex === 'edit' && file && data?.file) {
+            payload.file_old = data.file;
+        }
+    
+        formDataSend.append('data', JSON.stringify(payload));
+    
+        // FILE HANYA DIKIRIM JIKA USER PILIH FILE BARU
         if (file && file.uri && !file.uri.startsWith('http')) {
             formDataSend.append('file', {
                 uri: file.uri,
@@ -82,8 +93,11 @@ const AddKrenova = () => {
             });
         }
     
+        // 🔥 BEDANYA DI SINI
+        const endpoint = typex === 'edit' ? 'editData' : 'addData';
+    
         return axios.post(
-            urlx.URL_Krenova + 'addData',
+            urlx.URL_Krenova + endpoint,
             formDataSend,
             {
                 headers: {
@@ -93,6 +107,8 @@ const AddKrenova = () => {
             }
         );
     };
+    
+    
 
     
     
@@ -167,27 +183,32 @@ const AddKrenova = () => {
 
     const validateForm = () => {
         if (!formData.tahun) {
-            setErrorMessage("Tahun harus dipilih");
+            setErrorMessage("Tahun harus diisi");
             return false;
         }
-        if (!formData.author || formData.author.trim() === "") {
+        if (!formData.author?.trim()) {
             setErrorMessage("Author harus diisi");
             return false;
         }
-        if (!formData.judul || formData.judul.trim() === "") {
+        if (!formData.judul?.trim()) {
             setErrorMessage("Judul harus diisi");
             return false;
         }
-        if (!formData.deskripsi || formData.deskripsi.trim() === "") {
+        if (!formData.deskripsi?.trim()) {
             setErrorMessage("Deskripsi harus diisi");
             return false;
         }
-        if (!file || !file.uri) {
+    
+        // 🔑 FILE WAJIB HANYA SAAT TAMBAH
+        if (typex !== 'edit' && (!file || !file.uri)) {
             setErrorMessage("Dokumen Krenova (PDF) wajib diunggah");
             return false;
         }
+    
         return true;
     };
+    
+    
 
     const submitData = async () => {
         if (!validateForm()) return;
@@ -195,11 +216,13 @@ const AddKrenova = () => {
         setLoading(true);
     
         try {
-            await addDataKrenova();
+            await saveDataKrenova();
     
             Alert.alert(
                 "Sukses",
-                "Data Kreatifitas/Inovasi berhasil disimpan",
+                typex === 'edit'
+                    ? "Data berhasil diperbarui"
+                    : "Data berhasil disimpan",
                 [
                     {
                         text: "OK",
@@ -208,12 +231,13 @@ const AddKrenova = () => {
                 ]
             );
         } catch (err) {
-            console.log('Add Krenova error:', err);
+            console.log('Save Krenova error:', err);
             Alert.alert("Gagal", "Data tidak berhasil disimpan");
         } finally {
             setLoading(false);
         }
     };
+    
     
 
     const fetchDetail = async (id) => {
@@ -233,11 +257,21 @@ const AddKrenova = () => {
         }, 500);
     };
 
+
     useEffect(() => {
-        if (typex === "edit" && id) {
-            fetchDetail(id);
+        if (typex === "edit" && data) {
+            setFormData({
+                tahun: data.tahun || "",
+                author: data.penulis || "",
+                judul: data.judul || "",
+                deskripsi: data.isi || "",
+                file: null,
+                fileName: data.file || "",
+            });
         }
-    }, [typex, id]);
+    }, [typex, data]);
+    
+
 
     useFocusEffect(
         useCallback(() => {

@@ -172,6 +172,7 @@ const DetailKrenova = () => {
                             navigation.navigate("AddKrenova", {
                                 typex: "edit",
                                 id: data.id,
+                                data: data,
                             })
                         }
                     >
