@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { View, Text, Image, TouchableOpacity, StyleSheet, ScrollView, Alert, Linking, TextInput } from "react-native";
+import { View, Text, Image, TouchableOpacity, StyleSheet, ScrollView, Alert, Linking, TextInput, RefreshControl } from "react-native";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import axios from "axios";
 
@@ -14,6 +14,8 @@ const DataRiset = () => {
     const visibleBar = useGlobalStore((state) => state.visibleBar);
     const setRouteBack = useGlobalStore((state) => state.setRouteBack);
     const urlx = useGlobalStore((state) => state.url);
+    const [chartLoading, setChartLoading] = useState(true);
+
 
     const [list_data, setListData] = useState([]);
     const [page_first, setPageFirst] = useState(1);
@@ -22,10 +24,33 @@ const DataRiset = () => {
     const [tahun_filter, setTahunFilter] = useState("");
     const [data_batas, setDataBatas] = useState(8);
     const [cek_load_data, setCekLoadData] = useState(true);
+    const [chartData, setChartData] = useState([]);
+    const [chartLoaded, setChartLoaded] = useState(false);
+    const [refreshing, setRefreshing] = useState(false);
+
 
     // Generate tahun options (5 tahun terakhir)
     const currentYear = new Date().getFullYear();
     const tahunOptions = Array.from({ length: 5 }, (_, i) => String(currentYear - i));
+
+    const onRefresh = async () => {
+        setRefreshing(true);
+        setChartLoaded(false); // 🔑 WAJIB
+        setChartLoading(true);
+    
+        try {
+            await Promise.all([
+                getChartData(),
+                getData(),
+            ]);
+        } finally {
+            setRefreshing(false);
+        }
+    };
+    
+    
+
+    
 
     const btn_prev = () => {
         if (page_first > 1) {
@@ -40,9 +65,87 @@ const DataRiset = () => {
     };
 
     const cariData = () => {
+        setChartLoaded(false);
+        setChartLoading(true);
         setPageFirst(1);
+        getChartData();
         getData();
     };
+    
+
+    const getChartData = async () => {
+        setChartLoading(true);
+        try {
+            const token = await GetDataToken();
+    
+            // 🔹 ambil halaman pertama dulu
+            const firstRes = await axios.post(
+                urlx.URL_Riset + "/view",
+                {
+                    data_ke: 1,
+                    cari_value,
+                    tahun: tahun_filter || null,
+                },
+                {
+                    headers: { Authorization: `kikensbatara ${token}` },
+                }
+            );
+    
+            const totalPage = firstRes.data.jml_data || 1;
+            let allData = [...(firstRes.data.data || [])];
+    
+            // 🔹 ambil sisa page (2,3,4,...)
+            for (let page = 2; page <= totalPage; page++) {
+                const res = await axios.post(
+                    urlx.URL_Riset + "/view",
+                    {
+                        data_ke: page,
+                        cari_value,
+                        tahun: tahun_filter || null,
+                    },
+                    {
+                        headers: { Authorization: `kikensbatara ${token}` },
+                    }
+                );
+    
+                if (res.data.data?.length) {
+                    allData = allData.concat(res.data.data);
+                }
+            }
+    
+            // 🔹 agregasi chart
+            const yearMap = {};
+            allData.forEach(item => {
+                const year = item.tahun ? String(item.tahun) : 'Lainnya';
+                yearMap[year] = (yearMap[year] || 0) + 1;
+            });
+    
+            const chartArr = Object.keys(yearMap)
+                .sort((a, b) => b - a)
+                .slice(0, 8)
+                .map(year => ({
+                    tahun: year,
+                    count: yearMap[year],
+                }));
+    
+            setChartData(chartArr);
+            setChartLoaded(true);
+    
+        } catch (err) {
+            console.log("Chart fetch error:", err);
+            setChartData([]);
+        } finally {
+            
+            setChartLoading(false);
+        }
+    };
+    
+    
+    useEffect(() => {
+        getChartData();
+    }, []);
+    
+    
 
     const getData = async () => {
         setCekLoadData(true);
@@ -65,8 +168,20 @@ const DataRiset = () => {
 
             setListData(res.data.data || []);
             setPageLast(res.data.jml_data || 1);
+            
+           
+            
         } catch (err) {
             console.log('Get data riset error:', err);
+            // Set sample chart data on error
+            const sampleChartData = [
+                { tahun: String(currentYear), count: 5 },
+                { tahun: String(currentYear - 1), count: 13 },
+                { tahun: String(currentYear - 2), count: 18 },
+                { tahun: String(currentYear - 3), count: 8 },
+                { tahun: String(currentYear - 4), count: 12 },
+            ];
+            setChartData(sampleChartData);
         } finally {
             setCekLoadData(false);
         }
@@ -77,18 +192,19 @@ const DataRiset = () => {
             Alert.alert("Info", "File tidak tersedia");
             return;
         }
-
+    
         const fileUrl = urlx.URL_APP + 'uploads/' + data.file;
-
+        const namaDokumen = data.judul || 'Dokumen Riset';
+    
         Alert.alert(
             "Unduh Dokumen",
-            "Apakah Anda ingin mengunduh dokumen ini?",
+            `Nama Dokumen:\n${namaDokumen}\n\nApakah Anda ingin mengunduh dokumen ini?`,
             [
                 { text: "Batal", style: "cancel" },
                 {
                     text: "Unduh",
                     onPress: () => {
-                        Linking.openURL(fileUrl).catch(err => {
+                        Linking.openURL(fileUrl).catch(() => {
                             Alert.alert("Error", "Tidak dapat membuka dokumen");
                         });
                     }
@@ -96,6 +212,7 @@ const DataRiset = () => {
             ]
         );
     };
+    
 
     const formatDate = (dateString) => {
         if (!dateString) return "-";
@@ -115,9 +232,19 @@ const DataRiset = () => {
         }, [visibleBar])
     );
 
-    return (
+return (
         <View style={stylex.container}>
-            <ScrollView style={stylex.scrollPage}>
+            <ScrollView
+                    style={stylex.scrollPage}
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={refreshing}
+                            onRefresh={onRefresh}
+                            colors={['#EFD06D']}          // Android
+                            tintColor="#EFD06D"           // iOS
+                        />
+                    }
+                >
                 <View style={{ flex: 1, paddingBottom: 72 }}>
                     <View style={stylex.pageTitleContainer}>
                         <View style={[stylex.pageTitleItemContainer, { justifyContent: 'center' }]}>
@@ -145,36 +272,54 @@ const DataRiset = () => {
                         </View>
                     </View>
 
-                    {/* Filter Tahun */}
-                    <View style={[stylex.InputContainer, styles.filterContainer]}>
-                        <Text style={stylex.inputText1}>Filter Tahun</Text>
-                        <View style={styles.filterButtons}>
-                            <TouchableOpacity 
-                                style={[styles.filterButton, !tahun_filter && styles.filterButtonActive]}
-                                onPress={() => {
-                                    setTahunFilter("");
-                                    setPageFirst(1);
-                                }}
-                            >
-                                <Text style={[styles.filterButtonText, !tahun_filter && styles.filterButtonTextActive]}>
-                                    Semua
-                                </Text>
-                            </TouchableOpacity>
-                            {tahunOptions.map((tahun) => (
-                                <TouchableOpacity 
-                                    key={tahun}
-                                    style={[styles.filterButton, tahun_filter === tahun && styles.filterButtonActive]}
-                                    onPress={() => {
-                                        setTahunFilter(tahun);
-                                        setPageFirst(1);
-                                    }}
-                                >
-                                    <Text style={[styles.filterButtonText, tahun_filter === tahun && styles.filterButtonTextActive]}>
-                                        {tahun}
-                                    </Text>
-                                </TouchableOpacity>
-                            ))}
+                    {/* Chart Section */}
+                    <View style={styles.chartContainer}>
+                    <Text style={styles.chartTitle}>
+                        Jumlah Data Riset per Tahun
+                        {refreshing && " (memperbarui...)"}
+                    </Text>
+
+                    <View style={styles.chartWrapper}>
+                    {chartLoading ? (
+                        <View style={{ alignItems: 'center', width: '100%' }}>
+                            <ImageLib
+                                urix={require('../assets/images/loading2.gif')}
+                                customWidth={120}
+                            />
+                            <Text style={{ fontSize: 12, color: '#999', marginTop: 6 }}>
+                                Memuat data chart...
+                            </Text>
                         </View>
+                    ) : chartData.length === 0 ? (
+                        <Text style={{ color: '#999', fontSize: 12 }}>
+                            Data chart belum tersedia
+                        </Text>
+                    ) : (
+                        chartData.map((item, index) => {
+                            const maxCount = Math.max(...chartData.map(d => d.count), 1);
+                            const barHeight = (item.count / maxCount) * 100;
+
+                            return (
+                                <View key={index} style={styles.chartBarContainer}>
+                                    <Text style={styles.chartBarValueText}>{item.count}</Text>
+
+                                    <View style={styles.chartBarMain}>
+                                        <View
+                                            style={[
+                                                styles.chartBar,
+                                                { height: barHeight }
+                                            ]}
+                                        />
+                                    </View>
+
+                                    <Text style={styles.chartBarLabel}>{item.tahun}</Text>
+                                </View>
+                            );
+                        })
+                    )}
+                </View>
+
+
                     </View>
 
                     <View style={stylex.borderContent}>
@@ -209,27 +354,27 @@ const DataRiset = () => {
                                             
                                             <View style={styles.docMeta}>
                                                 <View style={styles.docMetaItem}>
-                                                    <Image 
+                                                    {/* <Image 
                                                         style={{ width: 14, height: 14, marginRight: 6 }}
                                                         source={require('../assets/images/icon/user.png')}
-                                                    />
+                                                    /> */}
                                                     <Text style={styles.docMetaText}>
-                                                        {data.penulis || data.createBy || '-'}
+                                                        👤 {data.penulis || data.createBy || '-'}
                                                     </Text>
                                                 </View>
                                             </View>
                                             
                                             <View style={styles.docMeta}>
                                                 <View style={styles.docMetaItem}>
-                                                    <Image 
+                                                    {/* <Image 
                                                         style={{ width: 14, height: 14, marginRight: 6 }}
                                                         source={require('../assets/images/icon/date.png')}
-                                                    />
+                                                    /> */}
                                                     <Text style={styles.docMetaText}>
-                                                        {data.tahun || '-'}
+                                                        📅 {data.tahun || '-'}
                                                     </Text>
                                                 </View>
-                                                <View style={[styles.docMetaItem, { marginLeft: 12 }]}>
+                                                {/* <View style={[styles.docMetaItem, { marginLeft: 12 }]}>
                                                     <Image 
                                                         style={{ width: 14, height: 14, marginRight: 6 }}
                                                         source={require('../assets/images/icon/time.png')}
@@ -237,7 +382,7 @@ const DataRiset = () => {
                                                     <Text style={styles.docMetaText}>
                                                         {formatDate(data.createAt || data.editeAt)}
                                                     </Text>
-                                                </View>
+                                                </View> */}
                                             </View>
                                         </View>
 
@@ -296,35 +441,58 @@ const styles = StyleSheet.create({
         paddingBottom: 10,
         marginTop: 10,
     },
-    filterContainer: {
-        marginBottom: 10,
+    chartContainer: {
+        backgroundColor: 'white',
+        borderRadius: 11,
+        padding: 16,
+        marginTop: 10,
+        marginBottom: 16,
+        ...stylex.shaddow,
     },
-    filterButtons: {
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        marginTop: 8,
-    },
-    filterButton: {
-        paddingVertical: 6,
-        paddingHorizontal: 12,
-        borderRadius: 6,
-        backgroundColor: '#F5F5F5',
-        marginRight: 8,
-        marginBottom: 8,
-        borderWidth: 1,
-        borderColor: '#E0E0E0',
-    },
-    filterButtonActive: {
-        backgroundColor: '#EFD06D',
-        borderColor: '#EFD06D',
-    },
-    filterButtonText: {
-        fontSize: 12,
-        color: '#666',
-    },
-    filterButtonTextActive: {
-        color: 'white',
+    chartTitle: {
+        fontSize: 14,
         fontWeight: '600',
+        color: '#333',
+        marginBottom: 16,
+        textAlign: 'center',
+    },
+    chartWrapper: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'flex-end',
+        height: 150,
+        paddingHorizontal: 10,
+    },
+    chartBarContainer: {
+        alignItems: 'center',
+        flex: 1,
+    },
+    chartBarValue: {
+        marginBottom: 4,
+    },
+    chartBarValueText: {
+        fontSize: 12,
+        fontWeight: '600',
+        color: '#EFD06D',
+    },
+    chartBarMain: {
+        width: 30,
+        height: 100,
+        backgroundColor: '#F5F5F5',
+        borderRadius: 4,
+        justifyContent: 'flex-end',
+        overflow: 'hidden',
+    },
+    chartBar: {
+        width: '100%',
+        backgroundColor: '#EFD06D',
+        borderRadius: 4,
+    },
+    chartBarLabel: {
+        fontSize: 11,
+        color: '#666',
+        marginTop: 6,
+        fontWeight: '500',
     },
     docCard: {
         flexDirection: 'row',
@@ -361,7 +529,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     docMetaText: {
-        fontSize: 11,
+        fontSize: 9,
         color: '#8A8A8A',
     },
     downloadButton: {

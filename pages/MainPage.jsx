@@ -60,7 +60,7 @@ const ContentAll = () => {
             <ContentStack.Screen name="ListTemaPenelitian" component={ListTemaPenelitian} />
             <ContentStack.Screen name="AddTemaPenelitian" component={AddTemaPenelitian} />
 
-<ContentStack.Screen name="AlurUsulanPenelitian" component={AlurUsulanPenelitian} />
+            <ContentStack.Screen name="AlurUsulanPenelitian" component={AlurUsulanPenelitian} />
             <ContentStack.Screen name="LombaInovda" component={LombaInovda} />
             <ContentStack.Screen name="ListKrenova" component={ListKrenova} />
             <ContentStack.Screen name="AddKrenova" component={AddKrenova} />
