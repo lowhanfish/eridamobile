@@ -5,6 +5,9 @@ import { useNavigation, useFocusEffect, useRoute } from "@react-navigation/nativ
 import useGlobalStore from "../../stores/useGlobalStore";
 import { stylex } from "../assets/css";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from "axios";
+import GetDataToken from "../lib/GetDataToken";
+
 
 
 const DetailKrenova = () => {
@@ -48,9 +51,7 @@ const DetailKrenova = () => {
     console.log("DATA USER ID  :", data?.userId);
     console.log("IS OWNER ?", isOwner);
 
-
-
-
+    
     const handleDelete = () => {
         Alert.alert(
             "Konfirmasi Hapus",
@@ -62,21 +63,45 @@ const DetailKrenova = () => {
                     style: "destructive",
                     onPress: async () => {
                         try {
+                            const token = await GetDataToken();
+    
                             await axios.post(
                                 urlx.URL_Krenova + 'removeData',
-                                { id: data.id, file: data.file }
+                                {
+                                    id: data.id,
+                                    file: data.file,
+                                },
+                                {
+                                    headers: {
+                                        Authorization: `kikensbatara ${token}`,
+                                    },
+                                }
                             );
-                            Alert.alert("Sukses", "Data berhasil dihapus", [
-                                { text: "OK", onPress: () => navigation.goBack() }
-                            ]);
+    
+                            Alert.alert(
+                                "Sukses",
+                                "Data berhasil dihapus",
+                                [
+                                    {
+                                        text: "OK",
+                                        onPress: () =>
+                                            navigation.reset({
+                                                index: 0,
+                                                routes: [{ name: "ListKrenova" }],
+                                            }),
+                                    },
+                                ]
+                            );
                         } catch (err) {
-                            console.log(err);
+                            console.log("DELETE ERROR:", err.response?.data || err.message);
+                            Alert.alert("Gagal", "Data tidak berhasil dihapus");
                         }
-                    }
-                }
+                    },
+                },
             ]
         );
     };
+    
 
     const handleDownload = () => {
         if (!data.file) return;
