@@ -22,13 +22,13 @@ const DATA_CATEGORIES = [
         color: '#FFF3E0',
         route: 'DataKrenova',
     },
-    {
+{
         id: 'aksi_perubahan',
         title: 'Data Aksi Perubahan',
         description: 'Data aksi perubahan daerah',
         icon: require('../assets/images/aksi.png'),
         color: '#E8F5E9',
-        route: 'DataAksiPerubahan',
+        route: 'DataPerubahan',
     },
     {
         id: 'teknologi',

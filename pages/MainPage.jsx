@@ -36,6 +36,7 @@ import DocumentsList from "./Documents/DocumentsList.jsx";
 import DataInformation from "./Data/DataInformation.jsx";
 import DataList from "./Data/DataList.jsx";
 import DataRiset from "./Data/DataRiset.jsx";
+import DataPerubahan from "./Data/DataPerubahan.jsx";
 
 const ContentStack = createNativeStackNavigator();
 
@@ -69,6 +70,7 @@ const ContentAll = () => {
             <ContentStack.Screen name="DataInformation" component={DataInformation} />
             <ContentStack.Screen name="DataList" component={DataList} />
             <ContentStack.Screen name="DataRiset" component={DataRiset} />
+            <ContentStack.Screen name="DataPerubahan" component={DataPerubahan} />
         </ContentStack.Navigator>
     );
 };
@@ -115,3 +117,4 @@ const MainPage = () => {
 
 
 export default MainPage;
+
