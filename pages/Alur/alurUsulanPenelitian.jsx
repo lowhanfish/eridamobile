@@ -11,7 +11,7 @@ const alurData = [
         id: 1,
         title: 'Register Akun',
         description: 'Pertama anda harus mendaftarkan akun untuk masuk ke sistem Erida sebagai pengguna.',
-        icon: require("../assets/images/icon/documents.png"),
+        icon: require("../assets/images/icon/user.png"),
         color: '#E9BC41',
     },
     {
@@ -140,7 +140,7 @@ const AlurUsulanPenelitian = ({ navigation }) => {
                     {/* Info Card */}
                     <View style={styles.infoCard}>
                         <Image 
-                            source={require("../assets/images/icon/documents.png")} 
+                            source={require("../assets/images/icon/call.png")} 
                             style={styles.infoIcon}
                         />
                         <Text style={styles.infoText}>
