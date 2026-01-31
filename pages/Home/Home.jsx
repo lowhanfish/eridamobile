@@ -171,8 +171,8 @@ const Home = () => {
                                 Tap gambar untuk melihat data dan informasi pada Badan Riset dan Inovasi Daerah (BRIDA) Kabupaten Konawe Selatan
                             </Text>
                         </View>
-                        <View style={[styles.containerContentDiv, { justifyContent: 'center', alignItems: 'center', marginTop: -20 }]}>
-                            <TouchableOpacity onPress={() => navigation.navigate("ListUsulan")}>
+<View style={[styles.containerContentDiv, { justifyContent: 'center', alignItems: 'center', marginTop: -20 }]}>
+                            <TouchableOpacity onPress={() => navigation.navigate("DataInformation")}>
                                 <Imagex width={150} urix={require('../../pages/assets/images/data_informasi.png')} />
                             </TouchableOpacity>
                         </View>

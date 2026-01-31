@@ -33,6 +33,9 @@ import ListKrenova from "./Kreanova/ListKrenova.jsx";
 import AddKrenova from "./Kreanova/AddKrenova.jsx";
 import DetailKrenova from "./Kreanova/DetailKrenova.jsx";
 import DocumentsList from "./Documents/DocumentsList.jsx";
+import DataInformation from "./Data/DataInformation.jsx";
+import DataList from "./Data/DataList.jsx";
+import DataRiset from "./Data/DataRiset.jsx";
 
 const ContentStack = createNativeStackNavigator();
 
@@ -63,6 +66,9 @@ const ContentAll = () => {
             <ContentStack.Screen name="AddKrenova" component={AddKrenova} />
             <ContentStack.Screen name="DetailKrenova" component={DetailKrenova} />
             <ContentStack.Screen name="DocumentsList" component={DocumentsList} />
+            <ContentStack.Screen name="DataInformation" component={DataInformation} />
+            <ContentStack.Screen name="DataList" component={DataList} />
+            <ContentStack.Screen name="DataRiset" component={DataRiset} />
         </ContentStack.Navigator>
     );
 };
