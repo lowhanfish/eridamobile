@@ -32,6 +32,7 @@ import LombaInovda from "./Kreanova/LombaInovda.jsx";
 import ListKrenova from "./Kreanova/ListKrenova.jsx";
 import AddKrenova from "./Kreanova/AddKrenova.jsx";
 import DetailKrenova from "./Kreanova/DetailKrenova.jsx";
+import DocumentsList from "./Documents/DocumentsList.jsx";
 
 const ContentStack = createNativeStackNavigator();
 
@@ -61,6 +62,7 @@ const ContentAll = () => {
             <ContentStack.Screen name="ListKrenova" component={ListKrenova} />
             <ContentStack.Screen name="AddKrenova" component={AddKrenova} />
             <ContentStack.Screen name="DetailKrenova" component={DetailKrenova} />
+            <ContentStack.Screen name="DocumentsList" component={DocumentsList} />
         </ContentStack.Navigator>
     );
 };
