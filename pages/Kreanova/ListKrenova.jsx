@@ -238,7 +238,7 @@ const ListKrenova = () => {
                                                             });
                                                         } else {
                                                             navigation.navigate("DetailKrenova", {
-                                                                id: data.id,
+                                                                data: data,
                                                             });
                                                         }
                                                     }}
