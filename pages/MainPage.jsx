@@ -13,6 +13,7 @@ import BottomBar from "../components/BottomBar.jsx";
 import Home from "../pages/Home/Home.jsx";
 import Profile from "../pages/Profile/Profile.jsx";
 import Setting from "../pages/Setting/Setting.jsx";
+import EditProfile from "../pages/Profile/EditProfile.jsx";
 
 import ListUsulan from "../pages/Usulan/ListUsulan.jsx";
 import AddUsulan from "./Usulan/addUsulan.jsx";
@@ -53,6 +54,7 @@ const ContentAll = () => {
             <ContentStack.Screen name="Home" component={Home} />
             <ContentStack.Screen name="Profile" component={Profile} />
             <ContentStack.Screen name="Setting" component={Setting} />
+            <ContentStack.Screen name="EditProfile" component={EditProfile} />
 
             <ContentStack.Screen name="ListUsulan" component={ListUsulan} />
             <ContentStack.Screen name="AddUsulan" component={AddUsulan} />
