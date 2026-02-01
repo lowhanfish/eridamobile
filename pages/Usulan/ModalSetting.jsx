@@ -11,10 +11,15 @@ const ModalSetting = ({ visible, onClose, datax, removeData }) => { // Terima vi
     // console.log(datax)
     const navigation = useNavigation();
 
-    const routeTo = () => {
+    const routeToEdit = () => {
         const dataPass = { ...datax, typex: 'edit' };
         onClose();
         navigation.navigate('AddUsulan', dataPass)
+    }
+
+    const routeToDetail = () => {
+        onClose();
+        navigation.navigate('DetailUsulan', { data: datax })
     }
 
     return (
@@ -26,10 +31,10 @@ const ModalSetting = ({ visible, onClose, datax, removeData }) => { // Terima vi
         >
             <View style={[stylex.modalOverlay, { flex: 1 }]}>
                 <View style={[stylex.modalContent]}>
-                    <TouchableOpacity style={[stylex.modalButton, stylex.shaddow, { backgroundColor: '#6DA3EF' }]}>
+                    <TouchableOpacity onPress={routeToDetail} style={[stylex.modalButton, stylex.shaddow, { backgroundColor: '#6DA3EF' }]}>
                         <Text style={stylex.modalText}>Detail Data</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={routeTo} style={[stylex.modalButton, stylex.shaddow, { backgroundColor: '#EFD06D' }]}>
+                    <TouchableOpacity onPress={routeToEdit} style={[stylex.modalButton, stylex.shaddow, { backgroundColor: '#EFD06D' }]}>
                         <Text style={stylex.modalText}>Edit Data</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => removeData(datax)} style={[stylex.modalButton, stylex.shaddow, { backgroundColor: '#FF9191' }]}>

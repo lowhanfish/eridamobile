@@ -44,7 +44,7 @@ const DATA_CATEGORIES = [
         description: 'Data izin penelitian',
         icon: require('../assets/images/izin_penelitian.png'),
         color: '#FFEBEE',
-        route: 'ListUsulan',
+        route: 'DataPenelitian',
     },
     {
         id: 'iid',

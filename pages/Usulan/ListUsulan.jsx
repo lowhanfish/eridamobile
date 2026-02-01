@@ -75,8 +75,14 @@ const ListUsulan = () => {
     const removeData = async (data) => {
         var tokenz = await GetDataToken();
         setCekLoadData(true);
-        axios.post(urlx.URL_Penelitian + '/removeDataMobile', {
-            id: data.id
+        axios.post(urlx.URL_Penelitian + '/removeData', {
+            id: data.id,
+            ktp: data.ktp || '',
+            rekomendasi: data.rekomendasi || '',
+            suratP: data.suratP || '',
+            suratR: data.suratR || '',
+            proposal: data.proposal || '',
+            laporan: data.laporan || ''
         }, {
             headers: {
                 "Content-Type": "application/json",
@@ -176,13 +182,7 @@ const ListUsulan = () => {
                                             <View >
                                             <TouchableOpacity
                                                     style={[stylex.DataListCont, stylex.shaddow, { backgroundColor: getBgColorByStatus(data.status) }]}
-                                                    onPress={() =>
-                                                        navigation.navigate("AddUsulan", {
-                                                        typex: "edit",
-                                                        id: data.id,     // ✅ ID DI SINI
-                                                        })
-                                                    }
-                                                    onLongPress={() => selectData(data)}
+                                                    onPress={() => selectData(data)}
                                                     >
                                                     <View style={stylex.DataListImgCont}>
                                                         <Image style={stylex.DataListImg} source={require('../assets/images/izin_penelitian.png')} />

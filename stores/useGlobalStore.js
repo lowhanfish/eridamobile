@@ -28,6 +28,7 @@ const useGlobalStore = create((state)=>({
       URL_Berita : URL + 'api/v1/web_berita/',
       URL_Usulan : URL + 'api/v1/server_usulan/',
       URL_Penelitian : URL + 'api/v1/server_penelitian/',
+      URL_MANIS : URL + 'api/v1/publish_manis/',
       URL_Sida : URL + 'api/v1/server_sida/',
       URL_Artikel : URL + 'api/v1/server_artikel/',
       URL_Pengguna : URL + 'api/v1/server_pengguna/',

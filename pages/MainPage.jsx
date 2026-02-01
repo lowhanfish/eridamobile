@@ -17,6 +17,7 @@ import EditProfile from "../pages/Profile/EditProfile.jsx";
 
 import ListUsulan from "../pages/Usulan/ListUsulan.jsx";
 import AddUsulan from "./Usulan/addUsulan.jsx";
+import DetailDataUsulan from "./Usulan/DetailDataUsulan.jsx";
 import AddUsulanPenelitian1 from "./Usulan/component/AddUsulanPenelitian1.jsx";
 import AddUsulanPenelitian2 from "./Usulan/component/AddUsulanPenelitian2.jsx";
 import AddUsulanPenelitian3 from "./Usulan/component/AddUsulanPenelitian3.jsx";
@@ -44,6 +45,7 @@ import DataIKM from "./Data/DataIKM.jsx";
 import DataIID from "./Data/DataIID.jsx";
 import DataIPKD from "./Data/DataIPKD.jsx";
 import DataIDSD from "./Data/DataIDSD.jsx";
+import DataPenelitian from "./Data/DataPenelitian.jsx";
 
 const ContentStack = createNativeStackNavigator();
 
@@ -58,6 +60,7 @@ const ContentAll = () => {
 
             <ContentStack.Screen name="ListUsulan" component={ListUsulan} />
             <ContentStack.Screen name="AddUsulan" component={AddUsulan} />
+            <ContentStack.Screen name="DetailUsulan" component={DetailDataUsulan} />
             <ContentStack.Screen name="AddUsulanPenelitian1" component={AddUsulanPenelitian1} />
             <ContentStack.Screen name="AddUsulanPenelitian2" component={AddUsulanPenelitian2} />
             <ContentStack.Screen name="AddUsulanPenelitian3" component={AddUsulanPenelitian3} />
@@ -85,6 +88,7 @@ const ContentAll = () => {
             <ContentStack.Screen name="DataIID" component={DataIID} />
             <ContentStack.Screen name="DataIPKD" component={DataIPKD} />
             <ContentStack.Screen name="DataIDSD" component={DataIDSD} />
+            <ContentStack.Screen name="DataPenelitian" component={DataPenelitian} />
         </ContentStack.Navigator>
     );
 };

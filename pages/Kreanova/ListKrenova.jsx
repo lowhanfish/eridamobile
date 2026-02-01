@@ -60,20 +60,18 @@ const ListKrenova = () => {
     };
     
 
-
-
-
     const btn_prev = () => {
         if (page_first > 1) {
             setPageFirst(page_first - 1);
         }
     };
-
+    
     const btn_next = () => {
         if (page_first < page_last) {
             setPageFirst(page_first + 1);
         }
     };
+    
 
     const isMyData = (data) => {
         if (!user || !user.nama) return false;
@@ -99,26 +97,23 @@ const ListKrenova = () => {
                 }
             );
     
-            console.log('DATA KRENOVA:', res.data);
-    
-            // setListData(res.data || []);
             const sortedData = (res.data || []).sort(
                 (a, b) => new Date(b.createAt) - new Date(a.createAt)
             );
-            
+    
             setListData(sortedData);
-            
-            setPageLast(1);
+    
+            // 🔹 hitung total halaman
+            const totalPage = Math.ceil(sortedData.length / data_batas);
+            setPageLast(totalPage);
+    
         } catch (err) {
-            console.log(
-                'Get Krenova error:',
-                err.response?.status,
-                err.response?.data || err.message
-            );
+            console.log('Get Krenova error:', err);
         } finally {
             setCekLoadData(false);
         }
     };
+    
     
     
 
@@ -173,6 +168,11 @@ const ListKrenova = () => {
     const getBgColorByStatus = (status) => {
         return '#FFFFFF'; // normal
     };
+
+    const startIndex = (page_first - 1) * data_batas;
+    const endIndex = startIndex + data_batas;
+    const currentData = list_data.slice(startIndex, endIndex);
+
 
     
 
@@ -231,7 +231,7 @@ const ListKrenova = () => {
                                     </View>
                                 ) : (
 
-                                    list_data.map((data, i) => (
+                                    currentData.map((data, i) => (
                                         <View key={i} style={{ flex: 1, marginTop: 9 }}>
                                     
                                             <View
@@ -345,7 +345,10 @@ const ListKrenova = () => {
                                 </TouchableOpacity>
                             </View>
                             <View style={stylex.paginContainerText}>
-                                <Text style={stylex.paginText}>1 - {page_last}</Text>
+                            <Text style={stylex.paginText}>
+                                Page {page_first} / {page_last}
+                            </Text>
+
                             </View>
                             <View style={[stylex.paginContainerBtn, { justifyContent: 'flex-start' }]}>
                                 <TouchableOpacity onPress={btn_next} style={[stylex.paginTouchBtn, stylex.shaddow, { justifyContent: 'center' }]}>
