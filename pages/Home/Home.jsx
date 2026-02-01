@@ -102,7 +102,7 @@ const Home = () => {
 
                 <View style={{ flexDirection: 'row', flex: 1 }}>
                     <View style={{ flex: 1, justifyContent: 'center' }}>
-                        <Text style={styles.homeText}>HOMEX</Text>
+                        <Text style={styles.homeText}>HOME</Text>
 
                         {/* {fontFamilies.map(f => (
                             <Text key={f} style={{ fontFamily: f, fontSize: 20 }}>{f}</Text>

@@ -46,6 +46,8 @@ const Login = () => {
     var [username, setUsername] = useState('naurariswan');
     var [password, setPassword] = useState('naurariswan');
     var [errors, setErrors] = useState(""); // Satu string untuk semua error Joi
+    const [loading, setLoading] = useState(false);
+
 
     const RequestLogin = async (data) => {
         console.log("Hy saya login", statex.URL_APP + "auth/login");
@@ -81,6 +83,8 @@ const Login = () => {
             return; // Berhenti eksekusi jika ada error validasi
         }
 
+        setLoading(true); // 🔥 START LOADING
+
         // 2. Jika validasi Joi sukses, lakukan request login ke API
         try {
             const data = { username, password };
@@ -106,6 +110,9 @@ const Login = () => {
             // Atau jika ada error lain saat menyimpan ke AsyncStorage
             console.error('Gagal menyimpan data atau ada masalah lain setelah login API:', e);
             // Pesan error sudah di-set di catch RequestLogin, jadi tidak perlu lagi di sini unless beda jenis error
+        }
+        finally {
+            setLoading(false); // 🔥 STOP LOADING (APAPUN HASILNYA)
         }
     }
 
@@ -148,9 +155,30 @@ const Login = () => {
                 </View>
 
                 <View>
-                    <TouchableOpacity onPress={LoginAccount} style={[stylex.btnLogin, stylex.margintop22]}>
+                <TouchableOpacity
+                    onPress={LoginAccount}
+                    disabled={loading}
+                    style={[
+                        stylex.btnLogin,
+                        stylex.margintop22,
+                        loading && { opacity: 0.7 }
+                    ]}
+                >
+                    {loading ? (
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <Text style={[stylex.btnText, { marginRight: 8 }]}>
+                                Memproses...
+                            </Text>
+                            <Image
+                                source={require('../../pages/assets/images/loading2.gif')}
+                                style={{ width: 22, height: 22 }}
+                            />
+                        </View>
+                    ) : (
                         <Text style={[stylex.btnText, stylex.shaddowText]}>LOGIN</Text>
-                    </TouchableOpacity>
+                    )}
+                </TouchableOpacity>
+
                     <TouchableOpacity>
                         <Text style={[stylex.btnTextAccount, stylex.margintop10]}>Belum punya akun? registrasi di bawah</Text>
                     </TouchableOpacity>
