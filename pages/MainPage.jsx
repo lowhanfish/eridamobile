@@ -41,6 +41,7 @@ import DataTeknologi from "./Data/DataTeknologi.jsx";
 import DataHaKI from "./Data/DataHaKI.jsx";
 import DataIKM from "./Data/DataIKM.jsx";
 import DataIID from "./Data/DataIID.jsx";
+import DataIPKD from "./Data/DataIPKD.jsx";
 
 const ContentStack = createNativeStackNavigator();
 
@@ -79,6 +80,7 @@ const ContentAll = () => {
             <ContentStack.Screen name="DataHaKI" component={DataHaKI} />
             <ContentStack.Screen name="DataIKM" component={DataIKM} />
             <ContentStack.Screen name="DataIID" component={DataIID} />
+            <ContentStack.Screen name="DataIPKD" component={DataIPKD} />
         </ContentStack.Navigator>
     );
 };
