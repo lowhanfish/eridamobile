@@ -47,6 +47,8 @@ const Login = () => {
     var [password, setPassword] = useState('naurariswan');
     var [errors, setErrors] = useState(""); // Satu string untuk semua error Joi
     const [loading, setLoading] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+
 
 
     const RequestLogin = async (data) => {
@@ -148,9 +150,28 @@ const Login = () => {
                             onFocus={() => setErrors("")} // Bersihkan error saat input difokuskan
                             value={password}
                             onChangeText={setPassword}
-                            style={stylex.inputx}
-                            secureTextEntry
+                            style={[stylex.inputx, { paddingRight: 45 }]} // ruang untuk icon
+                            secureTextEntry={!showPassword}
                         />
+                        <TouchableOpacity
+                            disabled={loading}
+                            onPress={() => setShowPassword(!showPassword)}
+                            style={{
+                                position: 'absolute',
+                                right: 14,
+                                top: '80%',
+                                transform: [{ translateY: -12 }],
+                            }}
+                        >
+                            <Image
+                                source={
+                                    showPassword
+                                        ? require('../../pages/assets/images/icon/eye-off.png')
+                                        : require('../../pages/assets/images/icon/eye.png')
+                                }
+                                style={{ width: 22, height: 22, opacity: 0.6 }}
+                            />
+                        </TouchableOpacity>
                     </View>
                 </View>
 
