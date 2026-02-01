@@ -8,7 +8,7 @@ import { stylex } from "../assets/css";
 import GetDataToken from "../lib/GetDataToken";
 import ImageLib from "../../components/ImageLib.jsx";
 
-const DataTeknologi = () => {
+const DataHaKI = () => {
     const navigation = useNavigation();
 
     const visibleBar = useGlobalStore((state) => state.visibleBar);
@@ -20,6 +20,7 @@ const DataTeknologi = () => {
     const [page_last, setPageLast] = useState(0);
     const [cari_value, setCariValue] = useState("");
     const [tahun_filter, setTahunFilter] = useState("");
+    const [kategori_filter, setKategoriFilter] = useState("");
     const [data_batas, setDataBatas] = useState(8);
     const [cek_load_data, setCekLoadData] = useState(true);
     const [chartData, setChartData] = useState([]);
@@ -31,6 +32,16 @@ const DataTeknologi = () => {
     // Generate tahun options (5 tahun terakhir)
     const currentYear = new Date().getFullYear();
     const tahunOptions = Array.from({ length: 5 }, (_, i) => String(currentYear - i));
+
+    // Kategori options
+    const kategoriOptions = [
+        { id: 'Hak Cipta', nama: 'Hak Cipta' },
+        { id: 'Paten', nama: 'Paten' },
+        { id: 'Merek', nama: 'Merek' },
+        { id: 'Desain Industri', nama: 'Desain Industri' },
+        { id: 'Rahasia Dagang', nama: 'Rahasia Dagang' },
+        { id: 'Indikasi Geografis', nama: 'Indikasi Geografis' },
+    ];
 
     const btn_prev = () => {
         if (page_first > 1) {
@@ -51,7 +62,7 @@ const DataTeknologi = () => {
         }
     
         const fileUrl = urlx.URL_APP + 'uploads/' + data.file;
-        const namaDokumen = data.judul || 'Dokumen Teknologi';
+        const namaDokumen = data.judul || 'Dokumen HaKI';
     
         Alert.alert(
             "Unduh Dokumen",
@@ -83,7 +94,7 @@ const DataTeknologi = () => {
         try {
             const token = await GetDataToken();
             const res = await axios.post(
-                urlx.URL_Teknologi + "/view",
+                urlx.URL_Haki + "/view",
                 {
                     data_ke: page_first,
                     cari_value: cari_value,
@@ -100,10 +111,15 @@ const DataTeknologi = () => {
             setListData(res.data.data || []);
             setPageLast(res.data.jml_data || 1);
         } catch (err) {
-            console.log('Get data teknologi error:', err);
+            console.log('Get data HaKI error:', err);
         } finally {
             setCekLoadData(false);
         }
+    };
+
+    const getKategoriNama = (kategori) => {
+        const kat = kategoriOptions.find(k => k.id === kategori || k.nama === kategori);
+        return kat ? kat.nama : kategori || '-';
     };
 
     const formatDate = (dateString) => {
@@ -130,7 +146,7 @@ const DataTeknologi = () => {
             const token = await GetDataToken();
     
             const firstRes = await axios.post(
-                urlx.URL_Teknologi + "/view",
+                urlx.URL_Haki + "/view",
                 {
                     data_ke: 1,
                     cari_value,
@@ -146,7 +162,7 @@ const DataTeknologi = () => {
     
             for (let page = 2; page <= totalPage; page++) {
                 const res = await axios.post(
-                    urlx.URL_Teknologi + "/view",
+                    urlx.URL_Haki + "/view",
                     {
                         data_ke: page,
                         cari_value,
@@ -179,7 +195,7 @@ const DataTeknologi = () => {
             setChartData(chartArr);
             setChartLoaded(true);
         } catch (err) {
-            console.log("Chart teknologi error:", err);
+            console.log("Chart HaKI error:", err);
             setChartData([]);
         } finally {
             setChartLoading(false);
@@ -222,7 +238,7 @@ const DataTeknologi = () => {
                     <View style={stylex.pageTitleContainer}>
                         <View style={[stylex.pageTitleItemContainer, { justifyContent: 'center' }]}>
                             <View >
-                                <Text style={stylex.textTitleList}>DATA TEKNOLOGI</Text>
+                                <Text style={stylex.textTitleList}>DATA HaKI</Text>
                                 <Text style={stylex.textSubTitleList2}>Badan Riset dan Inovasi Daerah</Text>
                             </View>
                         </View>
@@ -230,7 +246,7 @@ const DataTeknologi = () => {
 
                     {/* Search */}
                     <View style={[stylex.InputContainer, styles.searchContainer]}>
-                        <Text style={stylex.inputText1}>Cari Data Teknologi</Text>
+                        <Text style={stylex.inputText1}>Cari Data HaKI</Text>
                         <View style={stylex.inputWithButtonContainer}>
                             <TextInput
                                 style={stylex.inputx2}
@@ -247,7 +263,7 @@ const DataTeknologi = () => {
 
                     {/* Chart Section */}
                     <View style={styles.chartContainer}>
-                        <Text style={styles.chartTitle}>Jumlah Data Teknologi per Tahun</Text>
+                        <Text style={styles.chartTitle}>Jumlah Data HaKI per Tahun</Text>
                         <View style={styles.chartWrapper}>
                             {chartLoading ? (
                                 <View style={{ alignItems: 'center', width: '100%' }}>
@@ -303,7 +319,7 @@ const DataTeknologi = () => {
                                         <View style={styles.docIconContainer}>
                                             <Image 
                                                 style={{ width: 32, height: 32 }}
-                                                source={require('../assets/images/teknologi.png')}
+                                                source={require('../assets/images/haki.png')}
                                             />
                                         </View>
                                         
@@ -318,12 +334,13 @@ const DataTeknologi = () => {
                                                     👤 {data.penulis || '-'}
                                                     </Text>
                                                 </View>
+                                               
                                             </View>
-                                            
+
                                             <View style={styles.docMeta}>
                                                 <View style={styles.docMetaItem}>
-                                                    <Text style={styles.docMetaText}>
-                                                    📅 {data.tahun || '-'}
+                                                    <Text style={[styles.docMetaText, { color: '#EFD06D' }]}>
+                                                        {getKategoriNama(data.kategori)}
                                                     </Text>
                                                 </View>
                                             </View>
@@ -428,7 +445,7 @@ const styles = StyleSheet.create({
     },
     chartBar: {
         width: '100%',
-        backgroundColor: '#5243FE',
+        backgroundColor: '#4CAF50',
         borderRadius: 4,
     },
     chartBarLabel: {
@@ -478,7 +495,7 @@ const styles = StyleSheet.create({
     downloadButton: {
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: '#5243FE',
+        backgroundColor: '#4CAF50',
         borderRadius: 8,
         paddingVertical: 8,
         paddingHorizontal: 12,
@@ -490,5 +507,5 @@ const styles = StyleSheet.create({
     },
 });
 
-export default DataTeknologi;
+export default DataHaKI;
 
