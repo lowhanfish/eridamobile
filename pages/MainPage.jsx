@@ -37,6 +37,7 @@ import DataInformation from "./Data/DataInformation.jsx";
 import DataList from "./Data/DataList.jsx";
 import DataRiset from "./Data/DataRiset.jsx";
 import DataPerubahan from "./Data/DataPerubahan.jsx";
+import DataTeknologi from "./Data/DataTeknologi.jsx";
 
 const ContentStack = createNativeStackNavigator();
 
@@ -71,6 +72,7 @@ const ContentAll = () => {
             <ContentStack.Screen name="DataList" component={DataList} />
             <ContentStack.Screen name="DataRiset" component={DataRiset} />
             <ContentStack.Screen name="DataPerubahan" component={DataPerubahan} />
+            <ContentStack.Screen name="DataTeknologi" component={DataTeknologi} />
         </ContentStack.Navigator>
     );
 };

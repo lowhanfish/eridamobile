@@ -20,7 +20,7 @@ const DATA_CATEGORIES = [
         description: 'Data kreativitas dan inovasi daerah',
         icon: require('../assets/images/inovasi.png'),
         color: '#FFF3E0',
-        route: 'DataKrenova',
+        route: 'ListKrenova',
     },
 {
         id: 'aksi_perubahan',
@@ -44,7 +44,7 @@ const DATA_CATEGORIES = [
         description: 'Data izin penelitian',
         icon: require('../assets/images/izin_penelitian.png'),
         color: '#FFEBEE',
-        route: 'DataIzinPenelitian',
+        route: 'ListUsulan',
     },
     {
         id: 'iid',
@@ -89,10 +89,10 @@ const DATA_CATEGORIES = [
     {
         id: 'usulan_penelitian',
         title: 'Data Usulan Penelitian',
-        description: 'Data usulan penelitian',
+        description: 'Data usulan tem penelitian',
         icon: require('../assets/images/usulan_tema.png'),
         color: '#E8EAF6',
-        route: 'DataUsulanPenelitian',
+        route: 'ListTemaPenelitian',
     },
 ];
 
