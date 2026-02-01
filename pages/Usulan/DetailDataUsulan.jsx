@@ -46,6 +46,9 @@ const DetailDataUsulan = () => {
 
     const isOwner = data?.userId === currentUserId;
 
+    const isPublished = data?.status === 'publish';
+
+
 
     console.log("LOGIN USER ID :", currentUserId);
     console.log("DATA USER ID  :", data?.userId);
@@ -296,12 +299,52 @@ const DetailDataUsulan = () => {
                 '✅'
             )}
 
+            {/* LAPORAN AKHIR */}
+                {data.laporan && (
+                    <View style={styles.card}>
+                        <Text style={styles.cardTitle}>📑 Laporan Akhir</Text>
+                        <View style={styles.divider} />
+
+                        <TouchableOpacity
+                            style={styles.downloadBtn}
+                            onPress={() => handleDownload(data.laporan, 'Laporan Akhir')}
+                            activeOpacity={0.8}
+                        >
+                            <Text style={styles.downloadIcon}>📄</Text>
+                            <View style={{ flex: 1 }}>
+                                <Text style={styles.downloadTitle}>Unduh Dokumen</Text>
+                                <Text style={styles.downloadSub}>Laporan Akhir Penelitian</Text>
+                            </View>
+                            <Text style={styles.downloadArrow}>›</Text>
+                        </TouchableOpacity>
+
+                        {data.status === 'publish' && (
+                            <Text style={{
+                                marginTop: 10,
+                                fontSize: 11,
+                                color: '#4CAF50',
+                                fontStyle: 'italic'
+                            }}>
+                                Laporan akhir telah diverifikasi dan dipublikasikan
+                            </Text>
+                        )}
+                    </View>
+                )}
+
+
 
             {/* OWNER ACTION */}
             {isOwner && (
+                
                 <View style={styles.actionRow}>
+
+                    {/* EDIT */}
                     <TouchableOpacity
-                        style={styles.editBtn}
+                        style={[
+                            styles.editBtn,
+                            isPublished && styles.disabledBtn
+                        ]}
+                        disabled={isPublished}
                         onPress={() =>
                             navigation.navigate("AddUsulan", {
                                 typex: "edit",
@@ -310,17 +353,28 @@ const DetailDataUsulan = () => {
                             })
                         }
                     >
-                        <Text style={styles.actionText}>✏️ Edit</Text>
+                        <Text style={styles.actionText}>
+                            ✏️ Edit
+                        </Text>
                     </TouchableOpacity>
 
+                    {/* DELETE */}
                     <TouchableOpacity
-                        style={styles.deleteBtn}
+                        style={[
+                            styles.deleteBtn,
+                            isPublished && styles.disabledBtn
+                        ]}
+                        disabled={isPublished}
                         onPress={handleDelete}
                     >
-                        <Text style={styles.actionText}>🗑 Hapus</Text>
+                        <Text style={styles.actionText}>
+                            🗑 Hapus
+                        </Text>
                     </TouchableOpacity>
+
                 </View>
             )}
+
 
         </View>
     </ScrollView>
@@ -438,6 +492,9 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         fontSize: 14,
     },
+    disabledBtn: {
+        opacity: 0.5,
+    }
 });
 
 export default DetailDataUsulan;

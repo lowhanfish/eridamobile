@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { Modal, Button, View, Text, Image, TouchableOpacity, StyleSheet, ScrollView, } from "react-native";
+import { Modal, Button, View, Text, Image, TouchableOpacity, StyleSheet, ScrollView, RefreshControl } from "react-native";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import axios from "axios";
 
@@ -10,6 +10,12 @@ import { stylex } from "../assets/css";
 import ModalSetting from "./ModalSetting.jsx";
 import GetDataToken from "../lib/GetDataToken.js";
 import ImageLib from "../../components/ImageLib.jsx";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import ModalSurvey from "./ModalSurvey";
+import ModalUploadLaporan from "./ModalUploadLaporan";
+import { pick } from '@react-native-documents/picker'
+
+
 
 
 
@@ -29,10 +35,30 @@ const ListUsulan = () => {
     const [cek_load_data, setCekLoadData] = useState(true);
 
     const [datax, setDatax] = useState(null)
+    const [isSurveyVisible, setIsSurveyVisible] = useState(false);
+    const [selectedUsulan, setSelectedUsulan] = useState(null);
+    const [refreshing, setRefreshing] = useState(false);
+
     
+    const formatDate = (dateString) => {
+        if (!dateString) return "-";
+        const date = new Date(dateString);
+        return date.toLocaleDateString("id-ID", {
+            day: "2-digit",
+            month: "long",
+            year: "numeric",
+        });
+    };
 
-
-
+    const onRefresh = async () => {
+        setRefreshing(true);
+        try {
+            await getData();
+        } finally {
+            setRefreshing(false);
+        }
+    };
+    
 
     const btn_prev = () => {
         if (page_first > 1) {
@@ -119,16 +145,42 @@ const ListUsulan = () => {
     )
 
     const getBgColorByStatus = (status) => {
+        if (status === 'publish') {
+            return '#E8F5E9'; // hijau muda (published)
+        }
+    
+        if (status === 'verifikasi') {
+            return '#FFF8E1'; // kuning muda (sedang diperiksa)
+        }
+    
         if (status === 'diterima') {
             return '#FFFFFF'; // normal
         }
-        return '#FFF3F3'; // default (merah muda)
+    
+        return '#FFF3F3'; // merah muda (belum lengkap)
     };
+    
+    const [isUploadVisible, setIsUploadVisible] = useState(false);
+
+
+   
+    
 
 
     return (
         <View style={stylex.container}>
-            <ScrollView style={stylex.scrollPage}>
+            <ScrollView
+                    style={stylex.scrollPage}
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={refreshing}
+                            onRefresh={onRefresh}
+                            colors={['#4CAF50']}      // Android
+                            tintColor="#4CAF50"       // iOS
+                        />
+                    }
+                >
+
                 <View style={{ flex: 1, paddingBottom: 72 }}>
                     <View style={stylex.pageTitleContainer}>
                         <View style={[stylex.pageTitleItemContainer, { justifyContent: 'center' }]}>
@@ -155,6 +207,23 @@ const ListUsulan = () => {
                         datax={datax}
                         removeData={removeData}
                     />
+
+                    <ModalSurvey
+                        visible={isSurveyVisible}
+                        onClose={() => setIsSurveyVisible(false)}
+                        data={selectedUsulan}
+                    />
+
+                    <ModalUploadLaporan
+                        visible={isUploadVisible}
+                        onClose={() => setIsUploadVisible(false)}
+                        data={selectedUsulan}
+                        onSuccess={() => {
+                            setIsUploadVisible(false);
+                            getData(); // refresh list
+                        }}
+                    />
+
 
                     <View style={stylex.borderContent}>
 
@@ -189,15 +258,78 @@ const ListUsulan = () => {
                                                     </View>
                                                     <View style={stylex.DataListTextCont}>
                                                         <Text style={stylex.DataListText1}>{data.nama}</Text>
-                                                        {
-                                                            data.judul !== null && data.judul !== "" ? (
-                                                                <Text style={stylex.DataListText2}>{data.judul}</Text>
-                                                            ) : (
-                                                                <Text style={stylex.DataListText2}>MOHON LENGKAPI DULU SEMUA TAHAPAN PENGISIAN FORM PENGAJUAN..!</Text>
-                                                            )
-                                                        }
-                                                        <Text style={stylex.DataListText3}>22 Mei 2025</Text>
+
+                                                        {/* JUDUL / PESAN */}
+                                                        {data.status === 'publish' ? (
+                                                            <Text style={[stylex.DataListText2, { color: '#4CAF50', fontWeight: '600' }]}>
+                                                                Data Penelitian Telah Terpublish
+                                                            </Text>
+
+                                                        ) : data.status === 'verifikasi' ? (
+                                                            <Text style={[stylex.DataListText2, { color: '#FF9800' }]}>
+                                                                Proses Pemeriksaan Laporan Akhir
+                                                            </Text>
+
+                                                        ) : data.judul && data.judul !== "" ? (
+                                                            <Text style={stylex.DataListText2}>{data.judul}</Text>
+
+                                                        ) : (
+                                                            <Text style={stylex.DataListText2}>
+                                                                Mohon lengkapi dulu semua tahapan pengisian form pengajuan
+                                                            </Text>
+                                                        )}
+
+                                                        <Text style={stylex.DataListText3}>
+                                                            {formatDate(data.createAt)}
+                                                        </Text>
+
+                                                        {/* BUTTON SURVEY (HANYA JIKA DITERIMA) */}
+                                                        {data.status === 'diterima' && (
+                                                            <TouchableOpacity
+                                                                onPress={() => {
+                                                                    setSelectedUsulan(data);
+                                                                    setIsSurveyVisible(true);
+                                                                }}
+                                                                style={[
+                                                                    stylex.btnCornerFlat,
+                                                                    { marginTop: 8, alignSelf: 'flex-start' }
+                                                                ]}
+                                                            >
+                                                                <Text style={stylex.btnCornerFlatText}>
+                                                                    ISI SURVEY
+                                                                </Text>
+                                                                
+                                                            </TouchableOpacity>
+                                                        )}
+                                                        {data.status === 'survey' && (
+                                                            <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 6 }}>
+                                                                <Text style={{ color: 'green', marginRight: 8, fontSize:8 }}>
+                                                                    ✔ Survey sudah diisi
+                                                                </Text>
+                                                                <TouchableOpacity
+                                                                    onPress={() => {
+                                                                        console.log("DATA USULAN:", data);
+                                                                        setSelectedUsulan(data);
+                                                                        setIsUploadVisible(true);
+                                                                    }}
+                                                                    style={{
+                                                                        backgroundColor: '#6DA3EF',
+                                                                        paddingHorizontal: 10,
+                                                                        paddingVertical: 4,
+                                                                        borderRadius: 6,
+                                                                    }}
+                                                                >
+                                                                    <Text style={{ color: '#fff', fontSize: 9 }}>
+                                                                        Unggah Laporan Akhir
+                                                                    </Text>
+                                                                </TouchableOpacity>
+                                                            </View>
+                                                        )}
+
+
+                                                        
                                                     </View>
+
                                                 </TouchableOpacity>
                                             </View>
                                         </View>

@@ -4,6 +4,7 @@ import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { pick } from '@react-native-documents/picker'
 import Pdf from 'react-native-pdf';
 import RNFS from 'react-native-fs';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import useGlobalStore from "../../../stores/useGlobalStore";
 import axios from "axios";
@@ -45,6 +46,42 @@ const AddUsulanPenelitian1 = ({ data, updateData, nextStep, routex }) => {
     const [pdfKey, setPdfKey] = useState(0);
 
     const [localId, setLocalId] = useState(data.id);
+
+    // Fungsi untuk load user profile dari AsyncStorage
+    const loadUserProfile = async () => {
+        try {
+            const profileData = await AsyncStorage.getItem('userProfile');
+            if (profileData) {
+                const parsedProfile = JSON.parse(profileData);
+                const userProfile = parsedProfile.profile || parsedProfile;
+                
+                console.log('User Profile loaded:', userProfile);
+                
+                // Auto-fill form dengan data user login
+                if (userProfile) {
+                    // Auto-fill nama, hp, email dari biodata user
+                    if (userProfile.nama) {
+                        setNama(userProfile.nama);
+                    }
+                    if (userProfile.hp) {
+                        setHP(userProfile.hp);
+                    } else if (userProfile.no_hp) {
+                        setHP(userProfile.no_hp);
+                    }
+                    if (userProfile.email) {
+                        setEmail(userProfile.email);
+                    }
+                }
+            }
+        } catch (error) {
+            console.error('Error loading user profile:', error);
+        }
+    };
+
+    // Load user profile saat component mount
+    useEffect(() => {
+        loadUserProfile();
+    }, []);
 
     useEffect(() => {
         setLocalId(data.id);
@@ -143,6 +180,13 @@ const AddUsulanPenelitian1 = ({ data, updateData, nextStep, routex }) => {
     
 
     const setAction = async () => {
+        if (!isFormValid) {
+            ToastAndroid.show(
+                "Lengkapi Alamat, NIK, dan Upload KTP terlebih dahulu",
+                ToastAndroid.SHORT
+            );
+            return;
+        }
         const payload = {
             id: localId,
             nama,
@@ -305,9 +349,15 @@ const AddUsulanPenelitian1 = ({ data, updateData, nextStep, routex }) => {
         }, [visibleBar])
     )
 
+    const isFormValid =
+    alamat?.trim().length > 0 &&
+    nik?.trim().length > 0 &&
+    ktp !== null;
+
+
     return (
         <View style={stylex.container}>
-            <ScrollView style={stylex.scrollPage}>
+            <ScrollView style={stylex.scrollPage} showsVerticalScrollIndicator={false}>
                 <View style={{ flex: 1 }}>
                     <View style={stylex.pageTitleContainer}>
                         <View style={[stylex.pageTitleItemContainer, { justifyContent: 'center' }]}>
@@ -351,51 +401,69 @@ const AddUsulanPenelitian1 = ({ data, updateData, nextStep, routex }) => {
                         </View>
                     </View>
 
-                    <View style={[stylex.borderContent, { marginBottom: 75 }]}>
-                        {/* source={{ uri: file[0].uri }} */}
-
+                    <View style={stylex.borderContent}>
+                        {/* NAMA - Auto-filled & Read-only */}
                         <View style={stylex.InputContainer}>
                             <Text style={stylex.inputText1}>Nama</Text>
                             <TextInput
-                                style={stylex.inputx1}
+                                style={[stylex.inputx1, styles.readOnlyInput]}
                                 onChangeText={setNama}
                                 value={nama}
+                                editable={false}
+                                pointerEvents="none"
                             />
                         </View>
+                        
+                        {/* ALAMAT - Required */}
                         <View style={stylex.InputContainer}>
-                            <Text style={stylex.inputText1}>Alamat</Text>
+                            <Text style={stylex.inputText1}>Alamat <Text style={styles.requiredStar}>*</Text></Text>
                             <TextInput
                                 style={stylex.inputx1}
                                 onChangeText={setAlamat}
                                 value={alamat}
+                                placeholder="Masukkan alamat lengkap"
                             />
                         </View>
+                        
+                        {/* NOMOR HP - Auto-filled & Read-only */}
                         <View style={stylex.InputContainer}>
                             <Text style={stylex.inputText1}>Nomor HP</Text>
                             <TextInput
-                                style={stylex.inputx1}
+                                style={[stylex.inputx1, styles.readOnlyInput]}
                                 onChangeText={setHP}
                                 value={hp}
+                                editable={false}
+                                pointerEvents="none"
                             />
                         </View>
+                        
+                        {/* EMAIL - Auto-filled & Read-only */}
                         <View style={stylex.InputContainer}>
                             <Text style={stylex.inputText1}>Email</Text>
                             <TextInput
-                                style={stylex.inputx1}
+                                style={[stylex.inputx1, styles.readOnlyInput]}
                                 onChangeText={setEmail}
                                 value={email}
+                                editable={false}
+                                pointerEvents="none"
+                                keyboardType="email-address"
                             />
                         </View>
+                        
+                        {/* NIK - Required */}
                         <View style={stylex.InputContainer}>
-                            <Text style={stylex.inputText1}>NIK</Text>
+                            <Text style={stylex.inputText1}>NIK <Text style={styles.requiredStar}>*</Text></Text>
                             <TextInput
                                 style={stylex.inputx1}
                                 onChangeText={setNIK}
                                 value={nik}
+                                placeholder="Masukkan NIK"
+                                keyboardType="numeric"
                             />
                         </View>
 
 
+                        {/* KTP Upload - Required */}
                         <View style={styles.containerUpload1}>
                             {ktp ? (
                                 <View style={styles.containerUploadText}>
@@ -432,30 +500,54 @@ const AddUsulanPenelitian1 = ({ data, updateData, nextStep, routex }) => {
                             </TouchableOpacity>
                         )}
 
+                        
+                        {/* PAGINATION BUTTON (DI DALAM CARD) */}
+                
+
                     </View>
+
+
+                    <View style={{ flex: 1, flexDirection: 'row', marginTop:30, marginBottom:30 }}>
+
+                                {/* PREV (kosong / tidak dipakai di step pertama) */}
+                                <View style={[stylex.paginContainerBtn, { justifyContent: 'flex-end' }]}>
+                                    <TouchableOpacity
+                                        disabled
+                                        style={[stylex.paginTouchBtn, { opacity: 0 }]}
+                                    />
+                                    
+                                </View>
+
+                                {/* NEXT */}
+                                <View style={[stylex.paginContainerBtn, { justifyContent: 'flex-start' }]}>
+                                    <TouchableOpacity
+                                        onPress={setAction}
+                                        disabled={!isFormValid}
+                                        style={[
+                                            stylex.paginTouchBtn,
+                                            stylex.shaddow,
+                                            {
+                                                justifyContent: 'center',
+                                                opacity: isFormValid ? 1 : 0.5
+                                            }
+                                        ]}
+                                    >
+                                        <Text style={stylex.paginTouchBtnText}>NEXT</Text>
+                                        <Image
+                                            style={stylex.paginTouchBtnImg}
+                                            source={require("../../assets/images/icon/next.png")}
+                                        />
+                                    </TouchableOpacity>
+                                </View>
+
+                            </View>
 
 
                 </View>
 
             </ScrollView>
-            <View style={stylex.paginContainer}>
-                <View style={{ flex: 1, flexDirection: 'row' }}>
 
-                    <View style={[stylex.paginContainerBtn, { justifyContent: 'flex-end' }]}>
-                        <TouchableOpacity style={[stylex.paginTouchBtn, stylex.shaddow]}>
-                            {/* <Image style={stylex.paginTouchBtnImg} source={require("../../assets/images/icon/prev.png")} />
-                            <Text style={stylex.paginTouchBtnText}>PREF</Text> */}
-                        </TouchableOpacity>
-                    </View>
-                    <View style={[stylex.paginContainerBtn, { justifyContent: 'flex-start' }]}>
-                        <TouchableOpacity onPress={setAction} style={[stylex.paginTouchBtn, stylex.shaddow, { justifyContent: 'center' }]}>
-                            <Text style={stylex.paginTouchBtnText}>NEXT</Text>
-                            <Image style={stylex.paginTouchBtnImg} source={require("../../assets/images/icon/next.png")} />
-                        </TouchableOpacity>
-                    </View>
-                </View>
-
-            </View>
+          
 
             {/* PDF Viewer Modal */}
             <Modal
@@ -640,6 +732,56 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center',
     },
+    // New styles for auto-fill feature
+    infoBanner: {
+        backgroundColor: '#E3F2FD',
+        padding: 12,
+        borderRadius: 8,
+        marginBottom: 15,
+        borderLeftWidth: 4,
+        borderLeftColor: '#2196F3',
+    },
+    infoBannerText: {
+        fontSize: 12,
+        color: '#1565C0',
+        textAlign: 'center',
+    },
+    readOnlyInput: {
+        backgroundColor: '#F5F5F5',
+        color: '#666',
+    },
+    requiredStar: {
+        color: 'red',
+        fontWeight: 'bold',
+    },
+    readOnlyInput: {
+        backgroundColor: '#F5F5F5',
+        color: '#666',
+    },
+    inputError: {
+        borderWidth: 1,
+        borderColor: 'red',
+    },
+
+    btnNext: {
+        marginTop: 30,
+        height: 48,
+        borderRadius: 8,
+        backgroundColor: '#DFB11C',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    
+    btnNextDisabled: {
+        backgroundColor: '#BDBDBD',
+    },
+    
+    btnNextText: {
+        color: 'white',
+        fontSize: 16,
+        fontWeight: 'bold',
+    },
+    
 
 })
 

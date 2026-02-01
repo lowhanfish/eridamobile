@@ -56,6 +56,14 @@ const AddUsulanPenelitian2 = ({ data, updateData, nextStep, prevStep, routex }) 
 
 // ===== SAVE STEP-2 DATA (AMAN) =====
 const handleNext = async () => {
+    if (!isFormValid) {
+        ToastAndroid.show(
+            "Lengkapi semua data Surat Pengantar terlebih dahulu",
+            ToastAndroid.SHORT
+        );
+        return;
+    }
+    
     if (!data.id) {
       ToastAndroid.show(
         "Data belum memiliki ID. Kembali ke step 1.",
@@ -264,6 +272,14 @@ const handlePrev = () => {
     const visibleBar = useGlobalStore((state) => state.visibleBar)
     const setRouteBack = useGlobalStore((state) => state.setRouteBack);
 
+    const isFormValid =
+    suratpengantar?.trim().length > 0 &&
+    namapengantar?.trim().length > 0 &&
+    jabatanpengantar?.trim().length > 0 &&
+    file !== null &&
+    date instanceof Date;
+
+
     return (
         <View style={stylex.container}>
             <ScrollView style={stylex.scrollPage}>
@@ -450,20 +466,42 @@ const handlePrev = () => {
                 <View style={{ flex: 1, flexDirection: 'row' }}>
 
                     <View style={[stylex.paginContainerBtn, { justifyContent: 'flex-end' }]}>
-                        <TouchableOpacity onPress={handlePrev} style={[stylex.paginTouchBtn, stylex.shaddow]}>
-                            <Image style={stylex.paginTouchBtnImg} source={require("../../assets/images/icon/prev.png")} />
+                        <TouchableOpacity
+                            onPress={handlePrev}
+                            style={[stylex.paginTouchBtn, stylex.shaddow]}
+                        >
+                            <Image
+                                style={stylex.paginTouchBtnImg}
+                                source={require("../../assets/images/icon/prev.png")}
+                            />
                             <Text style={stylex.paginTouchBtnText}>PREV</Text>
                         </TouchableOpacity>
                     </View>
+
                     <View style={[stylex.paginContainerBtn, { justifyContent: 'flex-start' }]}>
-                        <TouchableOpacity onPress={handleNext} style={[stylex.paginTouchBtn, stylex.shaddow, { justifyContent: 'center' }]}>
+                        <TouchableOpacity
+                            onPress={handleNext}
+                            disabled={!isFormValid}
+                            style={[
+                                stylex.paginTouchBtn,
+                                stylex.shaddow,
+                                {
+                                    justifyContent: 'center',
+                                    opacity: isFormValid ? 1 : 0.5
+                                }
+                            ]}
+                        >
                             <Text style={stylex.paginTouchBtnText}>NEXT</Text>
-                            <Image style={stylex.paginTouchBtnImg} source={require("../../assets/images/icon/next.png")} />
+                            <Image
+                                style={stylex.paginTouchBtnImg}
+                                source={require("../../assets/images/icon/next.png")}
+                            />
                         </TouchableOpacity>
                     </View>
-                </View>
 
+                </View>
             </View>
+
         </View>
     )
 

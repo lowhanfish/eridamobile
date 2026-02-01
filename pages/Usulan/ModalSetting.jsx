@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { View, Text, Modal, TouchableOpacity, Button, StyleSheet } from "react-native";
+
+import { View, Text, Modal, TouchableOpacity, Button, StyleSheet, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import { stylex } from '../assets/css';
@@ -22,6 +23,29 @@ const ModalSetting = ({ visible, onClose, datax, removeData }) => { // Terima vi
         navigation.navigate('DetailUsulan', { data: datax })
     }
 
+    const confirmRemove = () => {
+        Alert.alert(
+            "Konfirmasi Hapus",
+            "Yakin ingin menghapus data ini?\nTindakan ini tidak dapat dibatalkan.",
+            [
+                {
+                    text: "Batal",
+                    style: "cancel",
+                },
+                {
+                    text: "Ya, Hapus",
+                    style: "destructive",
+                    onPress: () => {
+                        removeData(datax);
+                        onClose();
+                    },
+                },
+            ],
+            { cancelable: true }
+        );
+    };
+    
+
     return (
         <Modal
             animationType="fade"
@@ -37,9 +61,13 @@ const ModalSetting = ({ visible, onClose, datax, removeData }) => { // Terima vi
                     <TouchableOpacity onPress={routeToEdit} style={[stylex.modalButton, stylex.shaddow, { backgroundColor: '#EFD06D' }]}>
                         <Text style={stylex.modalText}>Edit Data</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => removeData(datax)} style={[stylex.modalButton, stylex.shaddow, { backgroundColor: '#FF9191' }]}>
+                    <TouchableOpacity
+                        onPress={confirmRemove}
+                        style={[stylex.modalButton, stylex.shaddow, { backgroundColor: '#FF9191' }]}
+                    >
                         <Text style={stylex.modalText}>Hapus Data</Text>
                     </TouchableOpacity>
+
                     <TouchableOpacity onPress={onClose} style={[stylex.modalButton, stylex.shaddow, { backgroundColor: '#AC4345', marginTop: 22 }]}>
                         <Text style={stylex.modalText}>Tutup</Text>
                     </TouchableOpacity>
