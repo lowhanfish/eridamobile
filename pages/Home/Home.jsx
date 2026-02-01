@@ -1,5 +1,5 @@
 import React, { useCallback, useState, useEffect } from 'react';
-import { Dimensions, View, Text, ScrollView, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { Dimensions, View, Text, ScrollView, TouchableOpacity, StyleSheet, Image, RefreshControl } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 
 import useGlobalStore from "../../stores/useGlobalStore.js";
@@ -20,6 +20,8 @@ const Home = () => {
     const visibleBar = useGlobalStore((state) => state.visibleBar);
     // const user = useGlobalStore((state) => state.user);
     const [user, setUser] = useState(null);
+    const [refreshing, setRefreshing] = useState(false);
+
 
 
 
@@ -41,17 +43,34 @@ const Home = () => {
         }, [visibleBar])
     )
 
-    useEffect(() => {
-        const loadUser = async () => {
-          const storedUser = await AsyncStorage.getItem('userProfile');
-          if (storedUser) {
+    const onRefresh = useCallback(async () => {
+        setRefreshing(true);
+    
+        try {
+            await loadUser();
+            // nanti kalau mau tambah:
+            // await refreshRecentNews();
+        } catch (err) {
+            console.log('Refresh error:', err);
+        } finally {
+            setRefreshing(false);
+        }
+    }, []);
+    
+
+    const loadUser = async () => {
+        const storedUser = await AsyncStorage.getItem('userProfile');
+        if (storedUser) {
             const parsed = JSON.parse(storedUser);
             console.log('USER FROM STORAGE:', parsed);
             setUser(parsed);
-          }
-        };
+        }
+    };
+    
+    useEffect(() => {
         loadUser();
-      }, []);
+    }, []);
+    
       
 
     return (
@@ -65,7 +84,18 @@ const Home = () => {
 
 
 
-            <ScrollView style={stylex.scrollPage}>
+            <ScrollView
+                    style={stylex.scrollPage}
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={refreshing}
+                            onRefresh={onRefresh}
+                            colors={['#DB6358']}     // Android
+                            tintColor="#DB6358"      // iOS
+                        />
+                    }
+                >
+
                 <View style={styles.homeLogo}>
                     <Imagex width={121} urix={require('../../pages/assets/images/logo2.png')} />
                 </View>
