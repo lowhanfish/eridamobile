@@ -5,11 +5,11 @@
  * @format
  */
 
-import React, { useContext } from 'react';
-import { NewAppScreen } from '@react-native/new-app-screen';
-import { StatusBar, StyleSheet, useColorScheme, View, ActivityIndicator } from 'react-native';
+import React, { useContext, useState, useEffect } from 'react';
+import { StatusBar, StyleSheet, View, ActivityIndicator } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import Login from "./pages/Auth/Login";
 import Register from "./pages/Auth/Register";
@@ -17,9 +17,9 @@ import Home from "./pages/Home/Home";
 import Profile from "./pages/Profile/Profile";
 import MainPage from "./pages/MainPage";
 import AlurUsulanPenelitian from "./pages/Alur/alurUsulanPenelitian";
+import SplashScreen from './components/SplashScreen';
 
 const Stack = createNativeStackNavigator();
-
 
 import { AuthContext, AuthProvider } from './context/AuthContext';
 
@@ -64,6 +64,17 @@ export default function App() {
 // Komponen terpisah untuk menangani logika navigasi berdasarkan status otentikasi
 function AppContent() {
   const { userToken, isLoading } = useContext(AuthContext); // Ambil userToken dan isLoading dari context
+  const [showSplash, setShowSplash] = useState(true);
+
+  // Handle splash screen completion
+  const handleSplashFinish = () => {
+    setShowSplash(false);
+  };
+
+  // Tampilkan splash screen saat app pertama kali dibuka
+  if (showSplash) {
+    return <SplashScreen onFinish={handleSplashFinish} />;
+  }
 
   if (isLoading) {
     // Tampilkan loading screen saat memeriksa token di AsyncStorage

@@ -43,8 +43,8 @@ const Login = () => {
     var statex = useGlobalStore((state) => state.url)
     const { login } = useContext(AuthContext); // Dapatkan fungsi login dari AuthContext
 
-    var [username, setUsername] = useState('naurariswan');
-    var [password, setPassword] = useState('naurariswan');
+    var [username, setUsername] = useState('');
+    var [password, setPassword] = useState('');
     var [errors, setErrors] = useState(""); // Satu string untuk semua error Joi
     const [loading, setLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
