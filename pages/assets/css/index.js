@@ -199,6 +199,12 @@ export const stylex = StyleSheet.create({
         borderRadius : 6,
         ...centerAll,
     },
+    btnRegisx : {
+        height : 40,
+        backgroundColor : "#FF9191",
+        borderRadius : 6,
+        ...centerAll,
+    },
 
     
 

@@ -39,7 +39,7 @@ const loginSchema = Joi.object({
 
 // create a component
 const Login = () => {
-    // var navigation = useNavigation() // TIDAK DIGUNAKAN UNTUK NAVIGASI LOGIN SUKSES
+    var navigation = useNavigation()
     var statex = useGlobalStore((state) => state.url)
     const { login } = useContext(AuthContext); // Dapatkan fungsi login dari AuthContext
 
@@ -120,7 +120,12 @@ const Login = () => {
 
     return (
         <View style={stylex.container}>
-            <ScrollView style={stylex.scrollPage}>
+            <ScrollView
+                    style={stylex.scrollPage}
+                    contentContainerStyle={{ paddingBottom: 30 }}
+                    showsVerticalScrollIndicator={false}
+                >
+
                 <Image
                     source={require('../../pages/assets/images/logo1.png')}
                     style={[stylex.imageLogo, { width: 272, marginTop: 137 }]}
@@ -203,11 +208,38 @@ const Login = () => {
                     <TouchableOpacity>
                         <Text style={[stylex.btnTextAccount, stylex.margintop10]}>Belum punya akun? registrasi di bawah</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={[stylex.btnRegis, stylex.margintop10]}>
+                    <TouchableOpacity 
+                        style={[stylex.btnRegis, stylex.margintop10]}
+                        onPress={() => navigation.navigate('Register')}
+                    >
                         <Text style={[stylex.btnText, stylex.shaddowText]}>Register</Text>
                     </TouchableOpacity>
+
                 </View>
+            {/* Version Info */}
+            <View style={{ marginTop: 25 }}>
+                <Text
+                    style={{
+                        fontSize: 11,
+                        color: '#8E8E8E',
+                        textAlign: 'center',
+                    }}
+                >
+                    E-RIDA Mobile v1.0.0
+                </Text>
+                <Text
+                    style={{
+                        fontSize: 10,
+                        color: '#BDBDBD',
+                        marginTop: 4,
+                        textAlign: 'center',
+                    }}
+                >
+                    © BRIDA Konawe Selatan
+                </Text>
+            </View>
             </ScrollView>
+
         </View>
     );
 };
