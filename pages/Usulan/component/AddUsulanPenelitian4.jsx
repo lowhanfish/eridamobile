@@ -30,6 +30,13 @@ const AddUsulanPenelitian4 = ({ data, updateData, nextStep, prevStep, addData })
     const [maksudtujuan, setMaksudtujuan] = useState('');
     const [ruanglingkup, setRuanglingkup] = useState('');
 
+    const [tglMulai, setTglMulai] = useState(new Date());
+    const [tglSelesai, setTglSelesai] = useState(new Date());
+
+    const [showMulai, setShowMulai] = useState(false);
+    const [showSelesai, setShowSelesai] = useState(false);
+
+
 
     // ===== LIFTING_STATE_UP =====
     const [name, setName] = useState(data.name);
@@ -195,27 +202,22 @@ const AddUsulanPenelitian4 = ({ data, updateData, nextStep, prevStep, addData })
     // ===== PICKFILE =====
 
 
-    // ===== PICKDATE =====
-    const [tglMulai, setTglMulai] = useState(new Date());
-    const [tglSelesai, setTglSelesai] = useState(new Date());
+   
 
-    const [showMulai, setShowMulai] = useState(false);
-    const [showSelesai, setShowSelesai] = useState(false);
-
-    const [mode, setMode] = useState('date'); // or 'time'
+    // const [mode, setMode] = useState('date'); // or 'time'
 
 
-    const onChangeMulai = (event, selectedDate) => {
-        const currentDate = selectedDate || tglMulai;
-        setShowMulai(Platform.OS === 'ios');
-        setTglMulai(currentDate);
-      };
+    // const onChangeMulai = (event, selectedDate) => {
+    //     const currentDate = selectedDate || tglMulai;
+    //     setShowMulai(Platform.OS === 'ios');
+    //     setTglMulai(currentDate);
+    //   };
 
-      const onChangeSelesai = (event, selectedDate) => {
-        const currentDate = selectedDate || tglSelesai;
-        setShowSelesai(Platform.OS === 'ios');
-        setTglSelesai(currentDate);
-      };
+    //   const onChangeSelesai = (event, selectedDate) => {
+    //     const currentDate = selectedDate || tglSelesai;
+    //     setShowSelesai(Platform.OS === 'ios');
+    //     setTglSelesai(currentDate);
+    //   };
       
 
     const showMode = (currentMode) => {
@@ -312,7 +314,7 @@ const AddUsulanPenelitian4 = ({ data, updateData, nextStep, prevStep, addData })
                                     <Picker
                                         selectedValue={kategori}
                                         onValueChange={(itemValue) => setKategori(itemValue)}
-                                        style={{ height: 45, width: '100%' }}
+                                        style={{ height: 55, width: '100%' }}
                                         mode="dialog"
                                         enabled={true}
                                     >
@@ -359,38 +361,31 @@ const AddUsulanPenelitian4 = ({ data, updateData, nextStep, prevStep, addData })
                                 />
                             </View>
                             <View style={stylex.InputContainer}>
-                                <Text style={stylex.inputText1}>Tanggal Mulai</Text>
-                                <TouchableOpacity onPress={() => setShowMulai(true)} style={stylex.inputx1}>
-                                    <Image style={stylex.iconInput} source={require("../../assets/images/icon/date.png")} />
-                                    <Text>Tgl : {tglMulai.toLocaleDateString()}</Text>
-                                </TouchableOpacity>
-
-                                {showMulai && (
-                                    <DateTimePicker
-                                    value={tglMulai}
-                                    mode="date"
-                                    display="default"
-                                    onChange={onChangeMulai}
-                                    />
-                                )}
-                                </View>
-
-                                <View style={stylex.InputContainer}>
-                                    <Text style={stylex.inputText1}>Tanggal Selesai</Text>
-                                    <TouchableOpacity onPress={() => setShowSelesai(true)} style={stylex.inputx1}>
+                                    <Text style={stylex.inputText1}>Tanggal Mulai</Text>
+                                    <TouchableOpacity
+                                        onPress={() => setShowMulai(true)}
+                                        style={stylex.inputx1}
+                                    >
                                         <Image style={stylex.iconInput} source={require("../../assets/images/icon/date.png")} />
-                                        <Text>Tgl : {tglSelesai.toLocaleDateString()}</Text>
+                                        <Text>
+                                        Tgl : {tglMulai.toLocaleDateString("id-ID")}
+                                        </Text>
                                     </TouchableOpacity>
-
-                                    {showSelesai && (
-                                        <DateTimePicker
-                                        value={tglSelesai}
-                                        mode="date"
-                                        display="default"
-                                        onChange={onChangeSelesai}
-                                        />
-                                    )}
                                     </View>
+
+                                    <View style={stylex.InputContainer}>
+                                    <Text style={stylex.inputText1}>Tanggal Selesai</Text>
+                                    <TouchableOpacity
+                                        onPress={() => setShowSelesai(true)}
+                                        style={stylex.inputx1}
+                                    >
+                                        <Image style={stylex.iconInput} source={require("../../assets/images/icon/date.png")} />
+                                        <Text>
+                                        Tgl : {tglSelesai.toLocaleDateString("id-ID")}
+                                        </Text>
+                                    </TouchableOpacity>
+                                    </View>
+
 
 
                             <View style={stylex.InputContainer}>
@@ -421,6 +416,35 @@ const AddUsulanPenelitian4 = ({ data, updateData, nextStep, prevStep, addData })
                 </View>
 
             </ScrollView>
+
+            <DatePicker
+                modal
+                open={showMulai}
+                date={tglMulai}
+                mode="date"
+                locale="id"
+                onConfirm={(d) => {
+                    setShowMulai(false);
+                    setTglMulai(d);
+                }}
+                onCancel={() => setShowMulai(false)}
+                />
+
+                <DatePicker
+                modal
+                open={showSelesai}
+                date={tglSelesai}
+                minimumDate={tglMulai}
+                mode="date"
+                locale="id"
+                onConfirm={(d) => {
+                    setShowSelesai(false);
+                    setTglSelesai(d);
+                }}
+                onCancel={() => setShowSelesai(false)}
+                />
+
+
 
             {/* PDF Viewer Modal */}
             <Modal
