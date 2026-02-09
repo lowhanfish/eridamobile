@@ -5,7 +5,7 @@ import { pick } from '@react-native-documents/picker'
 import Pdf from 'react-native-pdf';
 import RNFS from 'react-native-fs';
 
-import DateTimePicker from '@react-native-community/datetimepicker';
+import DatePicker from 'react-native-date-picker';
 
 
 import useGlobalStore from "../../../stores/useGlobalStore";
@@ -321,15 +321,7 @@ const AddUsulanPenelitian3 = ({ data, updateData, nextStep, prevStep }) => {
                                 <TouchableOpacity onPress={() => showMode('date')} style={stylex.inputx1}>
                                     <Image style={stylex.iconInput} source={require("../../assets/images/icon/date.png")} />
                                     <Text>Tgl : {date.toLocaleDateString()}</Text>
-                                    {show && (
-                                        <DateTimePicker
-                                            value={date}
-                                            mode={mode}
-                                            is24Hour={true}
-                                            display="default"
-                                            onChange={onChange}
-                                        />
-                                    )}
+                                   
                                 </TouchableOpacity>
                             </View>
                             <View style={stylex.InputContainer}>
@@ -376,6 +368,19 @@ const AddUsulanPenelitian3 = ({ data, updateData, nextStep, prevStep }) => {
                 </View>
 
             </ScrollView>
+
+            <DatePicker
+                modal
+                open={show}
+                date={date}
+                mode="date"
+                locale="id"
+                onConfirm={(d) => {
+                setShow(false);
+                setDate(d);
+                }}
+                onCancel={() => setShow(false)}
+                />
 
             {/* PDF Viewer Modal */}
             <Modal

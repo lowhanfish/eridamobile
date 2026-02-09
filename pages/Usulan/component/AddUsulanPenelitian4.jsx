@@ -5,7 +5,10 @@ import { Picker } from '@react-native-picker/picker';
 import { pick } from '@react-native-documents/picker'
 import Pdf from 'react-native-pdf';
 import RNFS from 'react-native-fs';
-import DateTimePicker from '@react-native-community/datetimepicker';
+
+// import DateTimePicker from '@react-native-community/datetimepicker';
+import DatePicker from 'react-native-date-picker';
+
 import useGlobalStore from "../../../stores/useGlobalStore";
 import { stylex } from "../../assets/css";
 import axios from "axios";
