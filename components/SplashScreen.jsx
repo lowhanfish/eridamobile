@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, Image, StyleSheet, Animated, Easing, StatusBar } from 'react-native';
+import { View, Image, StyleSheet, Animated, Easing, StatusBar, Text } from 'react-native';
 
 const SplashScreen = ({ onFinish }) => {
   const logoScale = new Animated.Value(0);

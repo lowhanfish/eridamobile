@@ -17,7 +17,7 @@ import Home from "./pages/Home/Home";
 import Profile from "./pages/Profile/Profile";
 import MainPage from "./pages/MainPage";
 import AlurUsulanPenelitian from "./pages/Alur/alurUsulanPenelitian";
-import SplashScreen from './components/SplashScreen';
+// import SplashScreen from './components/SplashScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -64,17 +64,17 @@ export default function App() {
 // Komponen terpisah untuk menangani logika navigasi berdasarkan status otentikasi
 function AppContent() {
   const { userToken, isLoading } = useContext(AuthContext); // Ambil userToken dan isLoading dari context
-  const [showSplash, setShowSplash] = useState(true);
+  // const [showSplash, setShowSplash] = useState(true);
 
-  // Handle splash screen completion
-  const handleSplashFinish = () => {
-    setShowSplash(false);
-  };
+  // // Handle splash screen completion
+  // const handleSplashFinish = () => {
+  //   setShowSplash(false);
+  // };
 
-  // Tampilkan splash screen saat app pertama kali dibuka
-  if (showSplash) {
-    return <SplashScreen onFinish={handleSplashFinish} />;
-  }
+  // // Tampilkan splash screen saat app pertama kali dibuka
+  // if (showSplash) {
+  //   return <SplashScreen onFinish={handleSplashFinish} />;
+  // }
 
   if (isLoading) {
     // Tampilkan loading screen saat memeriksa token di AsyncStorage

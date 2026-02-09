@@ -260,29 +260,31 @@ const AddUsulanPenelitian1 = ({ data, updateData, nextStep, routex }) => {
                 mode: 'open',
                 type: ['application/pdf'],
             });
+    
             if (result) {
-                // Handle array result from document picker
                 const fileData = Array.isArray(result) ? result[0] : result;
                 console.log('File picked:', fileData);
                 
-                // Copy file to app's internal storage for PDF viewer
-                if (fileData.uri && (fileData.uri.startsWith('content://') || fileData.uri.startsWith('file://'))) {
-                    const destPath = `${RNFS.CachesDirectoryPath}/ktp_${Date.now()}.pdf`;
-                    try {
-                        await RNFS.copyFile(fileData.uri, destPath);
-                        setPdfUri('file://' + destPath);
-                        setKTP({
-                            ...fileData,
-                            uri: 'file://' + destPath
-                        });
-                        console.log('File copied to:', destPath);
-                    } catch (copyError) {
-                        console.error('Error copying file:', copyError);
-                        // Fallback ke URI asli
-                        setPdfUri(fileData.uri);
-                        setKTP(fileData);
-                    }
-                } else {
+                // Tentukan path tujuan di folder Cache aplikasi
+                const destPath = `${RNFS.CachesDirectoryPath}/ktp_${Date.now()}.pdf`;
+    
+                try {
+                    // UNTUK ANDROID (content://):
+                    // Kita baca filenya sebagai Base64 lalu tulis ulang ke destPath
+                    // Ini cara paling ampuh di RN 0.79 + Blob Util
+                    const base64Data = await RNFS.readFile(fileData.uri, 'base64');
+                    await RNFS.writeFile(destPath, base64Data, 'base64');
+    
+                    setPdfUri('file://' + destPath);
+                    setKTP({
+                        ...fileData,
+                        uri: 'file://' + destPath
+                    });
+                    console.log('File successfully copied via Base64 to:', destPath);
+    
+                } catch (copyError) {
+                    console.error('Error copying file:', copyError);
+                    // Fallback jika cara di atas gagal
                     setPdfUri(fileData.uri);
                     setKTP(fileData);
                 }

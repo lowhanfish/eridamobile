@@ -1,7 +1,7 @@
 {
   "root": "/Users/simplephi/Documents/riswan/new/new/eridamobile",
   "reactNativePath": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/react-native",
-  "reactNativeVersion": "0.80",
+  "reactNativeVersion": "0.79",
   "dependencies": {
     "@react-native-async-storage/async-storage": {
       "root": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/@react-native-async-storage/async-storage",
@@ -9,7 +9,7 @@
       "platforms": {
         "ios": {
           "podspecPath": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/@react-native-async-storage/async-storage/RNCAsyncStorage.podspec",
-          "version": "2.2.0",
+          "version": "1.24.0",
           "configurations": [],
           "scriptPhases": []
         },
@@ -34,23 +34,11 @@
       "platforms": {
         "ios": {
           "podspecPath": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/@react-native-community/datetimepicker/RNDateTimePicker.podspec",
-          "version": "8.4.2",
+          "version": "8.6.0",
           "configurations": [],
           "scriptPhases": []
         },
-        "android": {
-          "sourceDir": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/@react-native-community/datetimepicker/android",
-          "packageImportPath": "import com.reactcommunity.rndatetimepicker.RNDateTimePickerPackage;",
-          "packageInstance": "new RNDateTimePickerPackage()",
-          "buildTypes": [],
-          "libraryName": "RNDateTimePickerCGen",
-          "componentDescriptors": [],
-          "cmakeListsPath": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/@react-native-community/datetimepicker/android/build/generated/source/codegen/jni/CMakeLists.txt",
-          "cxxModuleCMakeListsModuleName": null,
-          "cxxModuleCMakeListsPath": null,
-          "cxxModuleHeaderName": null,
-          "isPureCxxDependency": false
-        }
+        "android": null
       }
     },
     "@react-native-documents/picker": {
@@ -59,7 +47,7 @@
       "platforms": {
         "ios": {
           "podspecPath": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/@react-native-documents/picker/react-native-document-picker.podspec",
-          "version": "10.1.5",
+          "version": "12.0.1",
           "configurations": [],
           "scriptPhases": []
         },
@@ -84,7 +72,7 @@
       "platforms": {
         "ios": {
           "podspecPath": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/@react-native-documents/viewer/react-native-document-viewer.podspec",
-          "version": "1.0.1",
+          "version": "2.0.3",
           "configurations": [],
           "scriptPhases": []
         },
@@ -109,7 +97,7 @@
       "platforms": {
         "ios": {
           "podspecPath": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/@react-native-picker/picker/RNCPicker.podspec",
-          "version": "2.11.1",
+          "version": "2.11.4",
           "configurations": [],
           "scriptPhases": []
         },
@@ -156,23 +144,26 @@
         }
       }
     },
-    "react-native-fs": {
-      "root": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/react-native-fs",
-      "name": "react-native-fs",
+    "react-native-date-picker": {
+      "root": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/react-native-date-picker",
+      "name": "react-native-date-picker",
       "platforms": {
         "ios": {
-          "podspecPath": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/react-native-fs/RNFS.podspec",
-          "version": "2.20.0",
+          "podspecPath": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/react-native-date-picker/react-native-date-picker.podspec",
+          "version": "5.0.13",
           "configurations": [],
           "scriptPhases": []
         },
         "android": {
-          "sourceDir": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/react-native-fs/android",
-          "packageImportPath": "import com.rnfs.RNFSPackage;",
-          "packageInstance": "new RNFSPackage()",
+          "sourceDir": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/react-native-date-picker/android",
+          "packageImportPath": "import com.henninghall.date_picker.DatePickerPackage;",
+          "packageInstance": "new DatePickerPackage()",
           "buildTypes": [],
-          "componentDescriptors": [],
-          "cmakeListsPath": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/react-native-fs/android/build/generated/source/codegen/jni/CMakeLists.txt",
+          "libraryName": "RNDatePickerSpecs",
+          "componentDescriptors": [
+            "RNDatePickerComponentDescriptor"
+          ],
+          "cmakeListsPath": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/react-native-date-picker/android/build/generated/source/codegen/jni/CMakeLists.txt",
           "cxxModuleCMakeListsModuleName": null,
           "cxxModuleCMakeListsPath": null,
           "cxxModuleHeaderName": null,
@@ -226,7 +217,7 @@
       "platforms": {
         "ios": {
           "podspecPath": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/react-native-safe-area-context/react-native-safe-area-context.podspec",
-          "version": "5.5.2",
+          "version": "5.6.2",
           "configurations": [],
           "scriptPhases": []
         },
@@ -254,7 +245,7 @@
       "platforms": {
         "ios": {
           "podspecPath": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/react-native-screens/RNScreens.podspec",
-          "version": "4.11.1",
+          "version": "4.18.0",
           "configurations": [],
           "scriptPhases": []
         },
@@ -275,7 +266,9 @@
             "RNSScreenComponentDescriptor",
             "RNSScreenFooterComponentDescriptor",
             "RNSScreenContentWrapperComponentDescriptor",
-            "RNSModalScreenComponentDescriptor"
+            "RNSModalScreenComponentDescriptor",
+            "RNSBottomTabsComponentDescriptor",
+            "RNSSafeAreaViewComponentDescriptor"
           ],
           "cmakeListsPath": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/react-native-screens/android/src/main/jni/CMakeLists.txt",
           "cxxModuleCMakeListsModuleName": null,
@@ -291,7 +284,7 @@
       "platforms": {
         "ios": {
           "podspecPath": "/Users/simplephi/Documents/riswan/new/new/eridamobile/node_modules/react-native-webview/react-native-webview.podspec",
-          "version": "13.15.0",
+          "version": "13.16.0",
           "configurations": [],
           "scriptPhases": []
         },
@@ -591,10 +584,6 @@
           "description": "Force CocoaPods installation"
         },
         {
-          "name": "--only-pods",
-          "description": "Only install Cocoapods, do not build the app"
-        },
-        {
           "name": "--device [string]",
           "description": "Explicitly set the device to use by name or by unique device identifier . If the value is not provided,the app will run on the first available physical device."
         }
@@ -649,10 +638,6 @@
         {
           "name": "--force-pods",
           "description": "Force CocoaPods installation"
-        },
-        {
-          "name": "--only-pods",
-          "description": "Only install Cocoapods, do not build the app"
         },
         {
           "name": "--device [string]",
