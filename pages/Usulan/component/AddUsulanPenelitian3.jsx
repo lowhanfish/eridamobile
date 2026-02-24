@@ -2,8 +2,8 @@ import { useCallback, useEffect, useState } from "react";
 import { View, TouchableOpacity, Text, Image, ScrollView, TextInput, Button, StyleSheet, Dimensions, Platform, Modal, ActivityIndicator, ToastAndroid } from "react-native";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { pick } from '@react-native-documents/picker'
-import Pdf from 'react-native-pdf';
-import RNFS from 'react-native-fs';
+import { WebView } from 'react-native-webview';
+
 
 import DatePicker from 'react-native-date-picker';
 
@@ -29,6 +29,11 @@ const AddUsulanPenelitian3 = ({ data, updateData, nextStep, prevStep }) => {
     const [namarekom, setNamarekom] = useState('');
     const [jabatanrekom, setJabatanrekom] = useState('');
     const [text, onChangeText] = useState('');
+
+    const [file, setFile] = useState(null);
+    const [showPdfModal, setShowPdfModal] = useState(false);
+    const [pdfUri, setPdfUri] = useState(null);
+
 
     // ===== LIFTING_STATE_UP =====
     const [name, setName] = useState(data.name);
@@ -133,13 +138,10 @@ const AddUsulanPenelitian3 = ({ data, updateData, nextStep, prevStep }) => {
 
     // ===== PICKFILE =====
 
-    const [file, setFile] = useState(null);
     
     // Modal state for PDF viewer
-    const [showPdfModal, setShowPdfModal] = useState(false);
     const [pdfLoading, setPdfLoading] = useState(false);
     const [pdfError, setPdfError] = useState(null);
-    const [pdfUri, setPdfUri] = useState(null);
     const [pdfKey, setPdfKey] = useState(0);
 
 
@@ -149,55 +151,35 @@ const AddUsulanPenelitian3 = ({ data, updateData, nextStep, prevStep }) => {
 
     const pickDocument = async () => {
         try {
-            const result = await pick({
-                mode: 'open',
-                type: ['application/pdf'],
-            });
-            if (result) {
-                const fileData = Array.isArray(result) ? result[0] : result;
-                console.log('File picked:', fileData);
-                
-                // Copy file to app's internal storage for PDF viewer
-                if (fileData.uri && (fileData.uri.startsWith('content://') || fileData.uri.startsWith('file://'))) {
-                    const destPath = `${RNFS.CachesDirectoryPath}/suratrekomendasi_${Date.now()}.pdf`;
-                    try {
-                        await RNFS.copyFile(fileData.uri, destPath);
-                        setPdfUri('file://' + destPath);
-                        setFile({
-                            ...fileData,
-                            uri: 'file://' + destPath
-                        });
-                        console.log('File copied to:', destPath);
-                    } catch (copyError) {
-                        console.error('Error copying file:', copyError);
-                        setPdfUri(fileData.uri);
-                        setFile(fileData);
-                    }
-                } else {
-                    setPdfUri(fileData.uri);
-                    setFile(fileData);
-                }
+          const result = await pick({
+            mode: 'open',
+            type: ['application/pdf'],
+          });
+      
+          if (result) {
+            const fileData = Array.isArray(result) ? result[0] : result;
+      
+            setFile(fileData);
+      
+            // kalau local
+            if (fileData.uri.startsWith('file://') || fileData.uri.startsWith('content://')) {
+              setPdfUri(fileData.uri);
             }
+          }
         } catch (err) {
-            console.error('Error picking document:', err);
-            ToastAndroid.show('Gagal memilih file', ToastAndroid.SHORT);
+          ToastAndroid.show('Gagal memilih file', ToastAndroid.SHORT);
         }
-    };
+      };
+      
 
-    const openPdfViewer = async () => {
-        const uriToUse = pdfUri || (file && file.uri);
-        if (uriToUse) {
-            setPdfError(null);
-            setPdfLoading(true);
-            setPdfKey(prev => prev + 1);
-            setTimeout(() => {
-                setShowPdfModal(true);
-                console.log('Opening PDF from:', uriToUse);
-            }, 100);
-        } else {
-            ToastAndroid.show('Pilih file PDF terlebih dahulu', ToastAndroid.SHORT);
+      const openPdfViewer = () => {
+        if (!pdfUri && !file?.uri) {
+          ToastAndroid.show('Pilih file PDF terlebih dahulu', ToastAndroid.SHORT);
+          return;
         }
-    };
+        setShowPdfModal(true);
+      };
+      
 
     const closePdfModal = () => {
         setShowPdfModal(false);
@@ -350,13 +332,6 @@ const AddUsulanPenelitian3 = ({ data, updateData, nextStep, prevStep }) => {
                                         <Text>Cari Surat Rekomendasi (PDF)</Text>
                                     )}
                                 </TouchableOpacity>
-                                {file && file.uri && (
-                                    <TouchableOpacity onPress={openPdfViewer}>
-                                        <View style={styles.btnPickFile}>
-                                            <Text style={styles.btnPickFileText}>👁 Lihat PDF</Text>
-                                        </View>
-                                    </TouchableOpacity>
-                                )}
                             </View>
                         </View>
 
@@ -382,64 +357,33 @@ const AddUsulanPenelitian3 = ({ data, updateData, nextStep, prevStep }) => {
                 onCancel={() => setShow(false)}
                 />
 
-            {/* PDF Viewer Modal */}
+            {/* PDF Viewer Modal - DIHAPUS */}
+            {/* 
             <Modal
                 visible={showPdfModal}
                 animationType="slide"
-                transparent={false}
-                onRequestClose={closePdfModal}
-            >
-                <View style={styles.modalContainer}>
-                    <View style={styles.modalContent}>
-                        {/* Modal Header */}
-                        <View style={styles.modalHeader}>
-                            <Text style={styles.modalTitle}>Preview Surat Rekomendasi</Text>
-                            <TouchableOpacity onPress={closePdfModal} style={styles.closeButton}>
-                                <Text style={styles.closeButtonText}>✕</Text>
-                            </TouchableOpacity>
-                        </View>
-
-                        {/* PDF Viewer */}
-                        <View style={styles.pdfContainer} key={pdfKey}>
-                            {pdfError ? (
-                                <View style={styles.errorContainer}>
-                                    <Text style={styles.errorText}>{pdfError}</Text>
-                                    <TouchableOpacity onPress={closePdfModal} style={[styles.btnPickFile, { marginTop: 20, width: 200 }]}>
-                                        <Text style={styles.btnPickFileText}>Tutup</Text>
-                                    </TouchableOpacity>
-                                </View>
-                            ) : (pdfUri || (file && file.uri)) ? (
-                                <Pdf
-                                    source={{ uri: pdfUri || file.uri }}
-                                    style={{ flex: 1 }}
-                                    onLoadComplete={(numberOfPages, filePath) => {
-                                        console.log(`PDF loaded: ${numberOfPages} pages`);
-                                        setPdfLoading(false);
-                                    }}
-                                    onError={(error) => {
-                                        setPdfLoading(false);
-                                        setPdfError('Gagal memuat PDF. Silakan pilih file lain.');
-                                        console.error('PDF Error:', error);
-                                    }}
-                                    onPageChanged={(page, numberOfPages) => {
-                                        console.log(`Page: ${page}/${numberOfPages}`);
-                                        setPdfLoading(false);
-                                    }}
-                                    enablePaging={true}
-                                    horizontal={false}
-                                />
-                            ) : (
-                                <View style={styles.errorContainer}>
-                                    <Text style={styles.errorText}>File tidak ditemukan</Text>
-                                    <TouchableOpacity onPress={closePdfModal} style={[styles.btnPickFile, { marginTop: 20, width: 200 }]}>
-                                        <Text style={styles.btnPickFileText}>Tutup</Text>
-                                    </TouchableOpacity>
-                                </View>
-                            )}
-                        </View>
+                onRequestClose={() => setShowPdfModal(false)}
+                >
+                <View style={{ flex: 1 }}>
+                    <View style={styles.modalHeader}>
+                    <Text style={styles.modalTitle}>Preview Surat Rekomendasi</Text>
+                    <TouchableOpacity onPress={() => setShowPdfModal(false)}>
+                        <Text style={styles.closeButtonText}>✕</Text>
+                    </TouchableOpacity>
                     </View>
+
+                    <WebView
+                    source={{
+                        uri: pdfUri?.startsWith('http')
+                        ? `https://drive.google.com/viewerng/viewer?embedded=true&url=${encodeURIComponent(pdfUri)}`
+                        : pdfUri
+                    }}
+                    originWhitelist={['*']}
+                    style={{ flex: 1 }}
+                    />
                 </View>
-            </Modal>
+                </Modal>
+            */}
 
             <View style={stylex.paginContainer}>
                 <View style={{ flex: 1, flexDirection: 'row' }}>

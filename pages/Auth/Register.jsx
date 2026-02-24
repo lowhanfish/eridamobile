@@ -334,7 +334,7 @@ const Register = () => {
                 {/* Version Info */}
                 <View style={{ marginTop: 25 }}>
                     <Text style={{ fontSize: 11, color: '#8E8E8E', textAlign: 'center' }}>
-                        E-RIDA Mobile v1.0.0
+                        E-RIDA Mobile v1.0.3
                     </Text>
                     <Text style={{ fontSize: 10, color: '#BDBDBD', marginTop: 4, textAlign: 'center' }}>
                         © BRIDA Konawe Selatan

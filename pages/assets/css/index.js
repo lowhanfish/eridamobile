@@ -407,7 +407,7 @@ export const stylex = StyleSheet.create({
         backgroundColor: 'white',
         padding: 20,
         borderRadius: 10,
-        minWidth: '70%',
+        width: '90%',
         alignItems: 'center',
         flexDirection : 'column'
     },
@@ -419,7 +419,7 @@ export const stylex = StyleSheet.create({
     },
 
     modalButton : {
-        width : '200',
+        width : '100%',
         height : 35,
         marginTop : 10,
          ...centerAll,

@@ -3,8 +3,9 @@ import { View, TouchableOpacity, Text, Image, ScrollView, TextInput, Button, Sty
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { Picker } from '@react-native-picker/picker';
 import { pick } from '@react-native-documents/picker'
-import Pdf from 'react-native-pdf';
+import { WebView } from 'react-native-webview';
 import RNFS from 'react-native-fs';
+
 
 // import DateTimePicker from '@react-native-community/datetimepicker';
 import DatePicker from 'react-native-date-picker';
@@ -35,6 +36,34 @@ const AddUsulanPenelitian4 = ({ data, updateData, nextStep, prevStep, addData })
 
     const [showMulai, setShowMulai] = useState(false);
     const [showSelesai, setShowSelesai] = useState(false);
+    const isLocalPdf = typeof pdfUri === 'string' && pdfUri.startsWith('file://');
+
+
+    const getPdfHtml = (uri) => `
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <style>
+            html, body {
+                margin: 0;
+                padding: 0;
+                height: 100%;
+                background: #000;
+            }
+            embed {
+                width: 100%;
+                height: 100%;
+            }
+            </style>
+        </head>
+        <body>
+            <embed src="${uri}" type="application/pdf" />
+        </body>
+        </html>
+        `;
+
+    
 
 
 
@@ -141,59 +170,51 @@ const AddUsulanPenelitian4 = ({ data, updateData, nextStep, prevStep, addData })
     const [pdfLoading, setPdfLoading] = useState(false);
     const [pdfError, setPdfError] = useState(null);
     const [pdfUri, setPdfUri] = useState(null);
+    const canPreview = typeof pdfUri === 'string';
+
     const [pdfKey, setPdfKey] = useState(0);
 
     const pickDocument = async () => {
         try {
-            const result = await pick({
-                mode: 'open',
-                type: ['application/pdf'],
-            });
-            if (result) {
-                const fileData = Array.isArray(result) ? result[0] : result;
-                console.log('File picked:', fileData);
-                
-                // Copy file to app's internal storage for PDF viewer
-                if (fileData.uri && (fileData.uri.startsWith('content://') || fileData.uri.startsWith('file://'))) {
-                    const destPath = `${RNFS.CachesDirectoryPath}/proposal_${Date.now()}.pdf`;
-                    try {
-                        await RNFS.copyFile(fileData.uri, destPath);
-                        setPdfUri('file://' + destPath);
-                        setFile({
-                            ...fileData,
-                            uri: 'file://' + destPath
-                        });
-                        console.log('File copied to:', destPath);
-                    } catch (copyError) {
-                        console.error('Error copying file:', copyError);
-                        setPdfUri(fileData.uri);
-                        setFile(fileData);
-                    }
-                } else {
-                    setPdfUri(fileData.uri);
-                    setFile(fileData);
-                }
-            }
-        } catch (err) {
-            console.error('Error picking document:', err);
-            ToastAndroid.show('Gagal memilih file', ToastAndroid.SHORT);
+          const res = await pick({
+            mode: "open",
+            type: ["application/pdf"],
+          });
+      
+          const f = Array.isArray(res) ? res[0] : res;
+          if (!f?.uri) return;
+      
+          const destPath =
+            RNFS.CachesDirectoryPath + `/pdf_${Date.now()}.pdf`;
+      
+          const base64 = await RNFS.readFile(f.uri, "base64");
+          await RNFS.writeFile(destPath, base64, "base64");
+      
+          const localUri = "file://" + destPath;
+      
+          setFile({
+            uri: localUri,
+            name: f.name || "document.pdf",
+            type: "application/pdf",
+          });
+      
+          setPdfUri(localUri);
+        } catch (e) {
+          console.log("pick pdf error:", e);
+          ToastAndroid.show("Gagal memilih PDF", ToastAndroid.SHORT);
         }
-    };
+      };
+      
 
-    const openPdfViewer = async () => {
-        const uriToUse = pdfUri || (file && file.uri);
-        if (uriToUse) {
-            setPdfError(null);
-            setPdfLoading(true);
-            setPdfKey(prev => prev + 1);
-            setTimeout(() => {
-                setShowPdfModal(true);
-                console.log('Opening PDF from:', uriToUse);
-            }, 100);
-        } else {
-            ToastAndroid.show('Pilih file PDF terlebih dahulu', ToastAndroid.SHORT);
+      const openPdfViewer = () => {
+        if (!pdfUri) {
+          ToastAndroid.show("Pilih PDF terlebih dahulu", ToastAndroid.SHORT);
+          return;
         }
-    };
+        setPdfError(null);
+        setShowPdfModal(true);
+      };
+      
 
     const closePdfModal = () => {
         setShowPdfModal(false);
@@ -220,10 +241,7 @@ const AddUsulanPenelitian4 = ({ data, updateData, nextStep, prevStep, addData })
     //   };
       
 
-    const showMode = (currentMode) => {
-        setShow(true);
-        setMode(currentMode);
-    };
+   
 
     // ===== PICKDATE =====
 
@@ -398,13 +416,6 @@ const AddUsulanPenelitian4 = ({ data, updateData, nextStep, prevStep, addData })
                                         <Text>Cari Proposal Penelitian (PDF)</Text>
                                     )}
                                 </TouchableOpacity>
-                                {file && file.uri && (
-                                    <TouchableOpacity onPress={openPdfViewer}>
-                                        <View style={styles.btnPickFile}>
-                                            <Text style={styles.btnPickFileText}>👁 Lihat PDF</Text>
-                                        </View>
-                                    </TouchableOpacity>
-                                )}
                             </View>
                         </View>
 
@@ -446,64 +457,37 @@ const AddUsulanPenelitian4 = ({ data, updateData, nextStep, prevStep, addData })
 
 
 
-            {/* PDF Viewer Modal */}
-            <Modal
-                visible={showPdfModal}
-                animationType="slide"
-                transparent={false}
-                onRequestClose={closePdfModal}
-            >
-                <View style={styles.modalContainer}>
-                    <View style={styles.modalContent}>
-                        {/* Modal Header */}
-                        <View style={styles.modalHeader}>
-                            <Text style={styles.modalTitle}>Preview Proposal Penelitian</Text>
-                            <TouchableOpacity onPress={closePdfModal} style={styles.closeButton}>
-                                <Text style={styles.closeButtonText}>✕</Text>
-                            </TouchableOpacity>
-                        </View>
+            {/* PDF Viewer Modal - DIHAPUS */}
+            {/* 
+            <Modal visible={showPdfModal} onRequestClose={closePdfModal}>
+            <View style={{ flex: 1 }}>
+                <TouchableOpacity onPress={closePdfModal} style={{ padding: 12 }}>
+                <Text>Tutup</Text>
+                </TouchableOpacity>
 
-                        {/* PDF Viewer */}
-                        <View style={styles.pdfContainer} key={pdfKey}>
-                            {pdfError ? (
-                                <View style={styles.errorContainer}>
-                                    <Text style={styles.errorText}>{pdfError}</Text>
-                                    <TouchableOpacity onPress={closePdfModal} style={[styles.btnPickFile, { marginTop: 20, width: 200 }]}>
-                                        <Text style={styles.btnPickFileText}>Tutup</Text>
-                                    </TouchableOpacity>
-                                </View>
-                            ) : (pdfUri || (file && file.uri)) ? (
-                                <Pdf
-                                    source={{ uri: pdfUri || file.uri }}
-                                    style={{ flex: 1 }}
-                                    onLoadComplete={(numberOfPages, filePath) => {
-                                        console.log(`PDF loaded: ${numberOfPages} pages`);
-                                        setPdfLoading(false);
-                                    }}
-                                    onError={(error) => {
-                                        setPdfLoading(false);
-                                        setPdfError('Gagal memuat PDF. Silakan pilih file lain.');
-                                        console.error('PDF Error:', error);
-                                    }}
-                                    onPageChanged={(page, numberOfPages) => {
-                                        console.log(`Page: ${page}/${numberOfPages}`);
-                                        setPdfLoading(false);
-                                    }}
-                                    enablePaging={true}
-                                    horizontal={false}
-                                />
-                            ) : (
-                                <View style={styles.errorContainer}>
-                                    <Text style={styles.errorText}>File tidak ditemukan</Text>
-                                    <TouchableOpacity onPress={closePdfModal} style={[styles.btnPickFile, { marginTop: 20, width: 200 }]}>
-                                        <Text style={styles.btnPickFileText}>Tutup</Text>
-                                    </TouchableOpacity>
-                                </View>
-                            )}
-                        </View>
-                    </View>
+                {pdfUri ? (
+                <WebView
+                    originWhitelist={['*']}
+                    source={
+                    isLocalPdf
+                        ? { html: getPdfHtml(pdfUri) }
+                        : {
+                            uri: `https://docs.google.com/gview?embedded=true&url=${encodeURIComponent(pdfUri)}`
+                        }
+                    }
+                    startInLoadingState
+                    style={{ flex: 1 }}
+                />
+                ) : (
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                    <Text>PDF tidak tersedia</Text>
                 </View>
+                )}
+
+
+            </View>
             </Modal>
+            */}
 
             <View style={stylex.paginContainer}>
                 <View style={{ flex: 1, flexDirection: 'row' }}>

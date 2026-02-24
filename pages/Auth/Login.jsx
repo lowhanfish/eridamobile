@@ -1,4 +1,4 @@
-// pages/Auth/Login.js
+
 import React, { useState, useContext } from 'react'; // Tambahkan useContext
 import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView, TextInput, Alert } from 'react-native'; // Tambahkan Alert
 
@@ -225,7 +225,7 @@ const Login = () => {
                         textAlign: 'center',
                     }}
                 >
-                    E-RIDA Mobile v1.0.0
+                    E-RIDA Mobile v1.0.3
                 </Text>
                 <Text
                     style={{

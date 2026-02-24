@@ -3,7 +3,8 @@ import { useCallback, useEffect, useState } from "react";
 import { View, TouchableOpacity, Text, Image, ScrollView, StyleSheet, TextInput, Dimensions, Platform, Modal, ActivityIndicator, ToastAndroid } from "react-native";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { pick } from '@react-native-documents/picker'
-import Pdf from 'react-native-pdf';
+import { WebView } from 'react-native-webview';
+
 import RNFS from 'react-native-fs';
 import DatePicker from 'react-native-date-picker';
 
@@ -36,6 +37,9 @@ const AddUsulanPenelitian2 = ({ data, updateData, nextStep, prevStep, routex }) 
     const [namapengantar, setNamapengantar] = useState('');
     const [jabatanpengantar, setJabatanpengantar] = useState('');
     const [text, onChangeText] = useState('');
+
+    const uriToUse = pdfUri || (file && file.uri);
+const isLocal = uriToUse?.startsWith('file://');
 
 
     // const checkEdit = () => {
@@ -378,13 +382,6 @@ const handlePrev = () => {
                                         <Text>Cari Surat Pengantar (PDF)</Text>
                                     )}
                                 </TouchableOpacity>
-                                {file && file.uri && (
-                                    <TouchableOpacity onPress={openPdfViewer}>
-                                        <View style={styles.btnPickFile}>
-                                            <Text style={styles.btnPickFileText}>👁 Lihat PDF</Text>
-                                        </View>
-                                    </TouchableOpacity>
-                                )}
                             </View>
                         </View>
                     </View>
@@ -408,7 +405,8 @@ const handlePrev = () => {
                 />
 
 
-            {/* PDF Viewer Modal */}
+            {/* PDF Viewer Modal - DIHAPUS */}
+            {/* 
             <Modal
                 visible={showPdfModal}
                 animationType="slide"
@@ -417,7 +415,6 @@ const handlePrev = () => {
             >
                 <View style={styles.modalContainer}>
                     <View style={styles.modalContent}>
-                        {/* Modal Header */}
                         <View style={styles.modalHeader}>
                             <Text style={styles.modalTitle}>Preview Surat Pengantar</Text>
                             <TouchableOpacity onPress={closePdfModal} style={styles.closeButton}>
@@ -425,7 +422,6 @@ const handlePrev = () => {
                             </TouchableOpacity>
                         </View>
 
-                        {/* PDF Viewer */}
                         <View style={styles.pdfContainer} key={pdfKey}>
                             {pdfError ? (
                                 <View style={styles.errorContainer}>
@@ -435,25 +431,19 @@ const handlePrev = () => {
                                     </TouchableOpacity>
                                 </View>
                             ) : (pdfUri || (file && file.uri)) ? (
-                                <Pdf
-                                    source={{ uri: pdfUri || file.uri }}
+                                <WebView
+                                    source={
+                                        Platform.OS === 'android' && !isLocal
+                                        ? {
+                                            uri: `https://drive.google.com/viewerng/viewer?embedded=true&url=${encodeURIComponent(
+                                                uriToUse
+                                            )}`,
+                                            }
+                                        : { uri: uriToUse }
+                                    }
                                     style={{ flex: 1 }}
-                                    onLoadComplete={(numberOfPages, filePath) => {
-                                        console.log(`PDF loaded: ${numberOfPages} pages`);
-                                        setPdfLoading(false);
-                                    }}
-                                    onError={(error) => {
-                                        setPdfLoading(false);
-                                        setPdfError('Gagal memuat PDF. Silakan pilih file lain.');
-                                        console.error('PDF Error:', error);
-                                    }}
-                                    onPageChanged={(page, numberOfPages) => {
-                                        console.log(`Page: ${page}/${numberOfPages}`);
-                                        setPdfLoading(false);
-                                    }}
-                                    enablePaging={true}
-                                    horizontal={false}
-                                />
+                                    originWhitelist={['*']}
+                                    />
                             ) : (
                                 <View style={styles.errorContainer}>
                                     <Text style={styles.errorText}>File tidak ditemukan</Text>
@@ -466,6 +456,7 @@ const handlePrev = () => {
                     </View>
                 </View>
             </Modal>
+            */}
 
             <View style={stylex.paginContainer}>
                 <View style={{ flex: 1, flexDirection: 'row' }}>

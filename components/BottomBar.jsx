@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     bottomBar: {
         // backgroundColor: 'purple',
         width: '100%',
-        height: 120,
+        height: 90,
         // flex :1,
     },
 
@@ -94,13 +94,13 @@ const styles = StyleSheet.create({
     },
     iconBottomBar: {
         // backgroundColor: 'yellow',
-        width: 36,
-        height: 36,
+        width: 34,
+        height: 34,
         resizeMode: 'contain'
     },
     iconBottomBarText: {
         color: 'white',
-        fontSize: 10,
+        fontSize: 9,
         fontWeight: 'bold',
         marginTop: 3,
     }

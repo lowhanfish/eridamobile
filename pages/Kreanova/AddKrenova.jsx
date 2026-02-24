@@ -2,7 +2,8 @@ import { useState, useEffect, useCallback } from "react";
 import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet, ScrollView, Alert, Platform } from "react-native";
 import { useNavigation, useFocusEffect, useRoute } from "@react-navigation/native";
 import { pick } from '@react-native-documents/picker';
-import Pdf from 'react-native-pdf';
+import { WebView } from 'react-native-webview';
+
 import RNFS from 'react-native-fs';
 import { Modal, ToastAndroid } from 'react-native';
 import axios from "axios";
@@ -437,17 +438,16 @@ const AddKrenova = () => {
                         <Text style={styles.errorText}>{pdfError}</Text>
                     </View>
                 ) : (pdfUri || (file && file.uri)) ? (
-                    <Pdf
-                        source={{ uri: pdfUri || file.uri }}
-                        style={{ flex: 1 }}
-                        onLoadComplete={() => setPdfLoading(false)}
-                        onError={(error) => {
-                            console.error(error);
-                            setPdfError('Gagal memuat PDF');
-                            setPdfLoading(false);
-                        }}
-                        enablePaging
-                    />
+                    <WebView
+                    source={{
+                      uri: Platform.OS === 'android'
+                        ? `https://drive.google.com/viewerng/viewer?embedded=true&url=${encodeURIComponent(pdfUri || file.uri)}`
+                        : pdfUri || file.uri
+                    }}
+                    style={{ flex: 1 }}
+                    originWhitelist={['*']}
+                  />
+                  
                 ) : (
                     <View style={styles.errorContainer}>
                         <Text style={styles.errorText}>File tidak ditemukan</Text>

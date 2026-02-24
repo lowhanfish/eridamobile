@@ -254,7 +254,7 @@ const Setting = () => {
                 </TouchableOpacity>
 
                 {/* Version Info */}
-                <Text style={styles.versionText}>E-RIDA Mobile v1.0.0</Text>
+                <Text style={styles.versionText}>E-RIDA Mobile v1.0.3</Text>
                 <Text style={styles.copyrightText}>© BRIDA Konawe Selatan</Text>
 
                 <View style={styles.bottomSpacer} />

@@ -6,13 +6,16 @@ buildscript {
         targetSdkVersion = 35
         ndkVersion = "27.1.12297006"
         kotlinVersion = "2.0.21"
+        // AGP 8.8.0+ is required for 16KB page size support for Android 15+
+        // Reference: https://developer.android.com/docs/guides/16kb-page-sizes
+        agpVersion = "8.8.2"
     }
     repositories {
         google()
         mavenCentral()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle")
+        classpath("com.android.tools.build:gradle:${rootProject.ext.agpVersion}")
         classpath("com.facebook.react:react-native-gradle-plugin")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin")
     }

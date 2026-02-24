@@ -2,7 +2,8 @@ import { useCallback, useEffect, useState } from "react";
 import { View, TouchableOpacity, Text, Image, ScrollView, StyleSheet, TextInput, Dimensions, Linking, Platform, Modal, ActivityIndicator, ToastAndroid } from "react-native";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { pick } from '@react-native-documents/picker'
-import Pdf from 'react-native-pdf';
+import { WebView } from 'react-native-webview';
+
 import RNFS from 'react-native-fs';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -44,8 +45,14 @@ const AddUsulanPenelitian1 = ({ data, updateData, nextStep, routex }) => {
     const [pdfError, setPdfError] = useState(null);
     const [pdfUri, setPdfUri] = useState(null);
     const [pdfKey, setPdfKey] = useState(0);
+    
+    // Check if PDF is local file
+    const isLocalPdf = typeof pdfUri === 'string' && pdfUri.startsWith('file://');
 
     const [localId, setLocalId] = useState(data.id);
+
+    const uriToUse = pdfUri || (ktp && ktp.uri);
+    const isLocalFile = uriToUse?.startsWith('file://');
 
     // Fungsi untuk load user profile dari AsyncStorage
     const loadUserProfile = async () => {
@@ -256,59 +263,41 @@ const AddUsulanPenelitian1 = ({ data, updateData, nextStep, routex }) => {
 
     const pickDocument = async () => {
         try {
-            const result = await pick({
+            const res = await pick({
                 mode: 'open',
                 type: ['application/pdf'],
             });
-    
-            if (result) {
-                const fileData = Array.isArray(result) ? result[0] : result;
-                console.log('File picked:', fileData);
-                
-                // Tentukan path tujuan di folder Cache aplikasi
-                const destPath = `${RNFS.CachesDirectoryPath}/ktp_${Date.now()}.pdf`;
-    
-                try {
-                    // UNTUK ANDROID (content://):
-                    // Kita baca filenya sebagai Base64 lalu tulis ulang ke destPath
-                    // Ini cara paling ampuh di RN 0.79 + Blob Util
-                    const base64Data = await RNFS.readFile(fileData.uri, 'base64');
-                    await RNFS.writeFile(destPath, base64Data, 'base64');
-    
-                    setPdfUri('file://' + destPath);
-                    setKTP({
-                        ...fileData,
-                        uri: 'file://' + destPath
-                    });
-                    console.log('File successfully copied via Base64 to:', destPath);
-    
-                } catch (copyError) {
-                    console.error('Error copying file:', copyError);
-                    // Fallback jika cara di atas gagal
-                    setPdfUri(fileData.uri);
-                    setKTP(fileData);
-                }
-            }
-        } catch (err) {
-            console.error('Error picking document:', err);
-            ToastAndroid.show('Gagal memilih file', ToastAndroid.SHORT);
+
+            const f = Array.isArray(res) ? res[0] : res;
+            if (!f?.uri) return;
+
+            const destPath = RNFS.CachesDirectoryPath + `/ktp_${Date.now()}.pdf`;
+
+            const base64 = await RNFS.readFile(f.uri, 'base64');
+            await RNFS.writeFile(destPath, base64, 'base64');
+
+            const localUri = 'file://' + destPath;
+
+            setKTP({
+                uri: localUri,
+                name: f.name || 'KTP.pdf',
+                type: 'application/pdf',
+            });
+
+            setPdfUri(localUri);
+        } catch (e) {
+            console.log('pick pdf error:', e);
+            ToastAndroid.show('Gagal memilih PDF', ToastAndroid.SHORT);
         }
     };
 
-    const openKtpViewer = async () => {
-        const uriToUse = pdfUri || (ktp && ktp.uri);
-        if (uriToUse) {
-            setPdfError(null);
-            setPdfLoading(true);
-            // Increment key to force re-render of Pdf component
-            setPdfKey(prev => prev + 1);
-            setTimeout(() => {
-                setShowPdfModal(true);
-                console.log('Opening PDF from:', uriToUse);
-            }, 100);
-        } else {
-            ToastAndroid.show('Pilih file KTP terlebih dahulu', ToastAndroid.SHORT);
+    const openKtpViewer = () => {
+        if (!pdfUri) {
+            ToastAndroid.show('Pilih PDF terlebih dahulu', ToastAndroid.SHORT);
+            return;
         }
+        setPdfError(null);
+        setShowPdfModal(true);
     };
 
     const closePdfModal = () => {
@@ -355,6 +344,31 @@ const AddUsulanPenelitian1 = ({ data, updateData, nextStep, routex }) => {
     alamat?.trim().length > 0 &&
     nik?.trim().length > 0 &&
     ktp !== null;
+
+    const getPdfHtml = (uri) => `
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <style>
+            html, body {
+                margin: 0;
+                padding: 0;
+                height: 100%;
+                background: #000;
+            }
+            embed {
+                width: 100%;
+                height: 100%;
+            }
+            </style>
+        </head>
+        <body>
+            <embed src="${uri}" type="application/pdf" />
+        </body>
+        </html>
+        `;
+
 
 
     return (
@@ -466,41 +480,17 @@ const AddUsulanPenelitian1 = ({ data, updateData, nextStep, routex }) => {
 
 
                         {/* KTP Upload - Required */}
-                        <View style={styles.containerUpload1}>
-                            {ktp ? (
-                                <View style={styles.containerUploadText}>
-                                    <View style={styles.pdfIconContainer}>
-                                        <Text style={styles.pdfIconText}>📄</Text>
-                                        <Text style={styles.pdfFileName}>
-                                            {typeof ktp === 'string'
-                                                ? ktp
-                                                : (ktp.name || 'KTP.pdf')}
-                                        </Text>
-                                    </View>
-                                </View>
-                            ) : (
-                                <View style={styles.containerUploadText}>
-                                    <Text style={styles.UploadText1}>FILE KTP MASIH KOSONG</Text>
-                                    <Text style={styles.UploadText2}>(PDF)</Text>
-                                </View>
-                            )}
-                        </View>
-
-
-                        <TouchableOpacity onPress={pickDocument}>
-                            <View style={styles.btnPickFile}>
-                                <Text style={styles.btnPickFileText}>
-                                    {ktp ? 'Ganti Foto KTP' : 'Cari Foto KTP'}
-                                </Text>
-                            </View>
-                        </TouchableOpacity>
-                        {ktp && (
-                            <TouchableOpacity onPress={openKtpViewer}>
-                                <View style={[styles.btnPickFile, { backgroundColor: '#4CAF50', marginTop: 5 }]}>
-                                    <Text style={styles.btnPickFileText}>👁 Lihat KTP</Text>
-                                </View>
+                        <View style={stylex.InputContainer}>
+                            <Text style={stylex.inputText1}>Upload KTP (PDF) <Text style={styles.requiredStar}>*</Text></Text>
+                            <TouchableOpacity onPress={pickDocument} style={stylex.inputx1}>
+                                <Image style={stylex.iconInputFile} source={require("../../assets/images/icon/file.png")} />
+                                {ktp && ktp.name ? (
+                                    <Text>{ktp.name}</Text>
+                                ) : (
+                                    <Text>Cari File KTP (PDF)</Text>
+                                )}
                             </TouchableOpacity>
-                        )}
+                        </View>
 
                         
                         {/* PAGINATION BUTTON (DI DALAM CARD) */}
@@ -551,64 +541,52 @@ const AddUsulanPenelitian1 = ({ data, updateData, nextStep, routex }) => {
 
           
 
-            {/* PDF Viewer Modal */}
-            <Modal
-                visible={showPdfModal}
-                animationType="slide"
-                transparent={false}
-                onRequestClose={closePdfModal}
-            >
-                <View style={styles.modalContainer}>
-                    <View style={styles.modalContent}>
-                        {/* Modal Header */}
-                        <View style={styles.modalHeader}>
-                            <Text style={styles.modalTitle}>Preview KTP</Text>
-                            <TouchableOpacity onPress={closePdfModal} style={styles.closeButton}>
-                                <Text style={styles.closeButtonText}>✕</Text>
-                            </TouchableOpacity>
-                        </View>
+            {/* PDF Viewer Modal - DIHAPUS */}
+            {/* 
+            <Modal visible={showPdfModal} onRequestClose={closePdfModal}>
+                <View style={{ flex: 1, backgroundColor: '#000' }}>
+                    <View style={{
+                        height: 50,
+                        backgroundColor: '#DFB11C',
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        paddingHorizontal: 15
+                    }}>
+                        <Text style={{ color: '#fff', fontWeight: 'bold' }}>Preview KTP</Text>
+                        <TouchableOpacity onPress={closePdfModal}>
+                            <Text style={{ color: '#fff', fontSize: 18 }}>✕</Text>
+                        </TouchableOpacity>
+                    </View>
 
-                        {/* PDF Viewer */}
-                        <View style={styles.pdfContainer} key={pdfKey}>
-                            {pdfError ? (
-                                <View style={styles.errorContainer}>
-                                    <Text style={styles.errorText}>{pdfError}</Text>
-                                    <TouchableOpacity onPress={closePdfModal} style={[styles.btnPickFile, { marginTop: 20, width: 200 }]}>
-                                        <Text style={styles.btnPickFileText}>Tutup</Text>
-                                    </TouchableOpacity>
-                                </View>
-                            ) : (pdfUri || (ktp && ktp.uri)) ? (
-                                <Pdf
-                                    source={{ uri: pdfUri || ktp.uri }}
-                                    style={{ flex: 1 }}
-                                    onLoadComplete={(numberOfPages, filePath) => {
-                                        console.log(`PDF loaded: ${numberOfPages} pages`);
-                                        setPdfLoading(false);
-                                    }}
-                                    onError={(error) => {
-                                        setPdfLoading(false);
-                                        setPdfError('Gagal memuat PDF. Silakan pilih file lain.');
-                                        console.error('PDF Error:', error);
-                                    }}
-                                    onPageChanged={(page, numberOfPages) => {
-                                        console.log(`Page: ${page}/${numberOfPages}`);
-                                        setPdfLoading(false);
-                                    }}
-                                    enablePaging={true}
-                                    horizontal={false}
-                                />
-                            ) : (
-                                <View style={styles.errorContainer}>
-                                    <Text style={styles.errorText}>File tidak ditemukan</Text>
-                                    <TouchableOpacity onPress={closePdfModal} style={[styles.btnPickFile, { marginTop: 20, width: 200 }]}>
-                                        <Text style={styles.btnPickFileText}>Tutup</Text>
-                                    </TouchableOpacity>
+                    {pdfUri ? (
+                        <WebView
+                            originWhitelist={['*']}
+                            source={
+                                isLocalPdf
+                                    ? { html: getPdfHtml(pdfUri) }
+                                    : {
+                                        uri: `https://docs.google.com/gview?embedded=true&url=${encodeURIComponent(pdfUri)}`
+                                    }
+                            }
+                            startInLoadingState={true}
+                            style={{ flex: 1, backgroundColor: '#000' }}
+                            renderLoading={() => (
+                                <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center', backgroundColor: '#000' }}>
+                                    <ActivityIndicator size="large" color="#DFB11C" />
+                                    <Text style={{ color: '#fff', marginTop: 10 }}>Memuat PDF...</Text>
                                 </View>
                             )}
+                        />
+                    ) : (
+                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                            <Text style={{ color: '#fff' }}>PDF tidak tersedia</Text>
                         </View>
-                    </View>
+                    )}
                 </View>
             </Modal>
+            */}
+
         </View>
     )
 }
@@ -653,7 +631,7 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     btnPickFile: {
-        flex: 1,
+        
         justifyContent: 'center',
         alignItems: 'center',
         height: 45,
